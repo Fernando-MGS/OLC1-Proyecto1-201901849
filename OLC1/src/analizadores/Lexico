@@ -1,0 +1,77 @@
+package analizadores;
+import java_cup.runtime.Symbol;
+
+%%
+%class Lexer
+%public
+%line
+%char
+%cup
+%unicode
+%ignorecase
+
+%init{
+    yycolumn=1;
+    yyline=1;
+%init}
+
+L = [a-zA-Z]+
+ENTERO = [0-9]+ 
+CADENA = [\"\“\'] [^\"\”\'\n]* [\"\”\'\n]
+BLANCOS = [ \t\r\f\n]+
+DD=[0-9]+("."[  |0-9]+)?
+NOMBRE= [a-zA-Z]([a-zA-Z]|[0-9])*
+COM = ("##")(.)*
+COMM = ("#*")(.|\n)*"*#"
+%%
+
+"=" {return new Symbol(sym.igual,yyline,yycolumn,yytext());}
+"#" {return new Symbol(sym.hash,yyline,yycolumn,yytext());}
+"+" {return new Symbol(sym.mas,yyline,yycolumn,yytext());}
+"-" {return new Symbol(sym.menos,yyline,yycolumn,yytext());}
+"*" {return new Symbol(sym.por,yyline,yycolumn,yytext());}
+"/" {return new Symbol(sym.div,yyline,yycolumn,yytext());}
+
+"," {return new Symbol(sym.coma,yyline,yycolumn,yytext());}
+"‘" {return new Symbol(sym.coma_f,yyline,yycolumn,yytext());}
+":" {return new Symbol(sym.d_punto,yyline,yycolumn,yytext());}
+"." {return new Symbol(sym.punto,yyline,yycolumn,yytext());}
+";" {return new Symbol(sym.ptcoma,yyline,yycolumn,yytext());}
+"[" {return new Symbol(sym.cor_i,yyline,yycolumn,yytext());}
+"]" {return new Symbol(sym.cor_d,yyline,yycolumn,yytext());}
+"$" {return new Symbol(sym.dolar,yyline,yycolumn,yytext());}
+
+
+"(" {return new Symbol(sym.par_i,yyline,yycolumn,yytext());}
+")" {return new Symbol(sym.par_d,yyline,yycolumn,yytext());}
+"{" {return new Symbol(sym.llave_i,yyline,yycolumn,yytext());}
+"}" {return new Symbol(sym.llave_d,yyline,yycolumn,yytext());}
+
+"DEFINIRGLOBALES" {return new Symbol(sym.pdefinir,yyline,yycolumn,yytext());}
+"GENERARREPORTEESTADISTICO" {return new Symbol(sym.preporte,yyline,yycolumn,yytext());}
+"GRAFICABARRAS" {return new Symbol(sym.pgrafb,yyline,yycolumn,yytext());}
+"GRAFICAPIE" {return new Symbol(sym.pgrafp,yyline,yycolumn,yytext());}
+"GRAFICALINEAS" {return new Symbol(sym.pgrafl,yyline,yycolumn,yytext());}
+"COMPARE" {return new Symbol(sym.pcompare,yyline,yycolumn,yytext());}
+"STRING" {return new Symbol(sym.tstring,yyline,yycolumn,yytext());}
+"DOUBLE" {return new Symbol(sym.tdouble,yyline,yycolumn,yytext());}
+"TITULO" {return new Symbol(sym.title,yyline,yycolumn,yytext());}
+"EJEX" {return new Symbol(sym.pejex,yyline,yycolumn,yytext());}
+"VALORES" {return new Symbol(sym.pvalue,yyline,yycolumn,yytext());}
+"ARCHIVO" {return new Symbol(sym.pfile,yyline,yycolumn,yytext());}
+"TITULOX" {return new Symbol(sym.title_x,yyline,yycolumn,yytext());}
+"TITULOY" {return new Symbol(sym.title_y,yyline,yycolumn,yytext());}
+
+{BLANCOS} {}
+{COM} {return new Symbol(sym.com,yyline,yycolumn,yytext());}  
+{COMM} {return new Symbol(sym.comm,yyline,yycolumn,yytext());}  
+{NOMBRE} {return new Symbol(sym.name,yyline,yycolumn,yytext());}  
+{ENTERO} {return new Symbol(sym.entero,yyline,yycolumn,yytext());}  
+{DD} {return new Symbol(sym.digitos,yyline,yycolumn,yytext());}  
+{L} {return new Symbol(sym.letra,yyline,yycolumn,yytext());} 
+{CADENA} {return new Symbol(sym.cadena,yyline,yycolumn,yytext());} 
+
+. {
+    System.out.println("Este es un error lexico: "+yytext()+
+    ", en la linea: "+yyline+", en la columna: "+yycolumn);
+}

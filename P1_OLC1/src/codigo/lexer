@@ -1,0 +1,69 @@
+package codigo;
+import java_cup.runtime.Symbol;
+
+%%
+%class Lexer
+%public
+%char
+%line
+%cup
+%unicode
+%ignorecase
+
+%init{
+    yychar=1;
+    yyline=1;
+%init}
+
+L = [a-zA-Z]+
+ENTERO = [0-9]+ 
+CADENA = [\"\“\'] [^\"\”\'\n]* [\"\”\'\n]
+BLANCOS = [ \t\r\f\n]+
+%%
+
+"=" {return new Symbol(sym.igual,yyline,yychar,yytext());}
+"#" {return new Symbol(sym.hash,yyline,yychar,yytext());}
+"+" {return new Symbol(sym.mas,yyline,yychar,yytext());}
+"-" {return new Symbol(sym.menos,yyline,yychar,yytext());}
+"*" {return new Symbol(sym.por,yyline,yychar,yytext());}
+"/" {return new Symbol(sym.div,yyline,yychar,yytext());}
+
+"," {return new Symbol(sym.coma,yyline,yychar,yytext());}
+"‘" {return new Symbol(sym.coma_f,yyline,yychar,yytext());}
+":" {return new Symbol(sym.d_punto,yyline,yychar,yytext());}
+"." {return new Symbol(sym.punto,yyline,yychar,yytext());}
+";" {return new Symbol(sym.ptcoma,yyline,yychar,yytext());}
+"[" {return new Symbol(sym.cor_i,yyline,yychar,yytext());}
+"]" {return new Symbol(sym.cor_d,yyline,yychar,yytext());}
+"$" {return new Symbol(sym.dolar,yyline,yychar,yytext());}
+
+
+"(" {return new Symbol(sym.par_i,yyline,yychar,yytext());}
+")" {return new Symbol(sym.par_d,yyline,yychar,yytext());}
+"{" {return new Symbol(sym.llave_i,yyline,yychar,yytext());}
+"}" {return new Symbol(sym.llave_d,yyline,yychar,yytext());}
+
+"DEFINIRGLOBALES" {return new Symbol(sym.pdefinir,yyline,yychar,yytext());}
+"GENERARREPORTEESTADISTICO" {return new Symbol(sym.preporte,yyline,yychar,yytext());}
+"GRAFICABARRAS" {return new Symbol(sym.pgrafb,yyline,yychar,yytext());}
+"GRAFICAPIE" {return new Symbol(sym.pgrafp,yyline,yychar,yytext());}
+"GRAFICALINEAS" {return new Symbol(sym.pgrafl,yyline,yychar,yytext());}
+"COMPARE" {return new Symbol(sym.pcompare,yyline,yychar,yytext());}
+"STRING" {return new Symbol(sym.tstring,yyline,yychar,yytext());}
+"DOUBLE" {return new Symbol(sym.tdouble,yyline,yychar,yytext());}
+"TITULO" {return new Symbol(sym.title,yyline,yychar,yytext());}
+"EJEX" {return new Symbol(sym.pejex,yyline,yychar,yytext());}
+"VALORES" {return new Symbol(sym.pvalue,yyline,yychar,yytext());}
+"ARCHIVO" {return new Symbol(sym.pfile,yyline,yychar,yytext());}
+"TITULOX" {return new Symbol(sym.title_x,yyline,yychar,yytext());}
+"TITULOY" {return new Symbol(sym.title_y,yyline,yychar,yytext());}
+
+{BLANCOS} {}
+{ENTERO} {return new Symbol(sym.entero,yyline,yychar,yytext());}  
+{L} {return new Symbol(sym.letra,yyline,yychar,yytext());} 
+{CADENA} {return new Symbol(sym.cadena,yyline,yychar,yytext());} 
+
+. {
+    System.out.println("Este es un error lexico: "+yytext()+
+    ", en la linea: "+yyline+", en la columna: "+yychar);
+}

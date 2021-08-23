@@ -11,7 +11,7 @@ import java.io.File;
  */
 public class Principal {
     public static void main(String[] args) {
-        String ruta= "C:/Users/ferna/OneDrive/Escritorio/Universidad/Sexto Semestre/Compi1/Laboratorio/OLC1-Proyecto1-201901849/P1_OLC1/src/codigo/lexer.flex";
+        String ruta= "C:/Users/ferna/OneDrive/Escritorio/Universidad/Sexto Semestre/Compi1/Laboratorio/OLC1-Proyecto1-201901849/P1_OLC1/src/codigo/lexer";
         //Universidad\Sexto Semestre\Compi1\Laboratorio\OLC1-Proyecto1-201901849\P1_OLC1\src\codigo
         /*FrmMain frame = new FrmMain();
         frame.setVisible(true);*/
