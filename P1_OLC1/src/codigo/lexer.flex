@@ -1,7 +1,5 @@
-
 package codigo;
 import java_cup.runtime.Symbol;
-
 %%
 %class Lexer
 %public
@@ -10,7 +8,6 @@ import java_cup.runtime.Symbol;
 %cup
 %unicode
 %ignorecase
-
 %init{
     yycolumn=1;
     yyline=1;
