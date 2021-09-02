@@ -1,0 +1,264 @@
+
+/*
+ * Organización de Lenguajes y Compiladores 1 A
+ * Aux. Emely García
+ */
+
+package AnalizadorJS;
+import Contenedor.GLOBALES;
+import Contenedor.FCA;
+import Contenedor.Barras;
+import Contenedor.Line;
+import Contenedor.PIE;
+
+import java_cup.runtime.*;
+import java.util.ArrayList;
+parser code  
+{:
+    /**
+     * Método al que se llama automáticamente ante algún error sintactico.
+     **/ 
+    public void syntax_error(Symbol s){ 
+        System.out.println("Error Sintáctico en la Línea " + (s.left) +
+        " Columna "+s.right+ ". No se esperaba este componente: " +s.value+"."); 
+        
+        
+    } 
+
+    /**
+     * Método al que se llama automáticamente ante algún error sintáctico 
+     * en el que ya no es posible una recuperación de errores.
+     **/ 
+    public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception{ 
+        System.out.println("Error síntactico irrecuperable en la Línea " + 
+        (s.left)+ " Columna "+s.right+". Componente " + s.value + 
+        " no reconocido."); 
+    }  
+:} 
+terminal mas, div, por, mayor,menor,mod,com,comm;
+terminal igual, llave_i, llave_d;
+terminal coma,par_i, par_d, ptcoma, pfor,req;
+terminal ptrue,pfalse,pdef;
+terminal pclass,pif,pelse,cons,log,brk,pswitch;
+terminal and,or,not,var,let,pconst,pwhile,pdo,pcase;
+
+terminal String entero,cadena,digitos,name;
+terminal String d_punto,punto,menos;
+
+non terminal INICIO;
+non terminal IF;    
+non terminal IF_F;
+non terminal EXPRESION_IF;
+non terminal EXPRESION_R;
+non terminal EXPRESION_L;
+non terminal OPR;
+non terminal OPR_SIM;
+non terminal OPR_DF;
+non terminal OPR_MM;
+non terminal CONSOLE;
+non terminal CONS;
+non terminal String SET;
+non terminal V_TIPO;
+non terminal D_TIPO;
+non terminal I_TIPO;
+non terminal END_L;
+non terminal CLASS;
+non terminal CLASS_I;
+non terminal FUNC;
+non terminal PARAMS;
+non terminal PAR1;
+non terminal COND_IF;
+non terminal T_BOOL;
+non terminal ELSE;
+non terminal WHILE;
+non terminal DECLA;
+non terminal INSTRUCCION;
+non terminal INS;
+non terminal INCREMENT;
+non terminal LLAVES;
+non terminal LLAMADA;
+non terminal PARAM_L;
+non terminal DO;
+non terminal SWITCH;
+non terminal CASE;
+non terminal CASE_S;
+non terminal DEFAULT;
+non terminal FOR;
+non terminal D;
+non terminal CM;
+
+precedence left entero,digitos,cadena,ptrue,pfalse,ptcoma;
+precedence left igual,menos,por,div,mod;
+precedence left par_i,par_d,brk,pdef,cons,pconst,var,let,cons,name,mas;
+precedence left pfor,pif,pelse,pdo,pwhile,pswitch,pcase;
+start with INICIO;
+
+INICIO::=CM;
+
+CLASS::=pclass name llave_i CLASS_I  llave_d ;
+
+D::= DECLA
+    |D DECLA;
+
+CLASS_I::=DECLA
+    |FUNC
+    |CLASS_I DECLA
+    |CLASS_I FUNC
+;
+
+IF::= IF_F LLAVES
+    |ELSE LLAVES
+;
+
+ELSE::=pelse 
+    |pelse IF_F 
+;
+
+IF_F::= pif par_i COND_IF par_d 
+;
+
+COND_IF::=EXPRESION_IF
+    |not par_i EXPRESION_IF par_d
+    |COND_IF or or EXPRESION_IF
+    |COND_IF and and EXPRESION_IF
+;
+
+
+EXPRESION_R::=  SET OPR SET
+    |SET OPR_DF T_BOOL
+;
+
+SET::= name:n {:System.out.println(n);:}
+    |digitos
+    |entero
+    |cadena
+    |ptrue
+    |pfalse
+    |menos SET
+    |SET OPR_SIM SET
+    |par_i SET par_d
+;
+
+T_BOOL::= ptrue
+    |pfalse;
+
+EXPRESION_L::= not name
+    |not ptrue
+    |not pfalse
+    |ptrue
+    |pfalse
+;
+
+EXPRESION_IF::= EXPRESION_R
+    |EXPRESION_L
+;
+
+OPR::= OPR_MM
+    |OPR_DF
+;
+
+OPR_DF::= igual igual
+    |not igual
+;
+
+OPR_MM::= mayor
+    |menor
+    |menor igual
+    |mayor igual
+;
+
+OPR_SIM::=mas
+    |menos
+    |div
+    |por
+    |mod
+    |por por
+;
+
+
+CONSOLE::= cons punto log CONS END_L
+;
+
+CONS::= par_i SET par_d;
+
+
+
+DECLA::=D_TIPO SET END_L {:System.out.println("1");:}
+    |D_TIPO END_L {:System.out.println("2");:}
+    |D_TIPO req par_i SET par_d END_L {:System.out.println("3");:}
+    |name mas mas END_L
+    |name menos menos END_L
+;
+
+V_TIPO::=var
+    |let
+    |pconst
+;
+
+D_TIPO::=   V_TIPO name I_TIPO {:System.out.println("V");:}
+    |name I_TIPO {:System.out.println("F");:};
+
+I_TIPO::=igual
+    |por igual;
+
+END_L::=ptcoma {:System.out.println(";");:}
+    |           {:System.out.println("-");:}
+;
+
+FUNC::= name par_i PARAMS par_d llave_i INSTRUCCION llave_d;
+
+PARAMS::= PAR1
+    |;
+
+PAR1::=name
+    |PAR1 coma name;
+
+WHILE::=pwhile par_i COND_IF par_d LLAVES;
+
+LLAVES::= llave_i INSTRUCCION llave_d;
+//COND WHILE
+
+INCREMENT::=name mas mas END_L
+    |name menos menos END_L
+    |name igual SET OPR_SIM SET END_L;
+
+INSTRUCCION::= INS
+    |INSTRUCCION INS;
+
+INS::=D{:System.out.print("DECLA");:}
+    |brk END_L {:System.out.println("BRK");:}
+    |CONSOLE    {:System.out.println("CONSOLE");:}
+    |LLAMADA    {:System.out.println("LLAMA");:}
+    |IF {:System.out.println("IF");:}
+    |WHILE  {:System.out.println("WHILE");:}
+    |DO     {:System.out.println("DO");:}
+    |SWITCH     {:System.out.println("SWITCH");:}
+    |FOR    {:System.out.println("FOR");:}
+;
+
+LLAMADA::=name par_i PARAM_L par_d END_L;
+
+PARAM_L::=SET
+    |
+    |PARAM_L coma SET;
+
+DO::=pdo llave_i INSTRUCCION llave_d pwhile par_i COND_IF par_d END_L;
+
+SWITCH::=pswitch par_i name par_d llave_i CASE_S;
+
+CASE_S::= CASE
+    |CASE_S CASE
+    |CASE_S DEFAULT llave_d
+;
+
+CASE::=pcase SET d_punto INSTRUCCION;
+
+DEFAULT::= pdef d_punto INSTRUCCION;
+
+FOR::=pfor par_i DECLA  EXPRESION_R ptcoma INCREMENT par_d llave_i INSTRUCCION llave_d;
+
+CM::=com
+    |comm
+    |CM com
+    |CM comm
+;

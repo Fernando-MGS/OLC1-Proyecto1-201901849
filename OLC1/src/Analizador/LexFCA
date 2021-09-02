@@ -5,8 +5,6 @@
 
 package Analizador;
 import java_cup.runtime.Symbol;
-import Errores.*;
-
 
 %% 
 %class Lexico
@@ -84,6 +82,4 @@ CADENA = [\"]((\\\")|[^\r\n\"])*[\"]
 . {
     System.out.println("Este es un error lexico: "+yytext()+
     ", en la linea: "+yyline+", en la columna: "+yycolumn);
-AnalizadorLenguaje.errores.add(new MiError(yyline, yycolumn, TipoError.LEXICO, 
-            "Se detectó un error léxico (caracter "+yytext()+")"));
 }

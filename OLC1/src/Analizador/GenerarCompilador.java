@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package analizadores;
+package Analizador;
 
 /**
  *
@@ -17,11 +17,11 @@ public class GenerarCompilador {
 
     public static void generarCompilador() {
         try {
-            String ruta = "src/analizadores/";
-            String opcFlex[] = {ruta + "Lexico", "-d", ruta};
+            String ruta = "src/Analizador/";
+            String opcFlex[] = {ruta + "LexFCA", "-d", ruta};
             jflex.Main.generate(opcFlex);
 
-            String opcCUP[] = {"-destdir", ruta, "-parser", "Sintactico", ruta + "Sintactico"};
+            String opcCUP[] = {"-destdir", ruta, "-parser", "Sintactico", ruta + "SynFCA"};
             java_cup.Main.main(opcCUP);
         } catch (Exception e) {
         }
