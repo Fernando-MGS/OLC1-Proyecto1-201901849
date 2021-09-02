@@ -1,0 +1,214 @@
+/*
+ * Organización de Lenguajes y Compiladores 1 A
+ * Aux. Emely García
+ */
+
+package Analizador;
+import Errores.MiError;
+import Contenedor.GLOBALES;
+import Contenedor.FCA;
+import Contenedor.Barras;
+import Contenedor.Line;
+import Contenedor.PIE;
+import Errores.TipoError;
+import Acciones.Movimiento;
+import Acciones.Accion; 
+
+import java_cup.runtime.*;
+import java.util.ArrayList;
+parser code  
+{:
+    /**
+     * Método al que se llama automáticamente ante algún error sintactico.
+     **/ 
+    public void syntax_error(Symbol s){ 
+        System.out.println("Error Sintáctico en la Línea " + (s.left) +
+        " Columna "+s.right+ ". No se esperaba este componente: " +s.value+"."); 
+        AnalizadorLenguaje.errores.add(new MiError(s.left, s.right, TipoError.SINTACTICO, 
+                "Se detectó un error sintáctico ("+s.value+")"));
+        
+    } 
+
+    /**
+     * Método al que se llama automáticamente ante algún error sintáctico 
+     * en el que ya no es posible una recuperación de errores.
+     **/ 
+    public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception{ 
+        System.out.println("Error síntactico irrecuperable en la Línea " + 
+        (s.left)+ " Columna "+s.right+". Componente " + s.value + 
+        " no reconocido."); 
+        AnalizadorLenguaje.errores.add(new MiError(s.left, s.right, TipoError.SINTACTICO, 
+                        "Se detectó un error sintáctico ("+s.value+")"));
+    }  
+:} 
+terminal mas, div, por, mayor,menor,pot,mod;
+terminal hash, igual, llave_i, llave_d;
+terminal coma,par_i, par_d, ptcoma;
+terminal coma_f,cor_i,cor_d,ptrue,pfalse,pdef;
+terminal dolar,pclass,pif,pelse,cons,log,brk,pswitch;
+terminal and,or,not,var,let,pconst,pwhile,pdo,pcase;
+
+terminal String entero,cadena,digitos,name;
+terminal String d_punto,punto,menos;
+
+
+
+non terminal INICIO;
+non terminal IF;
+non terminal EXPRESION;
+non terminal EXPRESIONES;
+non terminal EXPRESION_IF;
+non terminal EXPRESION_R;
+non terminal EXPRESION_R1;
+non terminal EXPRESION_L;
+non terminal EXPRESION_A;
+non terminal EXPRESION_A1;
+non terminal OPR;
+non terminal OPR_SIM;
+non terminal OPR_DF;
+non terminal OPR_MM;
+non terminal EXP_L;
+non terminal EXP_R;
+non terminal EXP_R1;
+non terminal CONCAT;
+non terminal CONSOLE;
+non terminal CONS;
+non terminal SET;
+non terminal SET_N;
+non terminal SET_AR;
+non terminal SET_A;
+non terminal DECLARACION;
+non terminal V_TIPO;
+non terminal END_L;
+non terminal CLASS;
+non terminal FUNC;
+non terminal PARAMS;
+non terminal PAR1;
+non terminal UNARIO;
+non terminal ALL;
+non terminal COND_IF;
+non terminal T_BOOL;
+
+precedence left mas,menos;
+precedence left por,div,mod;
+start with INICIO;
+
+INICIO::=IF;
+
+IF::= pif par_i COND_IF par_d llave_i llave_d
+;
+
+EXPRESION_A::= SET_AR
+    |UNARIO
+    |EXPRESION_A OPR_SIM EXPRESION_A
+    |par_i EXPRESION_A par_d
+;
+
+UNARIO::= menos digitos
+    |menos entero
+    |menos name;
+
+EXPRESION_R::=  EXPRESION_A OPR EXPRESION_A
+    | cadena OPR_DF EXPRESION_A
+    |cadena OPR_DF cadena
+    |EXPRESION_A OPR_DF cadena
+    |EXPRESION_A OPR_DF T_BOOL
+;
+
+SET_N::= entero
+    |digitos
+;
+
+T_BOOL::= ptrue
+    |pfalse;
+
+ALL::= EXPRESION_A
+    |CONCAT;
+
+
+EXPRESION_L::= not name
+    |not ptrue
+    |not pfalse
+    |ptrue
+    |pfalse
+;
+
+EXPRESION_IF::= EXPRESION_R
+    |EXPRESION_L
+;
+
+COND_IF::=EXPRESION_IF
+    |not par_i EXPRESION_IF par_d
+    |COND_IF or or EXPRESION_IF
+    |COND_IF and and EXPRESION_IF
+;
+
+OPR::= OPR_MM
+    |OPR_DF
+;
+
+OPR_DF::= igual igual
+    |not igual
+;
+
+OPR_MM::= mayor
+    |menor
+    |menor igual
+    |mayor igual
+;
+
+CONCAT::= name
+    |cadena
+    |name mas name
+    |cadena mas name
+    |name mas cadena
+    |cadena mas cadena
+    |CONCAT mas name
+    |CONCAT mas cadena
+;
+
+CONSOLE::= cons punto log CONS ptcoma
+;
+
+CONS::= par_i CONCAT par_d
+    |par_i EXPRESION_A par_d
+;
+
+OPR_SIM::=mas
+    |menos
+    |div
+    |por
+    |mod
+    |por por
+;
+
+SET::= SET_N
+    |SET_A
+    |CONCAT;
+
+SET_AR::=SET_N
+    |name;
+
+DECLARACION::= V_TIPO name igual SET END_L
+    |V_TIPO name END_L;
+
+
+V_TIPO::=var
+    |let
+    |pconst
+;
+
+END_L::=ptcoma
+    |;
+
+CLASS::=pclass name llave_i llave_d ;
+
+FUNC::=name par_i PARAMS par_d llave_i llave_d;
+
+PARAMS::= PAR1
+    |
+;
+
+PAR1::=name
+    |PAR1 coma name
+;

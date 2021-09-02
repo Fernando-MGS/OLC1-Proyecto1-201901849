@@ -1,0 +1,199 @@
+
+/*
+ * Organización de Lenguajes y Compiladores 1 A
+ * Aux. Emely García
+ */
+
+package Analizador;
+import Errores.MiError;
+import Contenedor.GLOBALES;
+import Contenedor.FCA;
+import Contenedor.Barras;
+import Contenedor.Line;
+import Contenedor.PIE;
+import Errores.TipoError;
+import Acciones.Movimiento;
+import Acciones.Accion; 
+
+import java_cup.runtime.*;
+import java.util.ArrayList;
+parser code  
+{:
+    /**
+     * Método al que se llama automáticamente ante algún error sintactico.
+     **/ 
+    public void syntax_error(Symbol s){ 
+        System.out.println("Error Sintáctico en la Línea " + (s.left) +
+        " Columna "+s.right+ ". No se esperaba este componente: " +s.value+"."); 
+        AnalizadorLenguaje.errores.add(new MiError(s.left, s.right, TipoError.SINTACTICO, 
+                "Se detectó un error sintáctico ("+s.value+")"));
+        
+    } 
+
+    /**
+     * Método al que se llama automáticamente ante algún error sintáctico 
+     * en el que ya no es posible una recuperación de errores.
+     **/ 
+    public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception{ 
+        System.out.println("Error síntactico irrecuperable en la Línea " + 
+        (s.left)+ " Columna "+s.right+". Componente " + s.value + 
+        " no reconocido."); 
+        AnalizadorLenguaje.errores.add(new MiError(s.left, s.right, TipoError.SINTACTICO, 
+                        "Se detectó un error sintáctico ("+s.value+")"));
+    }  
+:} 
+terminal mas, div, por;
+terminal hash, igual, llave_i, llave_d;
+terminal coma,par_i, par_d, ptcoma;
+terminal coma_f,cor_i,cor_d;
+terminal dolar;
+
+terminal String entero,cadena,digitos,name;
+terminal String gen_pt,esp_pt,d_punto,punto,comillas,menos;
+terminal pdefinir,preporte,pgrafb,pgrafp,pgrafl;
+terminal pcomp,tipo_s,tipo_d,title,pejex;
+terminal pvalue,pfile,title_x,title_y;
+
+
+
+
+non terminal INICIO;
+non terminal ArrayList<GLOBALES> DECLARACION;
+non terminal ArrayList<GLOBALES> GLOBALES;
+non terminal String FCOMPARE;
+non terminal FCA GENERAR;
+non terminal Line LINE;
+non terminal Line LINE_F;
+non terminal PIE PIE;
+non terminal PIE BAR_P;
+non terminal Barras BAR;
+non terminal Barras BAR_F;
+non terminal STR_COM;
+non terminal String PT_E;
+non terminal String PT_G;
+non terminal ArrayList<String> VARIABLES;
+
+start with INICIO;
+
+INICIO::=GENERAR:f{:f.Print();:};
+
+GENERAR::= preporte llave_i GLOBALES:lista {:RESULT= new FCA();RESULT.setGLB(lista);:}
+    |GENERAR:f GLOBALES:lista{:RESULT=f;f.setGLB(lista);:}
+    |preporte llave_i BAR:graf {:RESULT = new FCA();RESULT.setBar(graf);:}
+    |GENERAR:f BAR:graf {:RESULT=f;f.setBar(graf);:}
+    |preporte llave_i PIE:graf {:FCA f = new FCA();f.setPie(graf);RESULT=f;:}
+    |GENERAR:f PIE:graf {:RESULT=f;f.setPie(graf);:}
+    |preporte llave_i LINE:graf {:FCA f = new FCA();f.setLinea(graf);RESULT=f;:}
+    |GENERAR:f LINE:graf {:RESULT=f;f.setLinea(graf);:}
+    |preporte llave_i FCOMPARE:s {:RESULT=new FCA(); RESULT.setRuta1(s);:}
+    |GENERAR:f FCOMPARE:s {:RESULT=f;f.setRuta1(s);:}
+    |GENERAR:f llave_d {:RESULT=f;:}
+;
+
+
+DECLARACION::= tipo_s name:id igual cadena:strg ptcoma{:
+    GLOBALES tok = new GLOBALES(id,0.3,strg,0);
+    RESULT = new ArrayList<GLOBALES>();
+    RESULT.add(tok);
+    System.out.println(RESULT.size());
+    :}
+    |tipo_d name:id igual digitos:val ptcoma{:
+    GLOBALES tok = new GLOBALES(id, Double.parseDouble(val),val,1);
+    RESULT = new ArrayList<GLOBALES>();
+    RESULT.add(tok);
+    System.out.println(RESULT.size());
+    :}   
+    |DECLARACION:lista tipo_d name:id igual digitos:val ptcoma {:
+    GLOBALES tok = new GLOBALES(id, Double.parseDouble(val),val,1);
+    RESULT = lista;
+    RESULT.add(tok);
+    System.out.println(RESULT.size());
+    :}   
+    |DECLARACION:lista tipo_s name:id igual cadena:strg ptcoma {:
+    GLOBALES tok = new GLOBALES(id,0.3,strg,0);
+    RESULT=lista;
+    RESULT.add(tok);
+    System.out.println(RESULT.size());:}
+    |tipo_d name:id igual PT_G:val ptcoma{:
+    GLOBALES tok = new GLOBALES(id, 0.3,val,2);
+    RESULT = new ArrayList<GLOBALES>();
+    RESULT.add(tok);
+    System.out.println(RESULT.size());
+    :}   
+    |DECLARACION:lista name:id igual tipo_d PT_G:val ptcoma{:
+    GLOBALES tok = new GLOBALES(id, 0.3,val,2);
+    RESULT = lista;
+    RESULT.add(tok);
+    System.out.println(RESULT.size());:}
+    |tipo_d name:id igual PT_E:val ptcoma{:
+    GLOBALES tok = new GLOBALES(id, 0.3,val,2);
+    RESULT = new ArrayList<GLOBALES>();
+    RESULT.add(tok);
+    System.out.println(RESULT.size());:}
+    |DECLARACION:lista tipo_d name:id igual PT_E:val ptcoma{:
+    GLOBALES tok = new GLOBALES(id, 0.3,val,2);
+    RESULT = lista;
+    RESULT.add(tok);
+    System.out.println(RESULT.size());:}
+;
+
+GLOBALES::= pdefinir llave_i DECLARACION:lista llave_d{:RESULT=lista;:};
+
+
+FCOMPARE::=
+    pcomp par_i cadena:c1 coma cadena:c2 par_d ptcoma {:RESULT=c1+"-"+c2;:}
+;
+
+
+BAR::= pgrafb llave_i BAR_F:b llave_d{:RESULT=b;:};
+
+BAR_F::=
+    title d_punto name:n ptcoma {:RESULT = new Barras();RESULT.setTitle(n);:}
+    |BAR_F:b title d_punto name:n ptcoma {:RESULT=b;RESULT.setTitle(n);:}
+    |pejex d_punto cor_i VARIABLES:v cor_d ptcoma {:RESULT = new Barras();RESULT.setEjex(v);:}
+    |BAR_F:b pejex d_punto cor_i VARIABLES:n cor_d ptcoma {:RESULT=b;RESULT.setEjex(n);:}
+    |pvalue d_punto cor_i VARIABLES:v  cor_d ptcoma {:RESULT = new Barras();RESULT.setValue(v);:}
+    |BAR_F:b pvalue d_punto cor_i VARIABLES:v  cor_d ptcoma {:RESULT=b;RESULT.setValue(v);:}
+    |title_x d_punto   cadena:v ptcoma {:RESULT = new Barras();RESULT.setTitlex(v);:}
+    |BAR_F:b title_x d_punto  cadena:c ptcoma {:RESULT=b;RESULT.setTitlex(c);:}
+    |title_y d_punto cadena:v ptcoma {:RESULT = new Barras();RESULT.setTitley(v);:}
+    |BAR_F:b title_y d_punto cadena:c ptcoma {:RESULT=b;RESULT.setTitley(c);:}
+    |BAR_F:b cor_d ptcoma {:RESULT=b;:}
+;
+
+PIE::=    pgrafp llave_i BAR_P:b llave_d {:RESULT=b;:};
+
+
+BAR_P::=title d_punto name:n ptcoma {:RESULT = new PIE();RESULT.setTitle(n);:}
+    |BAR_P:b title d_punto name:n ptcoma {:RESULT=b;RESULT.setTitle(n);:}
+    |pejex d_punto cor_i VARIABLES:n cor_d ptcoma {:RESULT = new PIE();RESULT.setEjex(n);:}
+    |BAR_P:b pejex d_punto cor_i VARIABLES:n cor_d ptcoma {:RESULT = b;RESULT.setEjex(n);:}
+    |pvalue d_punto cor_i VARIABLES:n  cor_d ptcoma {:RESULT = new PIE();RESULT.setValue(n);:}
+    |BAR_P:b pvalue d_punto cor_i VARIABLES:n  cor_d ptcoma {:RESULT = b;RESULT.setValue(n);:}
+    |BAR_P:b cor_d ptcoma{:RESULT=b;:};
+
+LINE_F::=title d_punto cadena:n ptcoma{:RESULT=new Line();RESULT.setTitle(n);:}
+    |LINE_F:l title d_punto cadena:n ptcoma {:RESULT=l;RESULT.setTitle(n);:}
+    |title d_punto name:n ptcoma{:RESULT=new Line();RESULT.setTitle(n);:}
+    |LINE_F:l title d_punto name:n ptcoma {:RESULT=l;RESULT.setTitle(n);:}
+    |pfile  d_punto cadena:c ptcoma {:RESULT=new Line(); RESULT.setFile(c);:}
+    |LINE_F:l pfile  d_punto cadena:c ptcoma {:RESULT=l; RESULT.setFile(c);:};
+
+VARIABLES::=   name:n    {:RESULT=new ArrayList<String>();RESULT.add(n);:}    
+    |cadena:c   {:RESULT=new ArrayList<String>();RESULT.add(c);:}  
+    |PT_E:p {:RESULT=new ArrayList<String>();RESULT.add(p);:}
+    |PT_G:p  {:RESULT=new ArrayList<String>();RESULT.add(p);:}  
+    |VARIABLES:var coma name:n {:RESULT=var;RESULT.add(n);:}  
+    |VARIABLES:var coma cadena:n {:RESULT=var;RESULT.add(n);:}
+    |VARIABLES:var coma PT_E:n {:RESULT=var;RESULT.add(n);:}
+    |VARIABLES:var coma PT_G:n {:RESULT=var;RESULT.add(n);:};
+
+
+
+
+LINE::= pgrafl llave_i LINE_F:l llave_d{:RESULT=l;:};
+
+PT_E::= dolar llave_i esp_pt:id coma cadena:id1 coma cadena:id2 coma cadena:id3 llave_d{:
+RESULT=id+"-"+id1+"-"+id2+"-"+id3;:};
+
+PT_G::=dolar llave_i gen_pt:id  llave_d{:RESULT=id;:};

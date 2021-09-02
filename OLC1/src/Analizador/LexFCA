@@ -1,28 +1,36 @@
-package analizadores;
-import java_cup.runtime.Symbol;
+/*
+ * Organización de Lenguajes y Compiladores 1 A
+ * Aux. Emely García
+ */
 
-%%
-%class Lexer
-%public
-%line
-%char
-%cup
+package Analizador;
+import java_cup.runtime.Symbol;
+import Errores.*;
+
+
+%% 
+%class Lexico
+%public 
+%line 
+%char 
+%cup 
 %unicode
 %ignorecase
 
-%init{
-    yycolumn=1;
-    yyline=1;
-%init}
+%init{ 
+    yyline = 1; 
+    yycolumn = 1; 
+%init} 
 
-L = [a-zA-Z]+
-ENTERO = [0-9]+ 
-CADENA = [\"\“\'] [^\"\”\'\n]* [\"\”\'\n]
-BLANCOS = [ \t\r\f\n]+
-DD=[0-9]+("."[  |0-9]+)?
-NOMBRE= [a-zA-Z]([a-zA-Z]|[0-9])*
+
+BLANCOS = [ \t\r\n]+
 COM = ("##")(.)*
 COMM = ("#*")(.|\n)*"*#"
+NOMBRE= [A-Za-z]([A-Za-z]|[0-9])*
+ENTERO = [0-9]+ 
+DD=[0-9]+("."[  |0-9]+)?
+CADENA = [\"]((\\\")|[^\r\n\"])*[\"]
+
 %%
 
 "=" {return new Symbol(sym.igual,yyline,yycolumn,yytext());}
@@ -32,6 +40,7 @@ COMM = ("#*")(.|\n)*"*#"
 "*" {return new Symbol(sym.por,yyline,yycolumn,yytext());}
 "/" {return new Symbol(sym.div,yyline,yycolumn,yytext());}
 
+"\"" {return new Symbol(sym.comillas,yyline,yycolumn,yytext());}
 "," {return new Symbol(sym.coma,yyline,yycolumn,yytext());}
 "‘" {return new Symbol(sym.coma_f,yyline,yycolumn,yytext());}
 ":" {return new Symbol(sym.d_punto,yyline,yycolumn,yytext());}
@@ -52,26 +61,29 @@ COMM = ("#*")(.|\n)*"*#"
 "GRAFICABARRAS" {return new Symbol(sym.pgrafb,yyline,yycolumn,yytext());}
 "GRAFICAPIE" {return new Symbol(sym.pgrafp,yyline,yycolumn,yytext());}
 "GRAFICALINEAS" {return new Symbol(sym.pgrafl,yyline,yycolumn,yytext());}
-"COMPARE" {return new Symbol(sym.pcompare,yyline,yycolumn,yytext());}
-"STRING" {return new Symbol(sym.tstring,yyline,yycolumn,yytext());}
-"DOUBLE" {return new Symbol(sym.tdouble,yyline,yycolumn,yytext());}
+"COMPARE" {return new Symbol(sym.pcomp,yyline,yycolumn,yytext());}
+"STRING" {return new Symbol(sym.tipo_s,yyline,yycolumn,yytext());}
+"DOUBLE" {return new Symbol(sym.tipo_d,yyline,yycolumn,yytext());}
 "TITULO" {return new Symbol(sym.title,yyline,yycolumn,yytext());}
 "EJEX" {return new Symbol(sym.pejex,yyline,yycolumn,yytext());}
 "VALORES" {return new Symbol(sym.pvalue,yyline,yycolumn,yytext());}
 "ARCHIVO" {return new Symbol(sym.pfile,yyline,yycolumn,yytext());}
 "TITULOX" {return new Symbol(sym.title_x,yyline,yycolumn,yytext());}
 "TITULOY" {return new Symbol(sym.title_y,yyline,yycolumn,yytext());}
+"PUNTAJEESPECIFICO" {return new Symbol(sym.esp_pt,yyline,yycolumn,yytext());}
+"PUNTAJEGENERAL" {return new Symbol(sym.gen_pt,yyline,yycolumn,yytext());}
 
-{BLANCOS} {}
-{COM} {return new Symbol(sym.com,yyline,yycolumn,yytext());}  
-{COMM} {return new Symbol(sym.comm,yyline,yycolumn,yytext());}  
+{BLANCOS} {} 
+{COM} {}  
+{COMM} {}  
 {NOMBRE} {return new Symbol(sym.name,yyline,yycolumn,yytext());}  
 {ENTERO} {return new Symbol(sym.entero,yyline,yycolumn,yytext());}  
 {DD} {return new Symbol(sym.digitos,yyline,yycolumn,yytext());}  
-{L} {return new Symbol(sym.letra,yyline,yycolumn,yytext());} 
 {CADENA} {return new Symbol(sym.cadena,yyline,yycolumn,yytext());} 
 
 . {
     System.out.println("Este es un error lexico: "+yytext()+
     ", en la linea: "+yyline+", en la columna: "+yycolumn);
+AnalizadorLenguaje.errores.add(new MiError(yyline, yycolumn, TipoError.LEXICO, 
+            "Se detectó un error léxico (caracter "+yytext()+")"));
 }
