@@ -31,6 +31,14 @@ public class GLOBALES {
         System.out.println("Valor s="+this.valor_s);
         System.out.println("Tipo="+this.tipo);
     }
+    public String return_var(){
+        String aux;
+        aux="NOMBRE="+this.nombre+"\n";
+        aux+="Valor_d="+this.valor_d+"\n";
+        aux+="Valor s="+this.valor_s+"\n";
+        aux+="Tipo="+this.tipo+"\n";
+        return aux;
+    }
     /**
      * @return the nombre
      */

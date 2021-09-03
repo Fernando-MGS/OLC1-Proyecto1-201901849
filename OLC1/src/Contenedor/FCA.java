@@ -6,7 +6,7 @@
 package Contenedor;
 
 import java.util.ArrayList;
-
+import Interfaz.AppForm;
 /**
  *
  * @author ferna
@@ -35,15 +35,23 @@ public class FCA {
      * @return the GLB
      */
     public void Print(){
+        String aux;
+        aux="La ruta es "+this.ruta1+"\n";
+        aux+="GLOBALES\n";
+        System.out.println("La ruta es "+this.ruta1);
+        System.out.println("La ruta es "+this.ruta2);
         System.out.println("GLOBALES");
         for(int i=0; i<GLB.size();i++){
             this.GLB.get(i).print();
+            aux+=this.GLB.get(i).return_var();
             System.out.println("_________");
         }
+        aux+=this.bar.return_bar();
+        aux+=this.linea.return_line();
+        aux+=this.pie.return_pie();
         this.bar.print();
         this.linea.print();
         this.pie.print();
-        System.out.println(this.ruta1);
     }
 
     /**

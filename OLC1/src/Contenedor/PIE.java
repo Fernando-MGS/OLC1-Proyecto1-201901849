@@ -26,6 +26,15 @@ public class PIE {
         System.out.println("EJEX= "+this.ejex);    
         System.out.println("VALUE= "+this.value);
     }
+    
+     public String return_pie(){
+        String aux;
+        aux="PIE";
+        aux+="TITLE= "+this.title+"\n";
+        aux+="EJEX= "+this.ejex+"\n";    
+        aux+="VALUE= "+this.value+"\n";
+        return  aux;
+    }
     public PIE(String title,ArrayList ejex, ArrayList value ){
         this.ejex=ejex;
         this.title=title;

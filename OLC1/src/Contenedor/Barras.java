@@ -29,6 +29,17 @@ public class Barras {
         System.out.println("Title Y= "+this.titley);
     }
     
+    public String return_bar(){
+        String aux;
+        aux="BARRAS"+"\n";
+        aux+="Titulo= "+this.title+"\n";
+        aux+="EJE X= "+this.ejex+"\n";
+        aux+="VALUE= "+this.value+"\n";
+        aux+="Title X= "+this.titlex+"\n";
+        aux+="Title Y= "+this.titley+"\n";
+        return aux;
+    }
+    
     public Barras(String title, ArrayList ejex, ArrayList value, String titlex, String titley){
         this.title=title;
         this.ejex=ejex;

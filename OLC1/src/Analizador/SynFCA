@@ -7,6 +7,7 @@ import Contenedor.Line;
 import Contenedor.PIE;
 import java_cup.runtime.*;
 import java.util.ArrayList;
+import Interfaz.AppForm;
 parser code  
 {:
     /**
@@ -58,10 +59,11 @@ non terminal STR_COM;
 non terminal String PT_E;
 non terminal String PT_G;
 non terminal ArrayList<String> VARIABLES;
+non terminal FCA BODY;
 
 start with INICIO;
 
-INICIO::=GENERAR:f{:f.Print();:};
+INICIO::=GENERAR:f llave_d{:f.Print();:};
 
 GENERAR::= preporte llave_i GLOBALES:lista {:RESULT= new FCA();RESULT.setGLB(lista);:}
     |GENERAR:f GLOBALES:lista{:RESULT=f;f.setGLB(lista);:}
@@ -72,55 +74,59 @@ GENERAR::= preporte llave_i GLOBALES:lista {:RESULT= new FCA();RESULT.setGLB(lis
     |preporte llave_i LINE:graf {:FCA f = new FCA();f.setLinea(graf);RESULT=f;:}
     |GENERAR:f LINE:graf {:RESULT=f;f.setLinea(graf);:}
     |preporte llave_i FCOMPARE:s {:RESULT=new FCA(); RESULT.setRuta1(s);:}
-    |GENERAR:f FCOMPARE:s {:RESULT=f;f.setRuta1(s);:}
-    |GENERAR:f llave_d {:RESULT=f;:}
+    |GENERAR:f FCOMPARE:s {:
+    System.out.println(s);
+    RESULT=f;f.setRuta1(s);:}
 ;
-
 
 DECLARACION::= tipo_s name:id igual cadena:strg ptcoma{:
     GLOBALES tok = new GLOBALES(id,0.3,strg,0);
     RESULT = new ArrayList<GLOBALES>();
     RESULT.add(tok);
-    System.out.println(RESULT.size());
     :}
+
     |tipo_d name:id igual digitos:val ptcoma{:
     GLOBALES tok = new GLOBALES(id, Double.parseDouble(val),val,1);
     RESULT = new ArrayList<GLOBALES>();
-    RESULT.add(tok);
-    System.out.println(RESULT.size());
-    :}   
+    RESULT.add(tok);:}   
+    
+    |tipo_d name:id igual entero:val ptcoma{:
+    GLOBALES tok = new GLOBALES(id, Double.parseDouble(val),val,1);
+    RESULT = new ArrayList<GLOBALES>();
+    RESULT.add(tok);:}   
+    
+    |DECLARACION:lista tipo_d name:id igual entero:val ptcoma {:
+    GLOBALES tok = new GLOBALES(id, Double.parseDouble(val),val,1);
+    RESULT = lista;
+    RESULT.add(tok);:}   
+
     |DECLARACION:lista tipo_d name:id igual digitos:val ptcoma {:
     GLOBALES tok = new GLOBALES(id, Double.parseDouble(val),val,1);
     RESULT = lista;
-    RESULT.add(tok);
-    System.out.println(RESULT.size());
-    :}   
+    RESULT.add(tok);:}   
+
     |DECLARACION:lista tipo_s name:id igual cadena:strg ptcoma {:
     GLOBALES tok = new GLOBALES(id,0.3,strg,0);
     RESULT=lista;
-    RESULT.add(tok);
-    System.out.println(RESULT.size());:}
+    RESULT.add(tok);:}
     |tipo_d name:id igual PT_G:val ptcoma{:
     GLOBALES tok = new GLOBALES(id, 0.3,val,2);
     RESULT = new ArrayList<GLOBALES>();
-    RESULT.add(tok);
-    System.out.println(RESULT.size());
-    :}   
+    RESULT.add(tok);:}   
+
     |DECLARACION:lista name:id igual tipo_d PT_G:val ptcoma{:
     GLOBALES tok = new GLOBALES(id, 0.3,val,2);
     RESULT = lista;
-    RESULT.add(tok);
-    System.out.println(RESULT.size());:}
+    RESULT.add(tok);:}
     |tipo_d name:id igual PT_E:val ptcoma{:
     GLOBALES tok = new GLOBALES(id, 0.3,val,2);
     RESULT = new ArrayList<GLOBALES>();
-    RESULT.add(tok);
-    System.out.println(RESULT.size());:}
+    RESULT.add(tok);:}
+
     |DECLARACION:lista tipo_d name:id igual PT_E:val ptcoma{:
     GLOBALES tok = new GLOBALES(id, 0.3,val,2);
     RESULT = lista;
-    RESULT.add(tok);
-    System.out.println(RESULT.size());:}
+    RESULT.add(tok);:}
 ;
 
 GLOBALES::= pdefinir llave_i DECLARACION:lista llave_d{:RESULT=lista;:};

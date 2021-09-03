@@ -22,6 +22,15 @@ public class Line {
         System.out.println("TITLE= "+this.title);
         System.out.println("FILE= "+this.file);
     }
+    
+    public String return_line(){
+        String aux;
+        aux="LINE"+"\n";
+        aux+="TITLE= "+this.title+"\n";
+        aux+="FILE= "+this.file+"\n";
+        return aux;
+    }
+    
     public Line(String title, String file){
         this.title=title;
         this.file=file;

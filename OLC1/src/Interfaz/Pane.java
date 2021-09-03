@@ -17,12 +17,12 @@ import org.fife.ui.rtextarea.RTextScrollPane;
  *
  * @author Emely
  */
-public class MyTab extends JPanel {
+public class Pane extends JPanel {
 
     RSyntaxTextArea textArea;
     private String path;
 
-    public MyTab() {
+    public Pane() {
         super(new BorderLayout());
         textArea = new RSyntaxTextArea(20, 60);
         textArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);
@@ -57,7 +57,7 @@ public class MyTab extends JPanel {
         this.add(sp);
     }
 
-    MyTab(String texto, String path) {
+    Pane(String texto, String path) {
         super(new BorderLayout());
         textArea = new RSyntaxTextArea(20, 60);
         textArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);
@@ -65,25 +65,6 @@ public class MyTab extends JPanel {
         textArea.setCaretColor(Color.GREEN);
         textArea.setBackground(new Color(186, 184, 255, 255));
         textArea.setFont(new Font("monospaced", Font.PLAIN, 16));
-        //configurando el textArea
-//        AbstractTokenMakerFactory atmf = (AbstractTokenMakerFactory) TokenMakerFactory.getDefaultInstance();
-//        atmf.putMapping("text/C3D", "miejecutorc3d.SyntaxC3D");
-//        textArea.setSyntaxEditingStyle("text/C3D");
-//        textArea.setCurrentLineHighlightColor(Color.WHITE);
-//        textArea.setCodeFoldingEnabled(true);
-//        textArea.setFont(new Font("monospaced", Font.PLAIN, 16));
-//        SyntaxScheme scheme = textArea.getSyntaxScheme();
-//        textArea.setCaretColor(Color.BLACK);
-//        scheme.getStyle(Token.RESERVED_WORD).foreground = Color.BLUE;
-//        scheme.getStyle(Token.FUNCTION).foreground = Color.BLUE;
-//        scheme.getStyle(Token.LITERAL_STRING_DOUBLE_QUOTE).foreground = Color.ORANGE;
-//        scheme.getStyle(Token.LITERAL_CHAR).foreground = Color.ORANGE;
-//        scheme.getStyle(Token.IDENTIFIER).foreground = Color.BLACK;
-//        scheme.getStyle(Token.DATA_TYPE).foreground = Color.BLUE;
-//        scheme.getStyle(Token.COMMENT_EOL).foreground = Color.GRAY;
-//        scheme.getStyle(Token.COMMENT_MULTILINE).foreground = Color.GRAY;
-//        scheme.getStyle(Token.SEPARATOR).foreground = Color.RED;
-//        scheme.getStyle(Token.SEPARATOR).foreground = Color.RED;
 
         //-------------------------
         RTextScrollPane sp = new RTextScrollPane(textArea);
