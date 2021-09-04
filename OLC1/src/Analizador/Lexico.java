@@ -4,7 +4,7 @@
 
 package Analizador;
 import java_cup.runtime.Symbol;
-
+import Interfaz.AppForm;
 
 // See https://github.com/jflex-de/jflex/issues/222
 @SuppressWarnings("FallThrough")

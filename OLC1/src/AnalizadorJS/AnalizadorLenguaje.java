@@ -3,22 +3,23 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Analizador;
+package AnalizadorJS;
 
 
+import Analizador.*;
 import java.io.BufferedReader;
 import java.io.StringReader;
 import Contenedor.FCA;
 /**
  *
- * @author ferna
+ * @author Emely
  */
 public class AnalizadorLenguaje {
 
     private static AnalizadorLenguaje analizador;
     public static FCA contenido;
 
-    public static FCA AnalizarCodigo(String entrada, String ubicacion) {
+    public static boolean AnalizarCodigo(String entrada, String ubicacion) {
         try {
             Sintactico sin = new Sintactico(
                     new Lexico(new BufferedReader(new StringReader(entrada))));
@@ -28,9 +29,9 @@ public class AnalizadorLenguaje {
             System.err.println("Error: " + ex.getMessage());
         }
 
-        return contenido;
+        return true;
     }
-    
+
     public static String getDot(String entrada) {
             StringBuilder graph = new StringBuilder();
             graph.append("digraph G { \n");

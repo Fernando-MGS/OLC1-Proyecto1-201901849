@@ -31,8 +31,6 @@ public class PIE {
         String aux;
         aux="PIE";
         aux+="TITLE= "+this.title+"\n";
-        aux+="EJEX= "+this.ejex+"\n";    
-        aux+="VALUE= "+this.value+"\n";
         return  aux;
     }
     public PIE(String title,ArrayList ejex, ArrayList value ){

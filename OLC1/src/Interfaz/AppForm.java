@@ -26,7 +26,7 @@ import javax.swing.JTextArea;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import org.fife.ui.rtextarea.RTextScrollPane;
 import Analizador.AnalizadorLenguaje;
-
+import Contenedor.FCA;
 /**
  *
  * @author ferna
@@ -36,10 +36,10 @@ public class AppForm extends javax.swing.JFrame {
     /**
      * Creates new form AppForm
      */
+    public static FCA file;
     private JTabbedPane tpnTabs;
     private int tab = 0;
     private final JFileChooser chooser;
-
     public AppForm() {
         initComponents();
         this.chooser = new JFileChooser();
@@ -61,9 +61,10 @@ public class AppForm extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         p_editor = new javax.swing.JTabbedPane();
+        jLabel2 = new javax.swing.JLabel();
+        panel_con = new javax.swing.JScrollPane();
         jScrollPane1 = new javax.swing.JScrollPane();
         consl = new javax.swing.JTextArea();
-        jLabel2 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -96,6 +97,9 @@ public class AppForm extends javax.swing.JFrame {
         p_editor.setForeground(java.awt.Color.lightGray);
         p_editor.setMaximumSize(new java.awt.Dimension(530, 445));
 
+        jLabel2.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        jLabel2.setText("Consola");
+
         consl.setBackground(new java.awt.Color(186, 184, 255));
         consl.setColumns(20);
         consl.setForeground(new java.awt.Color(51, 51, 51));
@@ -103,8 +107,7 @@ public class AppForm extends javax.swing.JFrame {
         jScrollPane1.setViewportView(consl);
         consl.getAccessibleContext().setAccessibleName("");
 
-        jLabel2.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
-        jLabel2.setText("Consola");
+        panel_con.setViewportView(jScrollPane1);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -113,13 +116,16 @@ public class AppForm extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(p_editor, javax.swing.GroupLayout.PREFERRED_SIZE, 520, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+                    .addComponent(p_editor, javax.swing.GroupLayout.PREFERRED_SIZE, 520, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(50, 50, 50)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addComponent(panel_con, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -128,11 +134,11 @@ public class AppForm extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 438, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(p_editor, javax.swing.GroupLayout.PREFERRED_SIZE, 438, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(60, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(p_editor, javax.swing.GroupLayout.DEFAULT_SIZE, 438, Short.MAX_VALUE)
+                    .addComponent(panel_con))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
 
         jMenuBar1.setBackground(new java.awt.Color(51, 51, 51));
@@ -197,6 +203,11 @@ public class AppForm extends javax.swing.JFrame {
         jMenu5.add(jMenuItem6);
 
         jMenuItem7.setText("Consola");
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
         jMenu5.add(jMenuItem7);
 
         jMenuBar1.add(jMenu5);
@@ -225,11 +236,17 @@ public class AppForm extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -279,6 +296,12 @@ public class AppForm extends javax.swing.JFrame {
         Execute();
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+        Text t = new Text();
+        t.Mod_consola(this.consl);
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
+
+    
     public static String OpenFile(File file) {
         String aux, texto = "";
         if (file != null) {
@@ -310,7 +333,11 @@ public class AppForm extends javax.swing.JFrame {
     public void infoConsola(String txt){
            String aux= consl.getText()+"\n";
            aux=aux+txt;
-           consl.setText(aux);
+           this.consl.setText(aux);
+    }
+    
+    public void newConsola(String txt){
+           this.consl.setText(txt);
     }
     
     private void Execute() {
@@ -321,24 +348,41 @@ public class AppForm extends javax.swing.JFrame {
         }
         consl.setText("");
         //obteniendo texto   
-        System.out.println("ANALIZANDO......");
+        //System.out.println("ANALIZANDO......");
+        consl.setText("INICIANDO ANALISIS");
+        consl.setText(consl.getText()+"\nREALIZANDO ANALISIS LEXICO Y SINTACTICO");
         Pane t = (Pane) p_editor.getSelectedComponent();
-        consl.setText("");
         //obteniendo texto   
       //  System.out.println("ANALIZANDO......");
         AnalizadorLenguaje.getInstancia();
         AnalizadorLenguaje.LimpiarInstancia();
-        if (AnalizadorLenguaje.AnalizarCodigo(t.getText(), p_editor.getTitleAt(p_editor
-                .getSelectedIndex()))) {
-           System.out.println("Código sin errores sintácticos-léxicos");
+        file=AnalizadorLenguaje.AnalizarCodigo(t.getText(), p_editor.getTitleAt(p_editor
+                .getSelectedIndex()));
+        if (file!=null) {
+            consl.setText(consl.getText()+"\n"+"No se encontraron errores");
+           //System.out.println("Código sin errores sintácticos-léxicos");
            // escribirInformacionExitoEnConsola("Finalizado con éxito");
         } else {
-            System.out.println("Código con errores sintácticos-léxicos");
+            consl.setText(consl.getText()+"\n"+"Existen errores");
+            consl.setText(consl.getText()+"\n"+"NO SE PUDO COMPLETAR EL ANALISIS");
             //escribirErrorEnConsola("Finalizado con errores");
             /*AnalizadorLenguaje.errores.stream().forEach((er) -> {
                 escribirErrorEnConsola(er.toString());
             });*/
         }
+        
+    }
+    
+    
+    
+    public static void escribir(String txt){
+        String aux=consl.getText();
+        aux=aux+"\n"+txt;
+        consl.setText(aux);
+    }
+    public void setFCA(FCA analisis){
+        file = analisis;
+        file.Print();
     }
 
     /**
@@ -377,7 +421,7 @@ public class AppForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextArea consl;
+    private static javax.swing.JTextArea consl;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu2;
@@ -399,5 +443,6 @@ public class AppForm extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane p_editor;
+    private javax.swing.JScrollPane panel_con;
     // End of variables declaration//GEN-END:variables
 }

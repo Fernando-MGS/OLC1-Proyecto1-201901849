@@ -10,7 +10,7 @@ import java_cup.runtime.Symbol;
 
 // See https://github.com/jflex-de/jflex/issues/222
 @SuppressWarnings("FallThrough")
-public class Lexico implements java_cup.runtime.Scanner {
+public class LexicoJS implements java_cup.runtime.Scanner {
 
   /** This character denotes the end of file. */
   public static final int YYEOF = -1;
@@ -376,7 +376,7 @@ public class Lexico implements java_cup.runtime.Scanner {
    *
    * @param   in  the java.io.Reader to read input from.
    */
-  public Lexico(java.io.Reader in) {
+  public LexicoJS(java.io.Reader in) {
       yyline = 1; 
     yycolumn = 1; 
     this.zzReader = in;

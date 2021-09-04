@@ -20,7 +20,7 @@ public class GeneradorCompilador {
             String opcFlex[] = {ruta + "LexJS", "-d", ruta};
             jflex.Main.generate(opcFlex);
            
-            String opcCUP[] = {"-destdir", ruta, "-parser", "Sintactico", ruta + "SynJS"};
+            String opcCUP[] = {"-destdir", ruta, "-parser", "SintacticoJS", ruta + "SynJS"};
             java_cup.Main.main(opcCUP);
         } catch (Exception e) {
        }

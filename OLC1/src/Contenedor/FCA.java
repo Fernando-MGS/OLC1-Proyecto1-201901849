@@ -6,7 +6,7 @@
 package Contenedor;
 
 import java.util.ArrayList;
-import Interfaz.AppForm;
+import Interfaz.Text;
 /**
  *
  * @author ferna
@@ -52,6 +52,27 @@ public class FCA {
         this.bar.print();
         this.linea.print();
         this.pie.print();
+    }
+    
+    public String Dev_info(){
+        String aux;
+        aux="La ruta es "+this.ruta1+"\n";
+        aux+="GLOBALES\n";
+        for(int i=0; i<GLB.size();i++){
+            this.GLB.get(i).print();
+            aux+=this.GLB.get(i).return_var();
+            aux+=("_________"+"\n");
+        }
+        if (this.bar!=null){
+            aux+=this.bar.return_bar();
+        }
+        if(this.linea!=null){
+            aux+=this.linea.return_line();
+        }
+        if(this.pie!=null){
+            aux+=this.pie.return_pie();
+        }
+        return aux;
     }
 
     /**

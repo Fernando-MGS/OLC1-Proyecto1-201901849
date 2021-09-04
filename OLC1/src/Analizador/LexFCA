@@ -1,6 +1,6 @@
 package Analizador;
 import java_cup.runtime.Symbol;
-
+import Interfaz.AppForm;
 %% 
 %class Lexico
 %public 

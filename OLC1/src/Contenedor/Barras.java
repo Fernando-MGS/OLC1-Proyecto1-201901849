@@ -33,8 +33,6 @@ public class Barras {
         String aux;
         aux="BARRAS"+"\n";
         aux+="Titulo= "+this.title+"\n";
-        aux+="EJE X= "+this.ejex+"\n";
-        aux+="VALUE= "+this.value+"\n";
         aux+="Title X= "+this.titlex+"\n";
         aux+="Title Y= "+this.titley+"\n";
         return aux;
