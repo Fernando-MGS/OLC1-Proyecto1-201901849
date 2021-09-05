@@ -33,6 +33,7 @@ import Tokens.*;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import Reportes.Reporte;
+
 /**
  *
  * @author ferna
@@ -44,9 +45,10 @@ public class AppForm extends javax.swing.JFrame {
      */
     public static FCA file;
     public static String file_actual;
+    public static String file_report;
     public static List_Token tokens;
-    public ArrayList<ContentFile> project1= new ArrayList<ContentFile>();
-    public ArrayList<ContentFile> project2=new ArrayList<ContentFile>();
+    public ArrayList<ContentFile> project1 = new ArrayList<ContentFile>();
+    public ArrayList<ContentFile> project2 = new ArrayList<ContentFile>();
     private JTabbedPane tpnTabs;
     private int tab = 0;
     private final JFileChooser chooser;
@@ -234,6 +236,11 @@ public class AppForm extends javax.swing.JFrame {
         jMenu6.add(jMenuItem9);
 
         jMenuItem10.setText("Reporte de Tokens");
+        jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem10ActionPerformed(evt);
+            }
+        });
         jMenu6.add(jMenuItem10);
 
         jMenuItem11.setText("Reporte JSON");
@@ -282,7 +289,7 @@ public class AppForm extends javax.swing.JFrame {
         if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
             File archivo = chooser.getSelectedFile();
             txt = OpenFile(archivo);
-            file_actual=archivo.getName();
+            file_actual = archivo.getName();
             nuevaPestaña(txt, archivo.getName(), archivo.getAbsolutePath());
         }
 
@@ -313,6 +320,11 @@ public class AppForm extends javax.swing.JFrame {
         Text t = new Text();
         t.Mod_consola(this.consl);
     }//GEN-LAST:event_jMenuItem7ActionPerformed
+
+    private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
+        Reporte report = new Reporte();
+        report.ReporteToken(tokens);
+    }//GEN-LAST:event_jMenuItem10ActionPerformed
 
     public static String OpenFile(File file) {
         String aux, texto = "";
@@ -354,11 +366,15 @@ public class AppForm extends javax.swing.JFrame {
 
     private void Execute() {
         Pane mytab = ((Pane) p_editor.getSelectedComponent());
-        tokens= new List_Token();
+        tokens = new List_Token();
         if (mytab.isEmptyText()) {
             JOptionPane.showMessageDialog(this, "Ingrese un archivo para analizar");
             return;
         }
+        file_actual=p_editor.getTitleAt(p_editor
+                .getSelectedIndex());
+        file_report = p_editor.getTitleAt(p_editor
+                .getSelectedIndex());
         consl.setText("");
         //obteniendo texto   
         //System.out.println("ANALIZANDO......");
@@ -379,8 +395,6 @@ public class AppForm extends javax.swing.JFrame {
             executeJS(ruta);
             analysisJS();
             tokens.Console();
-            Reporte report = new Reporte();
-            report.ReporteToken(tokens);
             //listFilesForFolder(folder);
             //System.out.println("Código sin errores sintácticos-léxicos");
             // escribirInformacionExitoEnConsola("Finalizado con éxito");
@@ -394,13 +408,14 @@ public class AppForm extends javax.swing.JFrame {
         }
 
     }
-    public void analysisJS(){
-        file_actual=project1.get(1).name;
+
+    public void analysisJS() {
+        file_actual = project1.get(1).name;
         AnalizadorLenguajeJS.getInstancia();
         AnalizadorLenguajeJS.LimpiarInstancia();
-        ContentFile txt=project1.get(1);
+        ContentFile txt = project1.get(1);
         AnalizadorLenguajeJS.AnalizarCodigo(txt.contenido, "");
-       
+
     }
 
     public void listFilesForFolder(final File folder) {
@@ -420,8 +435,8 @@ public class AppForm extends javax.swing.JFrame {
         File[] File_list2 = folder2.listFiles();
         for (File file : File_list) {
             if (!file.isDirectory()) {
-                String ruta=paths[0]+"\\"+file.getName();
-                project1.add(new  ContentFile(file.getName(),muestraContenido(ruta)));
+                String ruta = paths[0] + "\\" + file.getName();
+                project1.add(new ContentFile(file.getName(), muestraContenido(ruta)));
                 //System.out.println(paths[0]+"\\"+file.getName());
                 //addFiles(paths[0] + "\\" + file.getName());
             }
@@ -429,31 +444,28 @@ public class AppForm extends javax.swing.JFrame {
         System.out.println("_____________________");
         for (File file : File_list2) {
             if (file.isFile()) {
-                String ruta=paths[1]+"\\"+file.getName();
-                project2.add(new  ContentFile(file.getName(),muestraContenido(ruta)));
+                String ruta = paths[1] + "\\" + file.getName();
+                project2.add(new ContentFile(file.getName(), muestraContenido(ruta)));
                 //System.out.println(paths[1] + "\\" + file.getName());
             }
         }
         //System.out.println(project1.size());
     }
 
-    
-    
-    
     public String muestraContenido(String archivo) {
-        String texto="";
+        String texto = "";
         try {
             BufferedReader bf = new BufferedReader(new FileReader(archivo));
-            String temp="";
-            String bfRead="";
-            while((bfRead=bf.readLine())!=null){
-                temp=temp+"\n"+bfRead;
+            String temp = "";
+            String bfRead = "";
+            while ((bfRead = bf.readLine()) != null) {
+                temp = temp + "\n" + bfRead;
             }
-            texto=temp;
+            texto = temp;
             consl.setText(texto);
         } catch (Exception e) {
         }
-        return(texto);
+        return (texto);
     }
 
     public static void escribir(String txt) {
