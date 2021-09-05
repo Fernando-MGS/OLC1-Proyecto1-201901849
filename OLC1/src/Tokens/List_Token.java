@@ -22,7 +22,7 @@ public class List_Token extends ArrayList<Token>{
     
     public void Console(){
         this.forEach((t)->{
-            
+            t.print();
     });
     }
 }

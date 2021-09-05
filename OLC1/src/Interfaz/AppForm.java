@@ -26,11 +26,13 @@ import javax.swing.JTextArea;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import org.fife.ui.rtextarea.RTextScrollPane;
 import Analizador.AnalizadorLenguaje;
+import AnalizadorJS.AnalizadorLenguajeJS;
 import ContenedorJS.ContentFile;
 import Contenedor.FCA;
+import Tokens.*;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-
+import Reportes.Reporte;
 /**
  *
  * @author ferna
@@ -41,7 +43,8 @@ public class AppForm extends javax.swing.JFrame {
      * Creates new form AppForm
      */
     public static FCA file;
-    public static 
+    public static String file_actual;
+    public static List_Token tokens;
     public ArrayList<ContentFile> project1= new ArrayList<ContentFile>();
     public ArrayList<ContentFile> project2=new ArrayList<ContentFile>();
     private JTabbedPane tpnTabs;
@@ -279,6 +282,7 @@ public class AppForm extends javax.swing.JFrame {
         if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
             File archivo = chooser.getSelectedFile();
             txt = OpenFile(archivo);
+            file_actual=archivo.getName();
             nuevaPestaña(txt, archivo.getName(), archivo.getAbsolutePath());
         }
 
@@ -350,6 +354,7 @@ public class AppForm extends javax.swing.JFrame {
 
     private void Execute() {
         Pane mytab = ((Pane) p_editor.getSelectedComponent());
+        tokens= new List_Token();
         if (mytab.isEmptyText()) {
             JOptionPane.showMessageDialog(this, "Ingrese un archivo para analizar");
             return;
@@ -371,9 +376,11 @@ public class AppForm extends javax.swing.JFrame {
             String[] ruta = file.getRuta1().split("-");
             ruta[0] = ruta[0].replace("\"", "");
             ruta[1] = ruta[1].replace("\"", "");
-
             executeJS(ruta);
-
+            analysisJS();
+            tokens.Console();
+            Reporte report = new Reporte();
+            report.ReporteToken(tokens);
             //listFilesForFolder(folder);
             //System.out.println("Código sin errores sintácticos-léxicos");
             // escribirInformacionExitoEnConsola("Finalizado con éxito");
@@ -386,6 +393,14 @@ public class AppForm extends javax.swing.JFrame {
             });*/
         }
 
+    }
+    public void analysisJS(){
+        file_actual=project1.get(1).name;
+        AnalizadorLenguajeJS.getInstancia();
+        AnalizadorLenguajeJS.LimpiarInstancia();
+        ContentFile txt=project1.get(1);
+        AnalizadorLenguajeJS.AnalizarCodigo(txt.contenido, "");
+       
     }
 
     public void listFilesForFolder(final File folder) {
@@ -422,6 +437,8 @@ public class AppForm extends javax.swing.JFrame {
         //System.out.println(project1.size());
     }
 
+    
+    
     
     public String muestraContenido(String archivo) {
         String texto="";

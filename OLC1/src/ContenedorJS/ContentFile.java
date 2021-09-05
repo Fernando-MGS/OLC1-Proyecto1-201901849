@@ -10,8 +10,8 @@ package ContenedorJS;
  * @author ferna
  */
 public class ContentFile {
-    String name;
-    String contenido;
+    public String name;
+    public String contenido;
     
     public ContentFile(String name, String contenido){
         this.contenido=contenido;

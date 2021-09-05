@@ -1,9 +1,4 @@
 
-/*
- * Organización de Lenguajes y Compiladores 1 A
- * Aux. Emely García
- */
-
 package AnalizadorJS;
 import Contenedor.GLOBALES;
 import Contenedor.FCA;
@@ -35,7 +30,7 @@ parser code
         " no reconocido."); 
     }  
 :} 
-terminal mas, div, por, mayor,menor,mod,com,comm;
+terminal mas, div, por, mayor,menor,mod;
 terminal igual, llave_i, llave_d;
 terminal coma,par_i, par_d, ptcoma, pfor,req;
 terminal ptrue,pfalse,pdef;
@@ -85,7 +80,6 @@ non terminal CASE_S;
 non terminal DEFAULT;
 non terminal FOR;
 non terminal D;
-non terminal CM;
 
 precedence left entero,digitos,cadena,ptrue,pfalse,ptcoma;
 precedence left igual,menos,por,div,mod;
@@ -93,9 +87,9 @@ precedence left par_i,par_d,brk,pdef,cons,pconst,var,let,cons,name,mas;
 precedence left pfor,pif,pelse,pdo,pwhile,pswitch,pcase;
 start with INICIO;
 
-INICIO::=CM;
+INICIO::=CLASS;
 
-CLASS::=pclass name llave_i CLASS_I  llave_d ;
+CLASS::=pclass:s name llave_i CLASS_I  llave_d:d {:int a=dleft-sleft+1;System.out.println("El size es de "+a);:};
 
 D::= DECLA
     |D DECLA;
@@ -128,7 +122,7 @@ EXPRESION_R::=  SET OPR SET
     |SET OPR_DF T_BOOL
 ;
 
-SET::= name:n {:System.out.println(n);:}
+SET::= name:n 
     |digitos
     |entero
     |cadena
@@ -183,9 +177,9 @@ CONS::= par_i SET par_d;
 
 
 
-DECLA::=D_TIPO SET END_L {:System.out.println("1");:}
-    |D_TIPO END_L {:System.out.println("2");:}
-    |D_TIPO req par_i SET par_d END_L {:System.out.println("3");:}
+DECLA::=D_TIPO SET END_L 
+    |D_TIPO END_L 
+    |D_TIPO req par_i SET par_d END_L 
     |name mas mas END_L
     |name menos menos END_L
 ;
@@ -195,14 +189,14 @@ V_TIPO::=var
     |pconst
 ;
 
-D_TIPO::=   V_TIPO name I_TIPO {:System.out.println("V");:}
-    |name I_TIPO {:System.out.println("F");:};
-
+D_TIPO::=   V_TIPO name I_TIPO 
+    |name I_TIPO 
+;
 I_TIPO::=igual
     |por igual;
 
-END_L::=ptcoma {:System.out.println(";");:}
-    |           {:System.out.println("-");:}
+END_L::=ptcoma 
+    |          
 ;
 
 FUNC::= name par_i PARAMS par_d llave_i INSTRUCCION llave_d;
@@ -225,15 +219,15 @@ INCREMENT::=name mas mas END_L
 INSTRUCCION::= INS
     |INSTRUCCION INS;
 
-INS::=D{:System.out.print("DECLA");:}
-    |brk END_L {:System.out.println("BRK");:}
-    |CONSOLE    {:System.out.println("CONSOLE");:}
-    |LLAMADA    {:System.out.println("LLAMA");:}
-    |IF {:System.out.println("IF");:}
-    |WHILE  {:System.out.println("WHILE");:}
-    |DO     {:System.out.println("DO");:}
-    |SWITCH     {:System.out.println("SWITCH");:}
-    |FOR    {:System.out.println("FOR");:}
+INS::=D
+    |brk END_L 
+    |CONSOLE   
+    |LLAMADA   
+    |IF 
+    |WHILE 
+    |DO    
+    |SWITCH
+    |FOR   
 ;
 
 LLAMADA::=name par_i PARAM_L par_d END_L;
@@ -256,9 +250,3 @@ CASE::=pcase SET d_punto INSTRUCCION;
 DEFAULT::= pdef d_punto INSTRUCCION;
 
 FOR::=pfor par_i DECLA  EXPRESION_R ptcoma INCREMENT par_d llave_i INSTRUCCION llave_d;
-
-CM::=com
-    |comm
-    |CM com
-    |CM comm
-;

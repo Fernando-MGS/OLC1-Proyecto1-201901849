@@ -14,15 +14,15 @@ import Contenedor.FCA;
  *
  * @author Emely
  */
-public class AnalizadorLenguaje {
+public class AnalizadorLenguajeJS {
 
-    private static AnalizadorLenguaje analizador;
+    private static AnalizadorLenguajeJS analizadorJS;
     public static FCA contenido;
 
     public static boolean AnalizarCodigo(String entrada, String ubicacion) {
         try {
-            Sintactico sin = new Sintactico(
-                    new Lexico(new BufferedReader(new StringReader(entrada))));
+            SintacticoJS sin = new SintacticoJS(
+                    new LexicoJS(new BufferedReader(new StringReader(entrada))));
             //analizando
             sin.parse();
         } catch (Exception ex) {
@@ -36,8 +36,8 @@ public class AnalizadorLenguaje {
             StringBuilder graph = new StringBuilder();
             graph.append("digraph G { \n");
         try {
-            Sintactico sin = new Sintactico(
-                    new Lexico(new BufferedReader(new StringReader(entrada))));
+            SintacticoJS sin = new SintacticoJS(
+                    new LexicoJS(new BufferedReader(new StringReader(entrada))));
             //analizando
             sin.parse();
             
@@ -48,15 +48,15 @@ public class AnalizadorLenguaje {
         return graph.toString();
     }
 
-    public static AnalizadorLenguaje getInstancia() {
-        if (analizador == null) {
-            analizador = new AnalizadorLenguaje();
+    public static AnalizadorLenguajeJS getInstancia() {
+        if (analizadorJS == null) {
+            analizadorJS = new AnalizadorLenguajeJS();
         }
-        return analizador;
+        return analizadorJS;
     }
 
     public static void LimpiarInstancia() {
-        if (analizador != null) {
+        if (analizadorJS != null) {
             System.out.println("Errores clear");
         } else {
             System.out.println("No existe un analizador");

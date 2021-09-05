@@ -1,6 +1,7 @@
 package Analizador;
 import java_cup.runtime.Symbol;
 import Interfaz.AppForm;
+import Tokens.*;
 %% 
 %class Lexico
 %public 
@@ -49,30 +50,50 @@ CADENA = [\"]((\\\")|[^\r\n\"])*[\"]
 "{" {return new Symbol(sym.llave_i,yyline,yycolumn,yytext());}
 "}" {return new Symbol(sym.llave_d,yyline,yycolumn,yytext());}
 
-"DEFINIRGLOBALES" {return new Symbol(sym.pdefinir,yyline,yycolumn,yytext());}
-"GENERARREPORTEESTADISTICO" {return new Symbol(sym.preporte,yyline,yycolumn,yytext());}
-"GRAFICABARRAS" {return new Symbol(sym.pgrafb,yyline,yycolumn,yytext());}
-"GRAFICAPIE" {return new Symbol(sym.pgrafp,yyline,yycolumn,yytext());}
-"GRAFICALINEAS" {return new Symbol(sym.pgrafl,yyline,yycolumn,yytext());}
-"COMPARE" {return new Symbol(sym.pcomp,yyline,yycolumn,yytext());}
-"STRING" {return new Symbol(sym.tipo_s,yyline,yycolumn,yytext());}
-"DOUBLE" {return new Symbol(sym.tipo_d,yyline,yycolumn,yytext());}
-"TITULO" {return new Symbol(sym.title,yyline,yycolumn,yytext());}
-"EJEX" {return new Symbol(sym.pejex,yyline,yycolumn,yytext());}
-"VALORES" {return new Symbol(sym.pvalue,yyline,yycolumn,yytext());}
-"ARCHIVO" {return new Symbol(sym.pfile,yyline,yycolumn,yytext());}
-"TITULOX" {return new Symbol(sym.title_x,yyline,yycolumn,yytext());}
-"TITULOY" {return new Symbol(sym.title_y,yyline,yycolumn,yytext());}
-"PUNTAJEESPECIFICO" {return new Symbol(sym.esp_pt,yyline,yycolumn,yytext());}
-"PUNTAJEGENERAL" {return new Symbol(sym.gen_pt,yyline,yycolumn,yytext());}
+"DEFINIRGLOBALES" {AppForm.tokens.add(new Token(yytext(),"tok_DefGlobales",yyline,yycolumn,AppForm.file_actual));
+                   return new Symbol(sym.pdefinir,yyline,yycolumn,yytext());}
+"GENERARREPORTEESTADISTICO" {AppForm.tokens.add(new Token(yytext(),"tok_genReport",yyline,yycolumn,AppForm.file_actual));
+            return new Symbol(sym.preporte,yyline,yycolumn,yytext());}
+"GRAFICABARRAS" {AppForm.tokens.add(new Token(yytext(),"tok_grafBar",yyline,yycolumn,AppForm.file_actual));
+            return new Symbol(sym.pgrafb,yyline,yycolumn,yytext());}
+"GRAFICAPIE" {AppForm.tokens.add(new Token(yytext(),"tok_grafPie",yyline,yycolumn,AppForm.file_actual));
+            return new Symbol(sym.pgrafp,yyline,yycolumn,yytext());}
+"GRAFICALINEAS" {AppForm.tokens.add(new Token(yytext(),"tok_grafLine",yyline,yycolumn,AppForm.file_actual));
+        return new Symbol(sym.pgrafl,yyline,yycolumn,yytext());}
+"COMPARE" {AppForm.tokens.add(new Token(yytext(),"tok_compare",yyline,yycolumn,AppForm.file_actual));
+            return new Symbol(sym.pcomp,yyline,yycolumn,yytext());}
+"STRING" {AppForm.tokens.add(new Token(yytext(),"id_string",yyline,yycolumn,AppForm.file_actual));
+            return new Symbol(sym.tipo_s,yyline,yycolumn,yytext());}
+"DOUBLE" {AppForm.tokens.add(new Token(yytext(),"id_double",yyline,yycolumn,AppForm.file_actual));
+            return new Symbol(sym.tipo_d,yyline,yycolumn,yytext());}
+"TITULO" {AppForm.tokens.add(new Token(yytext(),"tok_double",yyline,yycolumn,AppForm.file_actual));
+            return new Symbol(sym.title,yyline,yycolumn,yytext());}
+"EJEX" {AppForm.tokens.add(new Token(yytext(),"Tok_Ejex",yyline,yycolumn,AppForm.file_actual));
+        return new Symbol(sym.pejex,yyline,yycolumn,yytext());}
+"VALORES" {AppForm.tokens.add(new Token(yytext(),"Tok_Value",yyline,yycolumn,AppForm.file_actual));
+            return new Symbol(sym.pvalue,yyline,yycolumn,yytext());}
+"ARCHIVO" {AppForm.tokens.add(new Token(yytext(),"CommOneline",yyline,yycolumn,AppForm.file_actual));
+        return new Symbol(sym.pfile,yyline,yycolumn,yytext());}
+"TITULOX" {AppForm.tokens.add(new Token(yytext(),"title_x",yyline,yycolumn,AppForm.file_actual));
+        return new Symbol(sym.title_x,yyline,yycolumn,yytext());}
+"TITULOY" {AppForm.tokens.add(new Token(yytext(),"title_y",yyline,yycolumn,AppForm.file_actual));
+           return new Symbol(sym.title_y,yyline,yycolumn,yytext());}
+"PUNTAJEESPECIFICO" {AppForm.tokens.add(new Token(yytext(),"Pte_Espec",yyline,yycolumn,AppForm.file_actual));
+                    return new Symbol(sym.esp_pt,yyline,yycolumn,yytext());}
+"PUNTAJEGENERAL" {AppForm.tokens.add(new Token(yytext(),"PTE_GEN",yyline,yycolumn,AppForm.file_actual));
+                    return new Symbol(sym.gen_pt,yyline,yycolumn,yytext());}
 
 {BLANCOS} {} 
-{COM} {}  
-{COMM} {}  
-{NOMBRE} {return new Symbol(sym.name,yyline,yycolumn,yytext());}  
-{ENTERO} {return new Symbol(sym.entero,yyline,yycolumn,yytext());}  
-{DD} {return new Symbol(sym.digitos,yyline,yycolumn,yytext());}  
-{CADENA} {return new Symbol(sym.cadena,yyline,yycolumn,yytext());} 
+{COM} {AppForm.tokens.add(new Token(yytext(),"CommOneline",yyline,yycolumn,AppForm.file_actual));}  
+{COMM} {AppForm.tokens.add(new Token(yytext(),"CommMultiline",yyline,yycolumn,AppForm.file_actual));}
+{NOMBRE} {AppForm.tokens.add(new Token(yytext(),"Identificador",yyline,yycolumn,AppForm.file_actual));
+            return new Symbol(sym.name,yyline,yycolumn,yytext());}  
+{ENTERO} {AppForm.tokens.add(new Token(yytext(),"Tipo_entero",yyline,yycolumn,AppForm.file_actual));
+            return new Symbol(sym.entero,yyline,yycolumn,yytext());}  
+{DD} {AppForm.tokens.add(new Token(yytext(),"Tipo_Digito",yyline,yycolumn,AppForm.file_actual));
+        return new Symbol(sym.digitos,yyline,yycolumn,yytext());}  
+{CADENA} {AppForm.tokens.add(new Token(yytext(),"Tipo_cadena",yyline,yycolumn,AppForm.file_actual));
+            return new Symbol(sym.cadena,yyline,yycolumn,yytext());} 
 
 . {
     System.out.println("Este es un error lexico: "+yytext()+
