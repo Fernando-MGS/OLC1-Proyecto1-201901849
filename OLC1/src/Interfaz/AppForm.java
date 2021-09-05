@@ -26,7 +26,11 @@ import javax.swing.JTextArea;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import org.fife.ui.rtextarea.RTextScrollPane;
 import Analizador.AnalizadorLenguaje;
+import ContenedorJS.ContentFile;
 import Contenedor.FCA;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+
 /**
  *
  * @author ferna
@@ -37,9 +41,13 @@ public class AppForm extends javax.swing.JFrame {
      * Creates new form AppForm
      */
     public static FCA file;
+    public static 
+    public ArrayList<ContentFile> project1= new ArrayList<ContentFile>();
+    public ArrayList<ContentFile> project2=new ArrayList<ContentFile>();
     private JTabbedPane tpnTabs;
     private int tab = 0;
     private final JFileChooser chooser;
+
     public AppForm() {
         initComponents();
         this.chooser = new JFileChooser();
@@ -273,6 +281,7 @@ public class AppForm extends javax.swing.JFrame {
             txt = OpenFile(archivo);
             nuevaPestaña(txt, archivo.getName(), archivo.getAbsolutePath());
         }
+
         // TODO add your handling code here:
         /*try {
             Component selected = p_editor.getSelectedComponent();
@@ -301,7 +310,6 @@ public class AppForm extends javax.swing.JFrame {
         t.Mod_consola(this.consl);
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
-    
     public static String OpenFile(File file) {
         String aux, texto = "";
         if (file != null) {
@@ -329,17 +337,17 @@ public class AppForm extends javax.swing.JFrame {
     private void nuevaPestaña(String texto, String titulo, String path) {
         p_editor.add(new Pane(texto, path), titulo);
     }
-    
-    public void infoConsola(String txt){
-           String aux= consl.getText()+"\n";
-           aux=aux+txt;
-           this.consl.setText(aux);
+
+    public void infoConsola(String txt) {
+        String aux = consl.getText() + "\n";
+        aux = aux + txt;
+        this.consl.setText(aux);
     }
-    
-    public void newConsola(String txt){
-           this.consl.setText(txt);
+
+    public void newConsola(String txt) {
+        this.consl.setText(txt);
     }
-    
+
     private void Execute() {
         Pane mytab = ((Pane) p_editor.getSelectedComponent());
         if (mytab.isEmptyText()) {
@@ -350,37 +358,94 @@ public class AppForm extends javax.swing.JFrame {
         //obteniendo texto   
         //System.out.println("ANALIZANDO......");
         consl.setText("INICIANDO ANALISIS");
-        consl.setText(consl.getText()+"\nREALIZANDO ANALISIS LEXICO Y SINTACTICO");
+        consl.setText(consl.getText() + "\nREALIZANDO ANALISIS LEXICO Y SINTACTICO");
         Pane t = (Pane) p_editor.getSelectedComponent();
         //obteniendo texto   
-      //  System.out.println("ANALIZANDO......");
+        //  System.out.println("ANALIZANDO......");
         AnalizadorLenguaje.getInstancia();
         AnalizadorLenguaje.LimpiarInstancia();
-        file=AnalizadorLenguaje.AnalizarCodigo(t.getText(), p_editor.getTitleAt(p_editor
+        file = AnalizadorLenguaje.AnalizarCodigo(t.getText(), p_editor.getTitleAt(p_editor
                 .getSelectedIndex()));
-        if (file!=null) {
-            consl.setText(consl.getText()+"\n"+"No se encontraron errores");
-           //System.out.println("Código sin errores sintácticos-léxicos");
-           // escribirInformacionExitoEnConsola("Finalizado con éxito");
+        if (file != null) {
+            consl.setText(consl.getText() + "\n" + "No se encontraron errores");
+            String[] ruta = file.getRuta1().split("-");
+            ruta[0] = ruta[0].replace("\"", "");
+            ruta[1] = ruta[1].replace("\"", "");
+
+            executeJS(ruta);
+
+            //listFilesForFolder(folder);
+            //System.out.println("Código sin errores sintácticos-léxicos");
+            // escribirInformacionExitoEnConsola("Finalizado con éxito");
         } else {
-            consl.setText(consl.getText()+"\n"+"Existen errores");
-            consl.setText(consl.getText()+"\n"+"NO SE PUDO COMPLETAR EL ANALISIS");
+            consl.setText(consl.getText() + "\n" + "Existen errores");
+            consl.setText(consl.getText() + "\n" + "NO SE PUDO COMPLETAR EL ANALISIS");
             //escribirErrorEnConsola("Finalizado con errores");
             /*AnalizadorLenguaje.errores.stream().forEach((er) -> {
                 escribirErrorEnConsola(er.toString());
             });*/
         }
-        
+
     }
+
+    public void listFilesForFolder(final File folder) {
+        for (final File fileEntry : folder.listFiles()) {
+            if (fileEntry.isDirectory()) {
+                listFilesForFolder(fileEntry);
+            } else {
+                System.out.println(fileEntry.getName());
+            }
+        }
+    }
+
+    public void executeJS(String[] paths) {
+        File folder1 = new File(paths[0]);
+        File[] File_list = folder1.listFiles();
+        File folder2 = new File(paths[1]);
+        File[] File_list2 = folder2.listFiles();
+        for (File file : File_list) {
+            if (!file.isDirectory()) {
+                String ruta=paths[0]+"\\"+file.getName();
+                project1.add(new  ContentFile(file.getName(),muestraContenido(ruta)));
+                //System.out.println(paths[0]+"\\"+file.getName());
+                //addFiles(paths[0] + "\\" + file.getName());
+            }
+        }
+        System.out.println("_____________________");
+        for (File file : File_list2) {
+            if (file.isFile()) {
+                String ruta=paths[1]+"\\"+file.getName();
+                project2.add(new  ContentFile(file.getName(),muestraContenido(ruta)));
+                //System.out.println(paths[1] + "\\" + file.getName());
+            }
+        }
+        //System.out.println(project1.size());
+    }
+
     
-    
-    
-    public static void escribir(String txt){
-        String aux=consl.getText();
-        aux=aux+"\n"+txt;
+    public String muestraContenido(String archivo) {
+        String texto="";
+        try {
+            BufferedReader bf = new BufferedReader(new FileReader(archivo));
+            String temp="";
+            String bfRead="";
+            while((bfRead=bf.readLine())!=null){
+                temp=temp+"\n"+bfRead;
+            }
+            texto=temp;
+            consl.setText(texto);
+        } catch (Exception e) {
+        }
+        return(texto);
+    }
+
+    public static void escribir(String txt) {
+        String aux = consl.getText();
+        aux = aux + "\n" + txt;
         consl.setText(aux);
     }
-    public void setFCA(FCA analisis){
+
+    public void setFCA(FCA analisis) {
         file = analisis;
         file.Print();
     }
