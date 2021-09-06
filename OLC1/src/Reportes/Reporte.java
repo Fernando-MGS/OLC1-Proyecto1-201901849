@@ -11,6 +11,7 @@ package Reportes;
  */
 import Interfaz.AppForm;
 import Tokens.*;
+import Errores.*;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.PrintWriter;
@@ -64,7 +65,7 @@ public class Reporte {
 
     }
     
-    public void ReporteError(List_Token lista) {
+    public void ReporteError(List_Error lista) {
         try {
 
             filewriter = new FileWriter("ReporteErrores-"+AppForm.file_report+".html");//declarar el archivo
@@ -82,20 +83,20 @@ public class Reporte {
             printw.println("<thead>\n"
                     + "    <tr>\n"
                     + "      <th scope=\"col\">Lexema</th>\n"
-                    + "      <th scope=\"col\">Token</th>\n"
+                    + "      <th scope=\"col\">Tipo</th>\n"
                     + "      <th scope=\"col\">Linea</th>\n"
                     + "      <th scope=\"col\">Columna</th>\n"
                     + "      <th scope=\"col\">Archivo</th>\n"
                     + "    </tr>\n"
                     + "  </thead>");
             printw.println("<tbody>");
-            for (Token tokens : lista) {
+            for (Error_G error : lista) {
                 printw.println("<tr>");
-                printw.println("<td>"+tokens.Lexema+"</td>");
-                printw.println("<td>"+tokens.TokenName+"</td>");
-                printw.println("<td>"+tokens.line+"</td>");
-                printw.println("<td>"+tokens.col+"</td>");
-                printw.println("<td>"+tokens.file+"</td>");
+                printw.println("<td>"+error.Lexema+"</td>");
+                printw.println("<td>"+error.Tipo+"</td>");
+                printw.println("<td>"+error.line+"</td>");
+                printw.println("<td>"+error.col+"</td>");
+                printw.println("<td>"+error.file+"</td>");
                 printw.println("</tr>");
             }
             printw.println("</body>");
@@ -105,6 +106,5 @@ public class Reporte {
         } catch (Exception e) {
             AppForm.escribir("Hubo un error al general el Reporte de Tokens");
         }
-
     }
 }

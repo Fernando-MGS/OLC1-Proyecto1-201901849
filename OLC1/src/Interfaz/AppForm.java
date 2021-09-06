@@ -30,6 +30,8 @@ import AnalizadorJS.AnalizadorLenguajeJS;
 import ContenedorJS.ContentFile;
 import Contenedor.FCA;
 import Tokens.*;
+//import Errores.Error.*;
+import Errores.List_Error;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import Reportes.Reporte;
@@ -47,6 +49,7 @@ public class AppForm extends javax.swing.JFrame {
     public static String file_actual;
     public static String file_report;
     public static List_Token tokens;
+    public static List_Error errors;
     public ArrayList<ContentFile> project1 = new ArrayList<ContentFile>();
     public ArrayList<ContentFile> project2 = new ArrayList<ContentFile>();
     private JTabbedPane tpnTabs;
@@ -230,6 +233,11 @@ public class AppForm extends javax.swing.JFrame {
         jMenu6.setText("Reporte");
 
         jMenuItem8.setText("Reporte de Errores");
+        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem8ActionPerformed(evt);
+            }
+        });
         jMenu6.add(jMenuItem8);
 
         jMenuItem9.setText("Reporte Estadístico");
@@ -326,6 +334,13 @@ public class AppForm extends javax.swing.JFrame {
         report.ReporteToken(tokens);
     }//GEN-LAST:event_jMenuItem10ActionPerformed
 
+    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+        // TODO add your handling code here:
+        Reporte report = new Reporte();
+        report.ReporteError(errors);
+        
+    }//GEN-LAST:event_jMenuItem8ActionPerformed
+
     public static String OpenFile(File file) {
         String aux, texto = "";
         if (file != null) {
@@ -367,6 +382,7 @@ public class AppForm extends javax.swing.JFrame {
     private void Execute() {
         Pane mytab = ((Pane) p_editor.getSelectedComponent());
         tokens = new List_Token();
+        errors = new List_Error();
         if (mytab.isEmptyText()) {
             JOptionPane.showMessageDialog(this, "Ingrese un archivo para analizar");
             return;
@@ -400,6 +416,7 @@ public class AppForm extends javax.swing.JFrame {
             // escribirInformacionExitoEnConsola("Finalizado con éxito");
         } else {
             consl.setText(consl.getText() + "\n" + "Existen errores");
+            errors.Console();
             consl.setText(consl.getText() + "\n" + "NO SE PUDO COMPLETAR EL ANALISIS");
             //escribirErrorEnConsola("Finalizado con errores");
             /*AnalizadorLenguaje.errores.stream().forEach((er) -> {

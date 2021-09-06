@@ -6,6 +6,7 @@ package Analizador;
 import java_cup.runtime.Symbol;
 import Interfaz.AppForm;
 import Tokens.*;
+import Errores.Error_G;
 
 // See https://github.com/jflex-de/jflex/issues/222
 @SuppressWarnings("FallThrough")
@@ -873,6 +874,8 @@ public class Lexico implements java_cup.runtime.Scanner {
           case 1:
             { System.out.println("Este es un error lexico: "+yytext()+
     ", en la linea: "+yyline+", en la columna: "+yycolumn);
+    String err="Error lexico: Símbolo no reconocido";
+    AppForm.errors.add(new Error_G(yytext(),err,yyline,yycolumn,AppForm.file_actual));
             }
             // fall through
           case 44: break;

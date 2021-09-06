@@ -2,6 +2,7 @@ package Analizador;
 import java_cup.runtime.Symbol;
 import Interfaz.AppForm;
 import Tokens.*;
+import Errores.Error_G;
 %% 
 %class Lexico
 %public 
@@ -98,4 +99,6 @@ CADENA = [\"]((\\\")|[^\r\n\"])*[\"]
 . {
     System.out.println("Este es un error lexico: "+yytext()+
     ", en la linea: "+yyline+", en la columna: "+yycolumn);
+    String err="Error lexico: Símbolo no reconocido";
+    AppForm.errors.add(new Error_G(yytext(),err,yyline,yycolumn,AppForm.file_actual));
 }

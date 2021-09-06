@@ -13,6 +13,7 @@ import Contenedor.PIE;
 import java_cup.runtime.*;
 import java.util.ArrayList;
 import Interfaz.AppForm;
+import Errores.Error_G;
 import java_cup.runtime.XMLElement;
 
 /** CUP v0.11b 20160615 (GIT 4ac7450) generated parser.
@@ -332,6 +333,8 @@ public class Sintactico extends java_cup.runtime.lr_parser {
         System.out.println("Error Sintáctico en la Línea " + (s.left) +
         " Columna "+s.right+ ". No se esperaba este componente: " +s.value+"."); 
         AppForm.escribir("Error");
+        String err="Error sintactico: no se esperaba el componente:" +s.value+".";
+        AppForm.errors.add(new Error_G(s.value.toString(),err,s.right,s.left,AppForm.file_actual));
     } 
 
     /**
