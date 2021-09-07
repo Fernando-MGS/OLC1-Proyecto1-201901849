@@ -42,6 +42,7 @@ import Errores.List_Error;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import Reportes.Reporte;
+import Comparador.*;
 
 /**
  *
@@ -69,6 +70,11 @@ public class AppForm extends javax.swing.JFrame {
     public static List_Error errors;
     public static List_File Proyecto1;
     public static List_File Proyecto2;
+    public static ArrayList<PT_especifico> Class_Especificos=new ArrayList<PT_especifico>();
+    public static ArrayList<PT_especifico> Comm_Especificos=new ArrayList<PT_especifico>();
+    public static ArrayList<PT_especifico> Var_Especificos=new ArrayList<PT_especifico>();
+    public static ArrayList<PT_especifico> Funcs_Especificos=new ArrayList<PT_especifico>();
+    public static ArrayList<PT_General> General=new ArrayList<PT_General>();
     public ArrayList<ContentFile> project1 = new ArrayList<ContentFile>();
     public ArrayList<ContentFile> project2 = new ArrayList<ContentFile>();
     private JTabbedPane tpnTabs;
