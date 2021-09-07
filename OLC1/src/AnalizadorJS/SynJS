@@ -5,9 +5,12 @@ import Contenedor.FCA;
 import Contenedor.Barras;
 import Contenedor.Line;
 import Contenedor.PIE;
-
+import Interfaz.AppForm;
 import java_cup.runtime.*;
 import java.util.ArrayList;
+import Errores.Error_G;
+import ContenedorJS.*;
+
 parser code  
 {:
     /**
@@ -15,8 +18,10 @@ parser code
      **/ 
     public void syntax_error(Symbol s){ 
         System.out.println("Error Sintáctico en la Línea " + (s.left) +
-        " Columna "+s.right+ ". No se esperaba este componente: " +s.value+"."); 
-        
+        " Columna "+s.right+ ". No se esperaba este componente: " +s.value+"."); AppForm.escribir("Error");
+        String err="Error sintactico: no se esperaba el componente:" +s.value+".";
+        AppForm.escribir(err);
+        AppForm.errors.add(new Error_G(s.value.toString(),err,s.right,s.left,AppForm.file_actual));
         
     } 
 
@@ -28,6 +33,10 @@ parser code
         System.out.println("Error síntactico irrecuperable en la Línea " + 
         (s.left)+ " Columna "+s.right+". Componente " + s.value + 
         " no reconocido."); 
+        
+        String err="Error sintactico: no se esperaba el componente:" +s.value+".";
+        AppForm.escribir(err);
+        AppForm.errors.add(new Error_G(s.value.toString(),err,s.right,s.left,AppForm.file_actual));
     }  
 :} 
 terminal mas, div, por, mayor,menor,mod;
@@ -39,6 +48,8 @@ terminal and,or,not,var,let,pconst,pwhile,pdo,pcase;
 
 terminal String entero,cadena,digitos,name;
 terminal String d_punto,punto,menos;
+
+
 
 non terminal INICIO;
 non terminal IF;    
@@ -53,8 +64,8 @@ non terminal OPR_MM;
 non terminal CONSOLE;
 non terminal CONS;
 non terminal String SET;
-non terminal V_TIPO;
-non terminal D_TIPO;
+non terminal String V_TIPO;
+non terminal String D_TIPO;
 non terminal I_TIPO;
 non terminal END_L;
 non terminal CLASS;
@@ -80,6 +91,7 @@ non terminal CASE_S;
 non terminal DEFAULT;
 non terminal FOR;
 non terminal D;
+non terminal INIT;
 
 precedence left entero,digitos,cadena,ptrue,pfalse,ptcoma;
 precedence left igual,menos,por,div,mod;
@@ -87,9 +99,15 @@ precedence left par_i,par_d,brk,pdef,cons,pconst,var,let,cons,name,mas;
 precedence left pfor,pif,pelse,pdo,pwhile,pswitch,pcase;
 start with INICIO;
 
-INICIO::=CLASS;
+INICIO::=INIT;
 
-CLASS::=pclass:s name llave_i CLASS_I  llave_d:d {:int a=dleft-sleft+1;System.out.println("El size es de "+a);:};
+INIT::=CLASS 
+    |INIT CLASS;
+
+CLASS::=pclass:s name:n llave_i CLASS_I  llave_d:d {:int a=dleft-sleft+1;
+        Clases clas = new Clases(n,AppForm.temp_info,a);
+        AppForm.save_class.add(clas);
+        AppForm.temp_info=new ArrayList<String>();:};
 
 D::= DECLA
     |D DECLA;
@@ -100,7 +118,7 @@ CLASS_I::=DECLA
     |CLASS_I FUNC
 ;
 
-IF::= IF_F LLAVES
+IF::= IF_F LLAVES 
     |ELSE LLAVES
 ;
 
@@ -177,20 +195,24 @@ CONS::= par_i SET par_d;
 
 
 
-DECLA::=D_TIPO SET END_L 
-    |D_TIPO END_L 
+DECLA::=D_TIPO:c SET END_L {:if(c!="123"){
+        Variables var = new Variables(c);
+        AppForm.save_vars.add(var);}:}
+    |D_TIPO:conf END_L {:if(conf!="123"){
+        Variables var = new Variables(conf);
+        AppForm.save_vars.add(var);}:}
     |D_TIPO req par_i SET par_d END_L 
     |name mas mas END_L
     |name menos menos END_L
 ;
 
-V_TIPO::=var
-    |let
-    |pconst
+V_TIPO::=var{:RESULT="var";:}
+    |let {:RESULT="let";:}
+    |pconst  {:RESULT="const";:}
 ;
 
-D_TIPO::=   V_TIPO name I_TIPO 
-    |name I_TIPO 
+D_TIPO::=   V_TIPO name:n I_TIPO {:RESULT=n;:}
+    |name I_TIPO {:RESULT="123";:}
 ;
 I_TIPO::=igual
     |por igual;
@@ -199,13 +221,17 @@ END_L::=ptcoma
     |          
 ;
 
-FUNC::= name par_i PARAMS par_d llave_i INSTRUCCION llave_d;
+FUNC::= name:n par_i PARAMS par_d llave_i INSTRUCCION llave_d:end{:int size=endleft-nleft+1;
+    AppForm.save_funciones.add(new Funciones(n,size,AppForm.contador_lineas));
+    AppForm.contador_lineas=0;
+    AppForm.temp_info.add(n);
+    :};
 
 PARAMS::= PAR1
-    |;
-
-PAR1::=name
-    |PAR1 coma name;
+    |{:AppForm.contador_lineas=0;:}
+;
+PAR1::=name {:AppForm.contador_lineas=1;:}
+    |PAR1 coma name{:AppForm.contador_lineas++;:};
 
 WHILE::=pwhile par_i COND_IF par_d LLAVES;
 

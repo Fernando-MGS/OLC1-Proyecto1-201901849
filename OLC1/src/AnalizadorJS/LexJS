@@ -3,6 +3,8 @@ import java_cup.runtime.Symbol;
 
 import Interfaz.AppForm;
 import Tokens.*;
+import ContenedorJS.Comentarios;
+import Errores.Error_G;
 
 
 %% 
@@ -106,8 +108,10 @@ CADENA = ['\"]((\\\")|[^\r\n\"])*['\"]
             return new Symbol(sym.req,yyline,yycolumn,yytext());}
 
 {BLANCOS} {} 
-{COM} {AppForm.tokens.add(new Token(yytext(),"CommOnelineJS",yyline,yycolumn,AppForm.file_actual));}
-{COMM} {AppForm.tokens.add(new Token(yytext(),"CommMultilineJS",yyline,yycolumn,AppForm.file_actual));}
+{COM} {AppForm.tokens.add(new Token(yytext(),"CommOnelineJS",yyline,yycolumn,AppForm.file_actual));
+        AppForm.save_comm.add(new Comentarios(yytext()));}
+{COMM} {AppForm.tokens.add(new Token(yytext(),"CommMultilineJS",yyline,yycolumn,AppForm.file_actual));
+        AppForm.save_comm.add(new Comentarios(yytext()));}
 {NOMBRE} {AppForm.tokens.add(new Token(yytext(),"identificadorJS",yyline,yycolumn,AppForm.file_actual));
             return new Symbol(sym.name,yyline,yycolumn,yytext());}  
 {ENTERO} {AppForm.tokens.add(new Token(yytext(),"tipo_enteroJS",yyline,yycolumn,AppForm.file_actual));
@@ -121,4 +125,6 @@ CADENA = ['\"]((\\\")|[^\r\n\"])*['\"]
 . {
     System.out.println("Este es un error lexico: "+yytext()+
     ", en la linea: "+yyline+", en la columna: "+yycolumn);
+    String err="Error lexico: Símbolo no reconocido";
+    AppForm.errors.add(new Error_G(yytext(),err,yyline,yycolumn,AppForm.file_actual));
 }

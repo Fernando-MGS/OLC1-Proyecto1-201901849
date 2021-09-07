@@ -26,6 +26,15 @@ public class Clases {
         this.id=id;
         this.lineas=lineas;
     }
+    
+    public void print(){
+        System.out.println("El id es "+this.id);
+        System.out.println("Los metodos son");
+        this.Metodos.forEach((t)->{
+             System.out.println(t);
+    });
+        System.out.println("El numero de lineas es "+this.lineas);
+    }
     /**
      * @return the id
      */

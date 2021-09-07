@@ -27,6 +27,13 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import org.fife.ui.rtextarea.RTextScrollPane;
 import Analizador.AnalizadorLenguaje;
 import AnalizadorJS.AnalizadorLenguajeJS;
+import ContenedorJS.List_File;
+import ContenedorJS.Archivo;
+import ContenedorJS.Clases;
+import ContenedorJS.Comentarios;
+import ContenedorJS.Funciones;
+import ContenedorJS.Variables;
+import ContenedorJS.Archivo;
 import ContenedorJS.ContentFile;
 import Contenedor.FCA;
 import Tokens.*;
@@ -45,11 +52,23 @@ public class AppForm extends javax.swing.JFrame {
     /**
      * Creates new form AppForm
      */
+    private static int turno = 0;
+    public static int contador_lineas = 0;
+    public static int contador_func = 0;
     public static FCA file;
+    public static Archivo save_file=new Archivo();
+    public static ArrayList<Comentarios> save_comm = new ArrayList<Comentarios>();
+    public static ArrayList<Clases> save_class = new ArrayList<Clases>();
+    public static ArrayList<Funciones> save_funciones = new ArrayList<Funciones>();
+    public static ArrayList<Variables> save_vars = new ArrayList<Variables>();
+    public static ArrayList<String> temp_info = new ArrayList<String>();
+    public static String project_actual;
     public static String file_actual;
     public static String file_report;
     public static List_Token tokens;
     public static List_Error errors;
+    public static List_File Proyecto1;
+    public static List_File Proyecto2;
     public ArrayList<ContentFile> project1 = new ArrayList<ContentFile>();
     public ArrayList<ContentFile> project2 = new ArrayList<ContentFile>();
     private JTabbedPane tpnTabs;
@@ -338,7 +357,6 @@ public class AppForm extends javax.swing.JFrame {
         // TODO add your handling code here:
         Reporte report = new Reporte();
         report.ReporteError(errors);
-        
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     public static String OpenFile(File file) {
@@ -383,11 +401,13 @@ public class AppForm extends javax.swing.JFrame {
         Pane mytab = ((Pane) p_editor.getSelectedComponent());
         tokens = new List_Token();
         errors = new List_Error();
+        Proyecto1 = new List_File();
+        Proyecto2 = new List_File();
         if (mytab.isEmptyText()) {
             JOptionPane.showMessageDialog(this, "Ingrese un archivo para analizar");
             return;
         }
-        file_actual=p_editor.getTitleAt(p_editor
+        file_actual = p_editor.getTitleAt(p_editor
                 .getSelectedIndex());
         file_report = p_editor.getTitleAt(p_editor
                 .getSelectedIndex());
@@ -410,7 +430,9 @@ public class AppForm extends javax.swing.JFrame {
             ruta[1] = ruta[1].replace("\"", "");
             executeJS(ruta);
             analysisJS();
-            tokens.Console();
+            print_project();
+            //print_class();
+            //tokens.Console();
             //listFilesForFolder(folder);
             //System.out.println("Código sin errores sintácticos-léxicos");
             // escribirInformacionExitoEnConsola("Finalizado con éxito");
@@ -427,11 +449,27 @@ public class AppForm extends javax.swing.JFrame {
     }
 
     public void analysisJS() {
-        file_actual = project1.get(1).name;
-        AnalizadorLenguajeJS.getInstancia();
-        AnalizadorLenguajeJS.LimpiarInstancia();
-        ContentFile txt = project1.get(1);
-        AnalizadorLenguajeJS.AnalizarCodigo(txt.contenido, "");
+        project1.forEach((t) -> {
+            project_actual="Proyecto 1";
+            file_actual = t.name;
+            System.out.println("Analizando "+t.name);
+            AnalizadorLenguajeJS.getInstancia();
+            AnalizadorLenguajeJS.LimpiarInstancia();
+            //ContentFile txt = project1.get(1);
+            AnalizadorLenguajeJS.AnalizarCodigo(t.contenido, "");
+            save_InfoJS();
+        });
+        turno=1;
+        project2.forEach((t)->{
+            file_actual = t.name;
+            project_actual="Proyecto 2";
+            AnalizadorLenguajeJS.getInstancia();
+            AnalizadorLenguajeJS.LimpiarInstancia();
+            //ContentFile txt = project1.get(1);
+            AnalizadorLenguajeJS.AnalizarCodigo(t.contenido, "");
+            save_InfoJS();
+        });
+        //file_actual = project1.get(1).name;
 
     }
 
@@ -479,7 +517,7 @@ public class AppForm extends javax.swing.JFrame {
                 temp = temp + "\n" + bfRead;
             }
             texto = temp;
-            consl.setText(texto);
+            //consl.setText(texto);
         } catch (Exception e) {
         }
         return (texto);
@@ -494,6 +532,48 @@ public class AppForm extends javax.swing.JFrame {
     public void setFCA(FCA analisis) {
         file = analisis;
         file.Print();
+    }
+
+    public static void save_InfoJS() {
+        save_file=new Archivo();
+        save_file.setClases(save_class);
+        save_file.setComments(save_comm);
+        save_file.setFuncs(save_funciones);
+        save_file.setVars(save_vars);
+        save_file.setName(file_actual);
+        save_file.setProject(project_actual);
+        if (turno == 0) {
+            //save_file(save_class,save_comm,save_funciones,save_vars,file_actual,project_actual);
+            //System.out.println("bandera");
+            Proyecto1.add(save_file);
+            save_class= new ArrayList<Clases>();
+            save_comm=new ArrayList<Comentarios>();
+            save_funciones=new ArrayList<Funciones>();
+            save_vars= new ArrayList<Variables>();
+        } else {
+            Proyecto2.add(save_file);
+            save_class= new ArrayList<Clases>();
+            save_comm=new ArrayList<Comentarios>();
+            save_funciones=new ArrayList<Funciones>();
+            save_vars= new ArrayList<Variables>();
+        }
+    }
+    
+    public void print_project(){
+        Proyecto1.forEach((t)->{
+            t.print_file();
+        });
+        System.out.println("----------------------");
+        Proyecto2.forEach((t)->{
+            t.print_file();
+        });
+        
+    }
+
+    public static void print_class() {
+        save_class.forEach((t) -> {
+            t.print();
+        });
     }
 
     /**

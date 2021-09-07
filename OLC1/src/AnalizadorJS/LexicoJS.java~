@@ -5,6 +5,10 @@
 package AnalizadorJS;
 import java_cup.runtime.Symbol;
 
+import Interfaz.AppForm;
+import Tokens.*;
+import ContenedorJS.Comentarios;
+import Errores.Error_G;
 
 
 
@@ -779,6 +783,8 @@ public class LexicoJS implements java_cup.runtime.Scanner {
           case 1:
             { System.out.println("Este es un error lexico: "+yytext()+
     ", en la linea: "+yyline+", en la columna: "+yycolumn);
+    String err="Error lexico: Símbolo no reconocido";
+    AppForm.errors.add(new Error_G(yytext(),err,yyline,yycolumn,AppForm.file_actual));
             }
             // fall through
           case 46: break;
@@ -921,6 +927,7 @@ public class LexicoJS implements java_cup.runtime.Scanner {
           case 69: break;
           case 25:
             { AppForm.tokens.add(new Token(yytext(),"CommOnelineJS",yyline,yycolumn,AppForm.file_actual));
+        AppForm.save_comm.add(new Comentarios(yytext()));
             }
             // fall through
           case 70: break;
@@ -968,6 +975,7 @@ public class LexicoJS implements java_cup.runtime.Scanner {
           case 77: break;
           case 33:
             { AppForm.tokens.add(new Token(yytext(),"CommMultilineJS",yyline,yycolumn,AppForm.file_actual));
+        AppForm.save_comm.add(new Comentarios(yytext()));
             }
             // fall through
           case 78: break;

@@ -19,8 +19,7 @@ public class Archivo {
     private String name;
     private String project;
 
-    public Archivo(){
-        
+    public Archivo(){        
     }
     
     public Archivo(ArrayList Clases,ArrayList Comments, ArrayList Funcs, ArrayList Vars, String name, String project){
@@ -30,6 +29,28 @@ public class Archivo {
         this.Vars=Vars;
         this.project=project;
         this.name=name;
+    }
+    
+    
+    public void print_file(){
+        System.out.println("El proyecto es "+this.project);
+        System.out.println("El archivo es "+this.name);
+        System.out.println("===============Clases=================");
+        this.Clases.forEach((t)->{
+            t.print();
+        });
+        System.out.println("================Comentarios=============");
+        this.Comments.forEach((t)->{
+            System.out.println(t.getContenido());
+        });
+        System.out.println("============Funciones============");
+        this.Funcs.forEach((t)->{
+            t.print();
+        });
+        System.out.println("============Variables============");
+        this.Vars.forEach((t)->{
+            System.out.println(t.getId());
+        });
     }
     /**
      * @return the Clases

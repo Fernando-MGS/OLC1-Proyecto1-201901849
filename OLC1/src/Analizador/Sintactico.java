@@ -332,8 +332,8 @@ public class Sintactico extends java_cup.runtime.lr_parser {
     public void syntax_error(Symbol s){ 
         System.out.println("Error Sintáctico en la Línea " + (s.left) +
         " Columna "+s.right+ ". No se esperaba este componente: " +s.value+"."); 
-        AppForm.escribir("Error");
         String err="Error sintactico: no se esperaba el componente:" +s.value+".";
+        AppForm.escribir(err);
         AppForm.errors.add(new Error_G(s.value.toString(),err,s.right,s.left,AppForm.file_actual));
     } 
 
@@ -345,7 +345,9 @@ public class Sintactico extends java_cup.runtime.lr_parser {
         System.out.println("Error síntactico irrecuperable en la Línea " + 
         (s.left)+ " Columna "+s.right+". Componente " + s.value + 
         " no reconocido."); 
-        AppForm.escribir("Error");
+        String err="Error sintactico irrecuperable: no se esperaba el componente:" +s.value+".";
+        AppForm.escribir(err);
+        AppForm.errors.add(new Error_G(s.value.toString(),err,s.right,s.left,AppForm.file_actual));
     }  
 
 

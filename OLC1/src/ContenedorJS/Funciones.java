@@ -24,6 +24,12 @@ public class Funciones {
         this.lineas=lineas;
         this.params=params;
     }
+    
+    public void print(){
+        System.out.println("El id es "+this.id);
+        System.out.println("Tiene "+this.lineas+" lineas");
+        System.out.println("Tiene "+this.params+" parametros");
+    }
     /**
      * @return the id
      */
