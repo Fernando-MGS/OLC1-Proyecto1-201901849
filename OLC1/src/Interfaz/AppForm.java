@@ -71,6 +71,7 @@ public class AppForm extends javax.swing.JFrame {
     public static List_Error errors;
     public static List_File Proyecto1;
     public static List_File Proyecto2;
+    public static double PT_general;
     public static ArrayList<PT_especifico> Class_Especificos=new ArrayList<PT_especifico>();
     public static ArrayList<PT_especifico> Comm_Especificos=new ArrayList<PT_especifico>();
     public static ArrayList<PT_especifico> Var_Especificos=new ArrayList<PT_especifico>();

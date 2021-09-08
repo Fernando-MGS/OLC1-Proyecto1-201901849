@@ -18,6 +18,10 @@ public class PT_General {
     public int class_total;
     public int metodos_total;
     public int comments_total;
+    public int var_total1;
+    public int class_total1;
+    public int metodos_total1;
+    public int comments_total1;
     
     public PT_General(){
         

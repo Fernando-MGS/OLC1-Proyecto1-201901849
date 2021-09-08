@@ -28,6 +28,7 @@ public class Repitencias {
         double punteo_funciones = (Comparar_metodos(AppForm.Proyecto1, AppForm.Proyecto2)/suma_Funciones())*0.3;
         double punteo_variables = (Comparar_variables(AppForm.Proyecto1, AppForm.Proyecto2)/suma_Vars())*0.2;
         double punteo_general=punteo_clases+punteo_comentarios+punteo_funciones+punteo_variables;
+        AppForm.PT_general=punteo_general;
         System.out.println(punteo_clases);
         System.out.println(punteo_comentarios);
         System.out.println(punteo_funciones);
@@ -137,7 +138,7 @@ public class Repitencias {
                         b = b.replace("/", "");
                         b = b.replace("*", "");
                         if (a.equals(b)) {
-                            AppForm.Comm_Especificos.add(new PT_especifico(1.0, pr1.get(j).getName(), pr2.get(j).getName(), 4, file1.get(k).getContenido(), file2.get(l).getContenido()));
+                            AppForm.Comm_Especificos.add(new PT_especifico(1.0, pr1.get(j).getName(), a, 4, file1.get(k).getContenido(), file2.get(l).getContenido()));
                             repitencia++;
                         }
                     }
