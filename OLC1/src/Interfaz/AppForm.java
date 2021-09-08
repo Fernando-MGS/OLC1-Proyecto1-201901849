@@ -279,6 +279,11 @@ public class AppForm extends javax.swing.JFrame {
         jMenu6.add(jMenuItem10);
 
         jMenuItem11.setText("Reporte JSON");
+        jMenuItem11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem11ActionPerformed(evt);
+            }
+        });
         jMenu6.add(jMenuItem11);
 
         jMenuBar1.add(jMenu6);
@@ -366,6 +371,12 @@ public class AppForm extends javax.swing.JFrame {
         Reporte report = new Reporte();
         report.ReporteError(errors);
     }//GEN-LAST:event_jMenuItem8ActionPerformed
+
+    private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
+        // TODO add your handling code here:
+        Reporte report = new Reporte();
+        report.ReporteJSON();
+    }//GEN-LAST:event_jMenuItem11ActionPerformed
 
     public static String OpenFile(File file) {
         String aux, texto = "";

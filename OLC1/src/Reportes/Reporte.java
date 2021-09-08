@@ -115,7 +115,7 @@ public class Reporte {
             filewriter = new FileWriter("ReporteJSON-"+AppForm.file_report+".json");//declarar el archivo
             printw = new PrintWriter(filewriter);//declarar un impresor
             printw.println("{");
-            printw.println("\"PuntajeGeneral\":"+ AppForm.PT_general);
+            printw.println("\"PuntajeGeneral\":"+ AppForm.PT_general+",");
             printw.println("\"PuntajesEspecificos\":[");
             for (PT_especifico t : AppForm.Class_Especificos) {
                 printw.println("\t{");
@@ -123,15 +123,16 @@ public class Reporte {
                 printw.println("\t\t\"tipo\":\"clase\",");
                 printw.println("\t\t\"nombre\":\""+t.nombre+"\",");
                 printw.println("\t\t\"punteo\":"+t.Punteo);
-                printw.println("\t\t\"},");
+                printw.println("\t},");
             }
             for (PT_especifico t : AppForm.Comm_Especificos) {
                 printw.println("\t{");
                 printw.println("\t\t\"archivo\":\""+t.file+"\",");
                 printw.println("\t\t\"tipo\":\"comentario\",");
-                printw.println("\t\t\"contenido\":\""+t.nombre2+"\",");
+                String a=t.nombre.replace("\n","");
+                printw.println("\t\t\"contenido\":\""+a+"\",");
                 printw.println("\t\t\"punteo\":"+t.Punteo);
-                printw.println("\t\t\"},");
+                printw.println("\t},");
             }
             for (PT_especifico t : AppForm.Funcs_Especificos) {
                 printw.println("\t{");
@@ -139,19 +140,19 @@ public class Reporte {
                 printw.println("\t\t\"tipo\":\"funcion\",");
                 printw.println("\t\t\"nombre\":\""+t.nombre+"\",");
                 printw.println("\t\t\"punteo\":"+t.Punteo);
-                printw.println("\t\t\"},");
+                printw.println("\t},");
             }
             int i=1;
             for (PT_especifico t : AppForm.Var_Especificos) {
                 printw.println("\t{");
                 printw.println("\t\t\"archivo\":\""+t.file+"\",");
-                printw.println("\t\t\"tipo\":\"funcion\",");
+                printw.println("\t\t\"tipo\":\"variable\",");
                 printw.println("\t\t\"nombre\":\""+t.nombre+"\",");
                 printw.println("\t\t\"punteo\":"+t.Punteo);
                 if(i<AppForm.Var_Especificos.size()){
-                    printw.println("\t\t\"}");                    
+                    printw.println("\t},");                    
                 }else{
-                    printw.println("\t\t\"},");
+                    printw.println("\t}");
                 }
                 i++;
             }

@@ -1,0 +1,65 @@
+{
+"PuntajeGeneral":0.19166666666666665,
+"PuntajesEspecificos":[
+	{
+		"archivo":"file_1.js",
+		"tipo":"comentario",
+		"contenido":"/*    Si este comentario se repite    cuenta como parte de la repitencia    */",
+		"punteo":1.0
+	},
+	{
+		"archivo":"file_1.js",
+		"tipo":"funcion",
+		"nombre":"set_size",
+		"punteo":1.0
+	},
+	{
+		"archivo":"file_1.js",
+		"tipo":"funcion",
+		"nombre":"draw_triangle",
+		"punteo":0.7
+	},
+	{
+		"archivo":"file_1.js",
+		"tipo":"funcion",
+		"nombre":"imprimir",
+		"punteo":0.6
+	},
+	{
+		"archivo":"file_2.js",
+		"tipo":"funcion",
+		"nombre":"fibonacci_generator",
+		"punteo":0.7
+	},
+	{
+		"archivo":"file_2.js",
+		"tipo":"funcion",
+		"nombre":"torresDeHanoi",
+		"punteo":0.6
+	},
+	{
+		"archivo":"file_1.js",
+		"tipo":"funcion",
+		"nombre":"draw_triangle_i",
+		"punteo":1.0
+	},
+	{
+		"archivo":"file_1.js",
+		"tipo":"funcion",
+		"nombre":"draw_triangle_j",
+		"punteo":1.0
+	},
+	{
+		"archivo":"file_1.js",
+		"tipo":"funcion",
+		"nombre":"draw_square_i",
+		"punteo":1.0
+	},
+	{
+		"archivo":"file_1.js",
+		"tipo":"funcion",
+		"nombre":"draw_square_j",
+		"punteo":1.0
+	}
+]
+}
