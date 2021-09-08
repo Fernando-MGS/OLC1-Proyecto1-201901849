@@ -75,7 +75,7 @@ public class AppForm extends javax.swing.JFrame {
     public static ArrayList<PT_especifico> Comm_Especificos=new ArrayList<PT_especifico>();
     public static ArrayList<PT_especifico> Var_Especificos=new ArrayList<PT_especifico>();
     public static ArrayList<PT_especifico> Funcs_Especificos=new ArrayList<PT_especifico>();
-    public static ArrayList<PT_General> General=new ArrayList<PT_General>();
+    public static PT_General General=new PT_General();
     public ArrayList<ContentFile> project1 = new ArrayList<ContentFile>();
     public ArrayList<ContentFile> project2 = new ArrayList<ContentFile>();
     private JTabbedPane tpnTabs;
@@ -492,7 +492,9 @@ public class AppForm extends javax.swing.JFrame {
             }
         }
     }
-
+    
+    
+    
     public void executeJS(String[] paths) {
         File folder1 = new File(paths[0]);
         File[] File_list = folder1.listFiles();

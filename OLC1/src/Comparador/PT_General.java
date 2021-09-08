@@ -19,6 +19,10 @@ public class PT_General {
     public int metodos_total;
     public int comments_total;
     
+    public PT_General(){
+        
+    }
+    
     public PT_General(int Clases, int Comentarios, int metodos, int variables, int var_total, int class_total, int metodos_total, int comments_total){
         this.Clases=Clases;
         this.Comentarios=Comentarios;

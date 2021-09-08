@@ -23,6 +23,7 @@ public class Repitencias {
 
     public void Comparacion() {
         double punteo_clases = (Comparar_clases(AppForm.Proyecto1, AppForm.Proyecto2)/suma_Clases())*0.3;
+        //System.out.println(suma_Comentarios());
         double punteo_comentarios = (Comparar_comentarios(AppForm.Proyecto1, AppForm.Proyecto2)/suma_Comentarios())*0.2;
         double punteo_funciones = (Comparar_metodos(AppForm.Proyecto1, AppForm.Proyecto2)/suma_Funciones())*0.3;
         double punteo_variables = (Comparar_variables(AppForm.Proyecto1, AppForm.Proyecto2)/suma_Vars())*0.2;
@@ -188,7 +189,7 @@ public class Repitencias {
                 for (int j = 0; j < file1.size(); j++) {
                     for (int k = 0; k < file2.size(); k++) {
                         punteo=0;
-                        if (file1.get(j).getId() == file2.get(k).getId()) {
+                        if (file1.get(j).getId().equals(file2.get(k).getId())) {
                             punteo += 0.4;
                             confirmacion = true;
                         }
