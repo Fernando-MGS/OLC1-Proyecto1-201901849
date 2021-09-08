@@ -437,10 +437,11 @@ public class AppForm extends javax.swing.JFrame {
             ruta[1] = ruta[1].replace("\"", "");
             executeJS(ruta);
             analysisJS();
+            //print_class();
             print_project();
             Repitencias punteos = new Repitencias();
             punteos.Comparacion();
-            //print_class();
+            
             //tokens.Console();
             //listFilesForFolder(folder);
             //System.out.println("Código sin errores sintácticos-léxicos");
