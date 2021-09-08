@@ -150,6 +150,8 @@ BAR::= pgrafb llave_i BAR_F:b llave_d{:RESULT=b;:};
 BAR_F::=
     title d_punto name:n ptcoma {:RESULT = new Barras();RESULT.setTitle(n);:}
     |BAR_F:b title d_punto name:n ptcoma {:RESULT=b;RESULT.setTitle(n);:}
+    |title d_punto cadena:n ptcoma {:RESULT = new Barras();RESULT.setTitle(n);:}
+    |BAR_F:b title d_punto cadena:n ptcoma {:RESULT=b;RESULT.setTitle(n);:}
     |pejex d_punto cor_i VARIABLES:v cor_d ptcoma {:RESULT = new Barras();RESULT.setEjex(v);:}
     |BAR_F:b pejex d_punto cor_i VARIABLES:n cor_d ptcoma {:RESULT=b;RESULT.setEjex(n);:}
     |pvalue d_punto cor_i VARIABLES:v  cor_d ptcoma {:RESULT = new Barras();RESULT.setValue(v);:}
@@ -166,6 +168,8 @@ PIE::=    pgrafp llave_i BAR_P:b llave_d {:RESULT=b;:};
 
 BAR_P::=title d_punto name:n ptcoma {:RESULT = new PIE();RESULT.setTitle(n);:}
     |BAR_P:b title d_punto name:n ptcoma {:RESULT=b;RESULT.setTitle(n);:}
+    |title d_punto cadena:n ptcoma {:RESULT = new PIE();RESULT.setTitle(n);:}
+    |BAR_P:b title d_punto cadena:n ptcoma {:RESULT=b;RESULT.setTitle(n);:}
     |pejex d_punto cor_i VARIABLES:n cor_d ptcoma {:RESULT = new PIE();RESULT.setEjex(n);:}
     |BAR_P:b pejex d_punto cor_i VARIABLES:n cor_d ptcoma {:RESULT = b;RESULT.setEjex(n);:}
     |pvalue d_punto cor_i VARIABLES:n  cor_d ptcoma {:RESULT = new PIE();RESULT.setValue(n);:}
@@ -183,10 +187,14 @@ VARIABLES::=   name:n    {:RESULT=new ArrayList<String>();RESULT.add(n);:}
     |cadena:c   {:RESULT=new ArrayList<String>();RESULT.add(c);:}  
     |PT_E:p {:RESULT=new ArrayList<String>();RESULT.add(p);:}
     |PT_G:p  {:RESULT=new ArrayList<String>();RESULT.add(p);:}  
+    |digitos:p {:RESULT=new ArrayList<String>();RESULT.add(p);:}  
+    |entero:p {:RESULT=new ArrayList<String>();RESULT.add(p);:}  
     |VARIABLES:var coma name:n {:RESULT=var;RESULT.add(n);:}  
     |VARIABLES:var coma cadena:n {:RESULT=var;RESULT.add(n);:}
     |VARIABLES:var coma PT_E:n {:RESULT=var;RESULT.add(n);:}
-    |VARIABLES:var coma PT_G:n {:RESULT=var;RESULT.add(n);:};
+    |VARIABLES:var coma PT_G:n {:RESULT=var;RESULT.add(n);:}
+    |VARIABLES:var coma digitos:n {:RESULT=var;RESULT.add(n);:}  
+    |VARIABLES:var coma entero:n {:RESULT=var;RESULT.add(n);:}  ;
 
 
 
