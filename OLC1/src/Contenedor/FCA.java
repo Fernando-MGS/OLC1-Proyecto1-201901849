@@ -7,70 +7,80 @@ package Contenedor;
 
 import java.util.ArrayList;
 import Interfaz.Text;
+
 /**
  *
  * @author ferna
  */
 public class FCA {
-   private ArrayList <GLOBALES> GLB;
-   private Barras bar;
-   private Line linea;
-   private PIE pie;
-   private String ruta1;
-   private String ruta2;
-   
-   public FCA(){
-       
-   }
 
-   public FCA(ArrayList GLB, Barras bar, Line linea, PIE pie, String ruta1, String ruta2){
-       this.GLB=GLB;
-       this.bar=bar;
-       this.linea=linea;
-       this.pie=pie;
-       this.ruta1=ruta1;
-       this.ruta2=ruta2;
-   }
+    private ArrayList<GLOBALES> GLB;
+    private Barras bar;
+    private Line linea;
+    private PIE pie;
+    private String ruta1;
+    private String ruta2;
+
+    public FCA() {
+
+    }
+
+    public FCA(ArrayList GLB, Barras bar, Line linea, PIE pie, String ruta1, String ruta2) {
+        this.GLB = GLB;
+        this.bar = bar;
+        this.linea = linea;
+        this.pie = pie;
+        this.ruta1 = ruta1;
+        this.ruta2 = ruta2;
+    }
+
     /**
      * @return the GLB
      */
-    public void Print(){
+    public void Print() {
         String aux;
-        aux="La ruta es "+this.ruta1+"\n";
-        aux+="GLOBALES\n";
-        System.out.println("La ruta es "+this.ruta1);
-        System.out.println("La ruta es "+this.ruta2);
+        aux = "La ruta es " + this.ruta1 + "\n";
+        aux += "GLOBALES\n";
+        System.out.println("La ruta es " + this.ruta1);
+        System.out.println("La ruta es " + this.ruta2);
         System.out.println("GLOBALES");
-        for(int i=0; i<GLB.size();i++){
+        for (int i = 0; i < GLB.size(); i++) {
             this.GLB.get(i).print();
-            aux+=this.GLB.get(i).return_var();
+            aux += this.GLB.get(i).return_var();
             System.out.println("_________");
         }
-        aux+=this.bar.return_bar();
-        aux+=this.linea.return_line();
-        aux+=this.pie.return_pie();
-        this.bar.print();
-        this.linea.print();
-        this.pie.print();
+        /*aux += this.bar.return_bar();
+        aux += this.linea.return_line();
+        aux += this.pie.return_pie();*/
+        if (this.bar != null) {
+            this.bar.print();
+        }
+        if (this.linea != null) {
+            this.linea.print();
+        }
+        if (this.pie != null) {
+            this.pie.print();
+        }
+
     }
-    
-    public String Dev_info(){
+
+    public String Dev_info() {
         String aux;
-        aux="La ruta es "+this.ruta1+"\n";
-        aux+="GLOBALES\n";
-        for(int i=0; i<GLB.size();i++){
+        aux = "La ruta es " + this.ruta1 + "\n";
+        aux += "GLOBALES\n";
+        for (int i = 0; i < GLB.size(); i++) {
             this.GLB.get(i).print();
-            aux+=this.GLB.get(i).return_var();
-            aux+=("_________"+"\n");
+            aux += this.GLB.get(i).return_var();
+            aux += ("_________" + "\n");
         }
-        if (this.bar!=null){
-            aux+=this.bar.return_bar();
+        if (this.bar != null) {
+            aux += this.bar.return_bar();
         }
-        if(this.linea!=null){
-            aux+=this.linea.return_line();
+        if (this.linea != null) {
+            aux += this.linea.return_line();
         }
-        if(this.pie!=null){
-            aux+=this.pie.return_pie();
+        if (this.pie != null) {
+            aux += this.pie.return_pie();
         }
         return aux;
     }
@@ -148,15 +158,15 @@ public class FCA {
     /**
      * @return the GLB
      */
-    public ArrayList <GLOBALES> getGLB() {
+    public ArrayList<GLOBALES> getGLB() {
         return GLB;
     }
 
     /**
      * @param GLB the GLB to set
      */
-    public void setGLB(ArrayList <GLOBALES> GLB) {
+    public void setGLB(ArrayList<GLOBALES> GLB) {
         this.GLB = GLB;
     }
-   
+
 }

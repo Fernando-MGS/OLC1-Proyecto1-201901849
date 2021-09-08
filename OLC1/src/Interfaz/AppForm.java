@@ -44,8 +44,9 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import Reportes.Reporte;
 import Comparador.*;
+import Contenedor.GLOBALES;
 import Reportes.Resumen;
-
+import Graficas.*;
 /**
  *
  * @author ferna
@@ -60,7 +61,7 @@ public class AppForm extends javax.swing.JFrame {
     public static int contador_func = 0;
     public static FCA file;
     public static Resumen resumen = new Resumen();
-    public static Archivo save_file=new Archivo();
+    public static Archivo save_file = new Archivo();
     public static ArrayList<Comentarios> save_comm = new ArrayList<Comentarios>();
     public static ArrayList<Clases> save_class = new ArrayList<Clases>();
     public static ArrayList<Funciones> save_funciones = new ArrayList<Funciones>();
@@ -74,11 +75,11 @@ public class AppForm extends javax.swing.JFrame {
     public static List_File Proyecto1;
     public static List_File Proyecto2;
     public static double PT_general;
-    public static ArrayList<PT_especifico> Class_Especificos=new ArrayList<PT_especifico>();
-    public static ArrayList<PT_especifico> Comm_Especificos=new ArrayList<PT_especifico>();
-    public static ArrayList<PT_especifico> Var_Especificos=new ArrayList<PT_especifico>();
-    public static ArrayList<PT_especifico> Funcs_Especificos=new ArrayList<PT_especifico>();
-    public static PT_General General=new PT_General();
+    public static ArrayList<PT_especifico> Class_Especificos = new ArrayList<PT_especifico>();
+    public static ArrayList<PT_especifico> Comm_Especificos = new ArrayList<PT_especifico>();
+    public static ArrayList<PT_especifico> Var_Especificos = new ArrayList<PT_especifico>();
+    public static ArrayList<PT_especifico> Funcs_Especificos = new ArrayList<PT_especifico>();
+    public static PT_General General = new PT_General();
     public ArrayList<ContentFile> project1 = new ArrayList<ContentFile>();
     public ArrayList<ContentFile> project2 = new ArrayList<ContentFile>();
     private JTabbedPane tpnTabs;
@@ -205,6 +206,11 @@ public class AppForm extends javax.swing.JFrame {
         jMenu2.add(jMenuItem2);
 
         jMenuItem5.setText("Guardar");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem5);
 
         jMenuBar1.add(jMenu2);
@@ -380,6 +386,12 @@ public class AppForm extends javax.swing.JFrame {
         report.ReporteJSON();
     }//GEN-LAST:event_jMenuItem11ActionPerformed
 
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        // TODO add your handling code here:
+        Pie p = new Pie();
+        p.graf_Pie();
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
+
     public static String OpenFile(File file) {
         String aux, texto = "";
         if (file != null) {
@@ -452,10 +464,13 @@ public class AppForm extends javax.swing.JFrame {
             executeJS(ruta);
             analysisJS();
             //print_class();
-            print_project();
+            //print_project();
             Repitencias punteos = new Repitencias();
             punteos.Comparacion();
-            
+            Reporte reporte = new Reporte();
+            reporte.Resumen();
+            defValoresGlobales();
+            file.Print();
             //tokens.Console();
             //listFilesForFolder(folder);
             //System.out.println("Código sin errores sintácticos-léxicos");
@@ -474,19 +489,19 @@ public class AppForm extends javax.swing.JFrame {
 
     public void analysisJS() {
         project1.forEach((t) -> {
-            project_actual="Proyecto 1";
+            project_actual = "Proyecto 1";
             file_actual = t.name;
-            System.out.println("Analizando "+t.name);
+            System.out.println("Analizando " + t.name);
             AnalizadorLenguajeJS.getInstancia();
             AnalizadorLenguajeJS.LimpiarInstancia();
             //ContentFile txt = project1.get(1);
             AnalizadorLenguajeJS.AnalizarCodigo(t.contenido, "");
             save_InfoJS();
         });
-        turno=1;
-        project2.forEach((t)->{
+        turno = 1;
+        project2.forEach((t) -> {
             file_actual = t.name;
-            project_actual="Proyecto 2";
+            project_actual = "Proyecto 2";
             AnalizadorLenguajeJS.getInstancia();
             AnalizadorLenguajeJS.LimpiarInstancia();
             //ContentFile txt = project1.get(1);
@@ -506,9 +521,7 @@ public class AppForm extends javax.swing.JFrame {
             }
         }
     }
-    
-    
-    
+
     public void executeJS(String[] paths) {
         File folder1 = new File(paths[0]);
         File[] File_list = folder1.listFiles();
@@ -561,7 +574,7 @@ public class AppForm extends javax.swing.JFrame {
     }
 
     public static void save_InfoJS() {
-        save_file=new Archivo();
+        save_file = new Archivo();
         save_file.setClases(save_class);
         save_file.setComments(save_comm);
         save_file.setFuncs(save_funciones);
@@ -572,34 +585,113 @@ public class AppForm extends javax.swing.JFrame {
             //save_file(save_class,save_comm,save_funciones,save_vars,file_actual,project_actual);
             //System.out.println("bandera");
             Proyecto1.add(save_file);
-            save_class= new ArrayList<Clases>();
-            save_comm=new ArrayList<Comentarios>();
-            save_funciones=new ArrayList<Funciones>();
-            save_vars= new ArrayList<Variables>();
+            save_class = new ArrayList<Clases>();
+            save_comm = new ArrayList<Comentarios>();
+            save_funciones = new ArrayList<Funciones>();
+            save_vars = new ArrayList<Variables>();
         } else {
             Proyecto2.add(save_file);
-            save_class= new ArrayList<Clases>();
-            save_comm=new ArrayList<Comentarios>();
-            save_funciones=new ArrayList<Funciones>();
-            save_vars= new ArrayList<Variables>();
+            save_class = new ArrayList<Clases>();
+            save_comm = new ArrayList<Comentarios>();
+            save_funciones = new ArrayList<Funciones>();
+            save_vars = new ArrayList<Variables>();
         }
     }
-    
-    public void print_project(){
-        Proyecto1.forEach((t)->{
+
+    public void print_project() {
+        Proyecto1.forEach((t) -> {
             t.print_file();
         });
         System.out.println("----------------------");
-        Proyecto2.forEach((t)->{
+        Proyecto2.forEach((t) -> {
             t.print_file();
         });
-        
+
     }
 
     public static void print_class() {
         save_class.forEach((t) -> {
             t.print();
         });
+    }
+
+    public void defValoresGlobales() {
+        for (GLOBALES glob : file.getGLB()) {
+            if (glob.getTipo() == 2) {
+                String[] aux = glob.getValor_s().split("-");
+                
+                if (aux[0].equalsIgnoreCase("puntajeespecifico")) {
+                    aux[1]=aux[1].replace("\"","");
+                    aux[2]=aux[2].replace("\"","");
+                    aux[3]=aux[3].replace("\"","");
+                    System.out.println(aux[0]+"-"+aux[1]+"-"+aux[2]+"-"+aux[3]);
+                    if (aux[2].equalsIgnoreCase("clase")) {
+                        glob.setValor_d(valor_class(aux[3],aux[1]));
+                    }else if (aux[2].equalsIgnoreCase("variable")) {
+                        glob.setValor_d(valor_var(aux[3],aux[1]));
+                    }else if (aux[2].equalsIgnoreCase("comentario")) {
+                        glob.setValor_d(valor_comm(aux[1]));
+                    }else if (aux[2].equalsIgnoreCase("funcion")||aux[2].equalsIgnoreCase("metodo")) {
+                        glob.setValor_d(valor_func(aux[3],aux[1]));
+                    }
+                } else {
+                    glob.setValor_d(PT_general);
+                }
+            }
+        }
+    }
+
+    public double valor_class(String name, String file) {
+        double punteo = 0;
+        for (PT_especifico pt : Class_Especificos) {
+            if (pt.nombre.equals(name) || pt.nombre2.equals(name)) {
+                if (pt.file.equals(file) || pt.file1.equals(file)) {
+                    System.out.println("Hizo match"+name);
+                    punteo = pt.Punteo;
+                    break;
+                }
+            }
+        }
+        return punteo;
+    }
+
+    public double valor_var(String name,String file) {
+        double punteo = 0;
+        for (PT_especifico pt : Var_Especificos) {
+            if (pt.nombre.equals(name) || pt.nombre2.equals(name)) {
+                if (pt.file.equals(file) || pt.file1.equals(file)) {
+                    System.out.println("Hizo match"+name);
+                    punteo = pt.Punteo;
+                    break;
+                }
+            }
+        }
+        return punteo;
+    }
+
+    public double valor_comm(String file) {
+        double punteo = 0;
+        for (PT_especifico pt : Comm_Especificos) {
+            if (pt.file.equals(file) || pt.nombre2.equals(file)) {
+                punteo = pt.Punteo;
+                break;
+            }
+        }
+        return punteo;
+    }
+
+    public double valor_func(String name, String file) {
+        double punteo = 0;
+        for (PT_especifico pt : Funcs_Especificos) {
+            if (pt.nombre.equals(name) || pt.nombre2.equals(name)) {
+                if (pt.file.equals(file) || pt.file1.equals(file)) {
+                   System.out.println("Hizo match"+name);
+                    punteo = pt.Punteo;
+                    break;
+                }
+            }
+        }
+        return punteo;
     }
 
     /**

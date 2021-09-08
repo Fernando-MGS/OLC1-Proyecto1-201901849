@@ -225,9 +225,9 @@ public class Reporte {
             printw.println("</body>");
             printw.println("</html>");
             printw.close();
-            AppForm.escribir("Reporte de Errores generado Exitosamente");
+            AppForm.escribir("Resumen generado Exitosamente");
         } catch (Exception e) {
-            AppForm.escribir("Hubo un error al general el Reporte de Tokens");
+            AppForm.escribir("Hubo un error al general el Resumen");
         }
     }
 }

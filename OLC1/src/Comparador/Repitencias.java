@@ -29,10 +29,10 @@ public class Repitencias {
         double punteo_variables = (Comparar_variables(AppForm.Proyecto1, AppForm.Proyecto2)/suma_Vars())*0.2;
         double punteo_general=punteo_clases+punteo_comentarios+punteo_funciones+punteo_variables;
         AppForm.PT_general=punteo_general;
-        System.out.println(punteo_clases);
+      /*  System.out.println(punteo_clases);
         System.out.println(punteo_comentarios);
         System.out.println(punteo_funciones);
-        System.out.println(punteo_variables);
+        System.out.println(punteo_variables);*/
         System.out.println(punteo_general);
     }
 
@@ -130,9 +130,9 @@ public class Repitencias {
                             punteo += 0.4;
                         }
                         if (punteo >= 0.6) {
-                            AppForm.Class_Especificos.add(new PT_especifico(punteo, pr1.get(j).getName(), pr2.get(j).getName(), 1, clase1.get(k).getId(), clase2.get(n).getId()));
                             rep_clases++;
                         }
+                        AppForm.Class_Especificos.add(new PT_especifico(punteo, pr1.get(j).getName(), pr2.get(j).getName(), 1, clase1.get(k).getId(), clase2.get(n).getId()));
                     }
                 }
             }
@@ -140,7 +140,7 @@ public class Repitencias {
             AppForm.escribir("Ocurrió un problema al comparar clases" + "\n" + e);
             return rep_clases;
         }
-        System.out.println("Se repiten "+rep_clases+" clases");
+       // System.out.println("Se repiten "+rep_clases+" clases");
         return rep_clases;
     }
 
@@ -164,6 +164,8 @@ public class Repitencias {
                         if (a.equals(b)) {
                             AppForm.Comm_Especificos.add(new PT_especifico(1.0, pr1.get(j).getName(), a, 4, file1.get(k).getContenido(), file2.get(l).getContenido()));
                             repitencia++;
+                        }else{
+                            AppForm.Comm_Especificos.add(new PT_especifico(0, pr1.get(j).getName(), a, 4, file1.get(k).getContenido(), file2.get(l).getContenido()));
                         }
                     }
                 }
@@ -172,7 +174,7 @@ public class Repitencias {
             AppForm.escribir("Hubo un error al comparar los comentarios" + "\n" + e);
             return repitencia;
         }
-        System.out.println("Se repiten "+repitencia+" comentarios");
+       // System.out.println("Se repiten "+repitencia+" comentarios");
         return repitencia;
     }
 
@@ -191,6 +193,8 @@ public class Repitencias {
                             
                             AppForm.Var_Especificos.add(new PT_especifico(1, pr1.get(j).getName(), pr2.get(j).getName(), 3, file1.get(k).getId(), ""));
                             repitencia++;
+                        }else{
+                            AppForm.Var_Especificos.add(new PT_especifico(0, pr1.get(j).getName(), pr2.get(j).getName(), 3, file1.get(k).getId(), ""));
                         }
                     }
                 }
@@ -199,7 +203,7 @@ public class Repitencias {
             AppForm.escribir("Hubo un error al comparar las variables" + "\n" + e);
             return repitencia;
         }
-        System.out.println("Se repiten "+repitencia+" variables");
+       // System.out.println("Se repiten "+repitencia+" variables");
         return repitencia;
     }
 
@@ -227,8 +231,8 @@ public class Repitencias {
                         }
                         if (punteo >= 0.6) {
                             repitencia++;
-                            AppForm.Funcs_Especificos.add(new PT_especifico(punteo, pr1.get(i).getName(), pr2.get(i).getName(), 2, file1.get(j).getId(), file2.get(k).getId()));
                         }
+                        AppForm.Funcs_Especificos.add(new PT_especifico(punteo, pr1.get(i).getName(), pr2.get(i).getName(), 2, file1.get(j).getId(), file2.get(k).getId()));
                     }
                 }
             }
@@ -236,7 +240,7 @@ public class Repitencias {
             AppForm.escribir("Hubo un error al comparar los metodos" + "\n" + e);
             return repitencia;
         }
-        System.out.println("Se repiten "+repitencia+" metodos");
+       // System.out.println("Se repiten "+repitencia+" metodos");
         return repitencia;
     }
 
