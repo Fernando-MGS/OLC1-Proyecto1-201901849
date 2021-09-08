@@ -38,36 +38,60 @@ public class Repitencias {
 
     public double suma_Comentarios(){
         double suma=0;
+        int class1=0;
+        int class2=0;
         for(int i=0; i<AppForm.Proyecto1.size();i++){
+            class1+=AppForm.Proyecto1.get(i).getComments().size();
+            class2+=AppForm.Proyecto2.get(i).getComments().size();
             suma+=AppForm.Proyecto1.get(i).getComments().size();
             suma+=AppForm.Proyecto2.get(i).getComments().size();
         }
+        AppForm.resumen.setComentarios1(class1);
+        AppForm.resumen.setComentarios2(class2);
         return suma;
     }
     public double suma_Clases(){
         double suma=0;
+        int class1=0;
+        int class2=0;
         for(int i=0; i<AppForm.Proyecto1.size();i++){
+            class1+=AppForm.Proyecto1.get(i).getClases().size();
+            class2+=AppForm.Proyecto2.get(i).getClases().size();
             suma+=AppForm.Proyecto1.get(i).getClases().size();
             suma+=AppForm.Proyecto2.get(i).getClases().size();
         }
+        AppForm.resumen.setClass1(class1);
+        AppForm.resumen.setClass2(class2);
         return suma;
     }
     
     public double suma_Funciones(){
         double suma=0;
+        int class1=0;
+        int class2=0;
         for(int i=0; i<AppForm.Proyecto1.size();i++){
+            class1+=AppForm.Proyecto1.get(i).getFuncs().size();
+            class2+=AppForm.Proyecto2.get(i).getFuncs().size();
             suma+=AppForm.Proyecto1.get(i).getFuncs().size();
             suma+=AppForm.Proyecto2.get(i).getFuncs().size();
         }
+        AppForm.resumen.setFunciones1(class1);
+        AppForm.resumen.setFunciones2(class2);
         return suma;
     }
     
     public double suma_Vars(){
         double suma=0;
+        int class1=0;
+        int class2=0;
         for(int i=0; i<AppForm.Proyecto1.size();i++){
+            class1+=AppForm.Proyecto1.get(i).getVars().size();
+            class2+=AppForm.Proyecto2.get(i).getVars().size();
             suma+=AppForm.Proyecto1.get(i).getVars().size();
             suma+=AppForm.Proyecto2.get(i).getVars().size();
         }
+        AppForm.resumen.setVar1(class1);
+        AppForm.resumen.setVar2(class2);
         return suma;
     }
     

@@ -44,6 +44,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import Reportes.Reporte;
 import Comparador.*;
+import Reportes.Resumen;
 
 /**
  *
@@ -58,6 +59,7 @@ public class AppForm extends javax.swing.JFrame {
     public static int contador_lineas = 0;
     public static int contador_func = 0;
     public static FCA file;
+    public static Resumen resumen = new Resumen();
     public static Archivo save_file=new Archivo();
     public static ArrayList<Comentarios> save_comm = new ArrayList<Comentarios>();
     public static ArrayList<Clases> save_class = new ArrayList<Clases>();
