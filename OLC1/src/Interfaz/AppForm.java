@@ -37,6 +37,7 @@ import ContenedorJS.Archivo;
 import ContenedorJS.ContentFile;
 import Contenedor.FCA;
 import Tokens.*;
+import Comparador.*;
 //import Errores.Error.*;
 import Errores.List_Error;
 import java.io.FileNotFoundException;
@@ -437,6 +438,8 @@ public class AppForm extends javax.swing.JFrame {
             executeJS(ruta);
             analysisJS();
             print_project();
+            Repitencias punteos = new Repitencias();
+            punteos.Comparacion();
             //print_class();
             //tokens.Console();
             //listFilesForFolder(folder);
