@@ -15,9 +15,9 @@ import Interfaz.Text;
 public class FCA {
 
     private ArrayList<GLOBALES> GLB;
-    private Barras bar;
-    private Line linea;
-    private PIE pie;
+    private ArrayList<Barras> bar;
+    private ArrayList<Line> linea;
+    private ArrayList<PIE> pie;
     private String ruta1;
     private String ruta2;
 
@@ -25,7 +25,7 @@ public class FCA {
 
     }
 
-    public FCA(ArrayList GLB, Barras bar, Line linea, PIE pie, String ruta1, String ruta2) {
+    public FCA(ArrayList GLB, ArrayList bar, ArrayList linea, ArrayList pie, String ruta1, String ruta2) {
         this.GLB = GLB;
         this.bar = bar;
         this.linea = linea;
@@ -52,14 +52,20 @@ public class FCA {
         /*aux += this.bar.return_bar();
         aux += this.linea.return_line();
         aux += this.pie.return_pie();*/
-        if (this.bar != null) {
-            this.bar.print();
+        if (this.getBar() != null) {
+            for (Barras b : this.getBar()) {
+                b.print();
+            }
         }
-        if (this.linea != null) {
-            this.linea.print();
+        if (this.getLinea() != null) {
+            for (Line l : this.getLinea()) {
+                l.print();
+            }
         }
-        if (this.pie != null) {
-            this.pie.print();
+        if (this.getPie() != null) {
+            for (PIE p : this.getPie()) {
+                p.print();
+            }
         }
 
     }
@@ -73,7 +79,7 @@ public class FCA {
             aux += this.GLB.get(i).return_var();
             aux += ("_________" + "\n");
         }
-        if (this.bar != null) {
+        /*if (this.bar != null) {
             aux += this.bar.return_bar();
         }
         if (this.linea != null) {
@@ -81,51 +87,11 @@ public class FCA {
         }
         if (this.pie != null) {
             aux += this.pie.return_pie();
-        }
+        }*/
         return aux;
     }
 
-    /**
-     * @return the bar
-     */
-    public Barras getBar() {
-        return bar;
-    }
-
-    /**
-     * @param bar the bar to set
-     */
-    public void setBar(Barras bar) {
-        this.bar = bar;
-    }
-
-    /**
-     * @return the linea
-     */
-    public Line getLinea() {
-        return linea;
-    }
-
-    /**
-     * @param linea the linea to set
-     */
-    public void setLinea(Line linea) {
-        this.linea = linea;
-    }
-
-    /**
-     * @return the pie
-     */
-    public PIE getPie() {
-        return pie;
-    }
-
-    /**
-     * @param pie the pie to set
-     */
-    public void setPie(PIE pie) {
-        this.pie = pie;
-    }
+    
 
     /**
      * @return the ruta1
@@ -167,6 +133,48 @@ public class FCA {
      */
     public void setGLB(ArrayList<GLOBALES> GLB) {
         this.GLB = GLB;
+    }
+
+    /**
+     * @return the bar
+     */
+    public ArrayList<Barras> getBar() {
+        return bar;
+    }
+
+    /**
+     * @param bar the bar to set
+     */
+    public void setBar(ArrayList<Barras> bar) {
+        this.bar = bar;
+    }
+
+    /**
+     * @return the linea
+     */
+    public ArrayList<Line> getLinea() {
+        return linea;
+    }
+
+    /**
+     * @param linea the linea to set
+     */
+    public void setLinea(ArrayList<Line> linea) {
+        this.linea = linea;
+    }
+
+    /**
+     * @return the pie
+     */
+    public ArrayList<PIE> getPie() {
+        return pie;
+    }
+
+    /**
+     * @param pie the pie to set
+     */
+    public void setPie(ArrayList<PIE> pie) {
+        this.pie = pie;
     }
 
 }

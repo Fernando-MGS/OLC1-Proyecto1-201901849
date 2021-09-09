@@ -16,85 +16,85 @@ import java.util.Iterator;
 
 public class Repitencias {
 
-
     public Repitencias() {
 
     }
 
     public void Comparacion() {
-        double punteo_clases = (Comparar_clases(AppForm.Proyecto1, AppForm.Proyecto2)/suma_Clases())*0.3;
+        double punteo_clases = (Comparar_clases(AppForm.Proyecto1, AppForm.Proyecto2) / suma_Clases()) * 0.3;
         //System.out.println(suma_Comentarios());
-        double punteo_comentarios = (Comparar_comentarios(AppForm.Proyecto1, AppForm.Proyecto2)/suma_Comentarios())*0.2;
-        double punteo_funciones = (Comparar_metodos(AppForm.Proyecto1, AppForm.Proyecto2)/suma_Funciones())*0.3;
-        double punteo_variables = (Comparar_variables(AppForm.Proyecto1, AppForm.Proyecto2)/suma_Vars())*0.2;
-        double punteo_general=punteo_clases+punteo_comentarios+punteo_funciones+punteo_variables;
-        AppForm.PT_general=punteo_general;
-      /*  System.out.println(punteo_clases);
+        double punteo_comentarios = (Comparar_comentarios(AppForm.Proyecto1, AppForm.Proyecto2) / suma_Comentarios()) * 0.2;
+        double punteo_funciones = (Comparar_metodos(AppForm.Proyecto1, AppForm.Proyecto2) / suma_Funciones()) * 0.3;
+        double punteo_variables = (Comparar_variables(AppForm.Proyecto1, AppForm.Proyecto2) / suma_Vars()) * 0.2;
+        double punteo_general = punteo_clases + punteo_comentarios + punteo_funciones + punteo_variables;
+        AppForm.PT_general = punteo_general;
+        /*  System.out.println(punteo_clases);
         System.out.println(punteo_comentarios);
         System.out.println(punteo_funciones);
         System.out.println(punteo_variables);*/
         System.out.println(punteo_general);
     }
 
-    public double suma_Comentarios(){
-        double suma=0;
-        int class1=0;
-        int class2=0;
-        for(int i=0; i<AppForm.Proyecto1.size();i++){
-            class1+=AppForm.Proyecto1.get(i).getComments().size();
-            class2+=AppForm.Proyecto2.get(i).getComments().size();
-            suma+=AppForm.Proyecto1.get(i).getComments().size();
-            suma+=AppForm.Proyecto2.get(i).getComments().size();
+    public double suma_Comentarios() {
+        double suma = 0;
+        int class1 = 0;
+        int class2 = 0;
+        for (int i = 0; i < AppForm.Proyecto1.size(); i++) {
+            class1 += AppForm.Proyecto1.get(i).getComments().size();
+            class2 += AppForm.Proyecto2.get(i).getComments().size();
+            suma += AppForm.Proyecto1.get(i).getComments().size();
+            suma += AppForm.Proyecto2.get(i).getComments().size();
         }
         AppForm.resumen.setComentarios1(class1);
         AppForm.resumen.setComentarios2(class2);
         return suma;
     }
-    public double suma_Clases(){
-        double suma=0;
-        int class1=0;
-        int class2=0;
-        for(int i=0; i<AppForm.Proyecto1.size();i++){
-            class1+=AppForm.Proyecto1.get(i).getClases().size();
-            class2+=AppForm.Proyecto2.get(i).getClases().size();
-            suma+=AppForm.Proyecto1.get(i).getClases().size();
-            suma+=AppForm.Proyecto2.get(i).getClases().size();
+
+    public double suma_Clases() {
+        double suma = 0;
+        int class1 = 0;
+        int class2 = 0;
+        for (int i = 0; i < AppForm.Proyecto1.size(); i++) {
+            class1 += AppForm.Proyecto1.get(i).getClases().size();
+            class2 += AppForm.Proyecto2.get(i).getClases().size();
+            suma += AppForm.Proyecto1.get(i).getClases().size();
+            suma += AppForm.Proyecto2.get(i).getClases().size();
         }
         AppForm.resumen.setClass1(class1);
         AppForm.resumen.setClass2(class2);
         return suma;
     }
-    
-    public double suma_Funciones(){
-        double suma=0;
-        int class1=0;
-        int class2=0;
-        for(int i=0; i<AppForm.Proyecto1.size();i++){
-            class1+=AppForm.Proyecto1.get(i).getFuncs().size();
-            class2+=AppForm.Proyecto2.get(i).getFuncs().size();
-            suma+=AppForm.Proyecto1.get(i).getFuncs().size();
-            suma+=AppForm.Proyecto2.get(i).getFuncs().size();
+
+    public double suma_Funciones() {
+        double suma = 0;
+        int class1 = 0;
+        int class2 = 0;
+        for (int i = 0; i < AppForm.Proyecto1.size(); i++) {
+            class1 += AppForm.Proyecto1.get(i).getFuncs().size();
+            class2 += AppForm.Proyecto2.get(i).getFuncs().size();
+            suma += AppForm.Proyecto1.get(i).getFuncs().size();
+            suma += AppForm.Proyecto2.get(i).getFuncs().size();
         }
         AppForm.resumen.setFunciones1(class1);
         AppForm.resumen.setFunciones2(class2);
         return suma;
     }
-    
-    public double suma_Vars(){
-        double suma=0;
-        int class1=0;
-        int class2=0;
-        for(int i=0; i<AppForm.Proyecto1.size();i++){
-            class1+=AppForm.Proyecto1.get(i).getVars().size();
-            class2+=AppForm.Proyecto2.get(i).getVars().size();
-            suma+=AppForm.Proyecto1.get(i).getVars().size();
-            suma+=AppForm.Proyecto2.get(i).getVars().size();
+
+    public double suma_Vars() {
+        double suma = 0;
+        int class1 = 0;
+        int class2 = 0;
+        for (int i = 0; i < AppForm.Proyecto1.size(); i++) {
+            class1 += AppForm.Proyecto1.get(i).getVars().size();
+            class2 += AppForm.Proyecto2.get(i).getVars().size();
+            suma += AppForm.Proyecto1.get(i).getVars().size();
+            suma += AppForm.Proyecto2.get(i).getVars().size();
         }
         AppForm.resumen.setVar1(class1);
         AppForm.resumen.setVar2(class2);
         return suma;
     }
-    
+
     public int Comparar_clases(ArrayList<Archivo> pr1, ArrayList<Archivo> pr2) {
 
         int rep_clases = 0;
@@ -107,7 +107,7 @@ public class Repitencias {
                 ArrayList<Clases> clase2 = pr2.get(j).getClases();
                 for (int k = 0; k < clase1.size(); k++) {//for para recorrer la lista de clases de cada archivo1
                     for (int n = 0; n < clase2.size(); n++) {//for para recorrer la lista de clases de cada archivo2
-                        punteo=0;
+                        punteo = 0;
                         int repitencia = 0;//lleva el numero de metodos repetidos, debe ser igual al numero de metodos del archivo 1
                         if (clase1.get(k).getId() == clase2.get(n).getId()) {//compara el nombre de las clases
                             punteo += 0.2;
@@ -140,7 +140,7 @@ public class Repitencias {
             AppForm.escribir("Ocurrió un problema al comparar clases" + "\n" + e);
             return rep_clases;
         }
-       // System.out.println("Se repiten "+rep_clases+" clases");
+        // System.out.println("Se repiten "+rep_clases+" clases");
         return rep_clases;
     }
 
@@ -164,7 +164,7 @@ public class Repitencias {
                         if (a.equals(b)) {
                             AppForm.Comm_Especificos.add(new PT_especifico(1.0, pr1.get(j).getName(), a, 4, file1.get(k).getContenido(), file2.get(l).getContenido()));
                             repitencia++;
-                        }else{
+                        } else {
                             AppForm.Comm_Especificos.add(new PT_especifico(0, pr1.get(j).getName(), a, 4, file1.get(k).getContenido(), file2.get(l).getContenido()));
                         }
                     }
@@ -174,50 +174,57 @@ public class Repitencias {
             AppForm.escribir("Hubo un error al comparar los comentarios" + "\n" + e);
             return repitencia;
         }
-       // System.out.println("Se repiten "+repitencia+" comentarios");
+        // System.out.println("Se repiten "+repitencia+" comentarios");
         return repitencia;
     }
 
     public int Comparar_variables(ArrayList<Archivo> pr1, ArrayList<Archivo> pr2) {
         int repitencia = 0;
-
+        
         try {
             for (int j = 0; j < pr1.size(); j++) {
-                System.out.println("Para archivo "+j+"===================");
+                // System.out.println("Para archivo "+j+"===================");
                 ArrayList<Variables> file1 = pr1.get(j).getVars();
                 ArrayList<Variables> file2 = pr2.get(j).getVars();
                 for (int k = 0; k < file1.size(); k++) {
+                    PT_especifico aux = new PT_especifico();
+                    aux.Punteo=0;
                     for (int l = 0; l < file2.size(); l++) {
                         //System.out.println(file1.get(k).getId()+ " vs "+file2.get(l).getId());
                         if (file1.get(k).getId().equals(file2.get(l).getId())) {
-                            
-                            AppForm.Var_Especificos.add(new PT_especifico(1, pr1.get(j).getName(), pr2.get(j).getName(), 3, file1.get(k).getId(), ""));
+                            aux=new PT_especifico(1, pr1.get(j).getName(), pr2.get(j).getName(), 3, file1.get(k).getId(), "");
                             repitencia++;
-                        }else{
-                            AppForm.Var_Especificos.add(new PT_especifico(0, pr1.get(j).getName(), pr2.get(j).getName(), 3, file1.get(k).getId(), ""));
+                            //break;
+                        } else if(aux.Punteo==0){
+                            aux=new PT_especifico(0, pr1.get(j).getName(), pr2.get(j).getName(), 3, file1.get(k).getId(), "");
                         }
                     }
+                    AppForm.Var_Especificos.add(aux);
                 }
             }
         } catch (Exception e) {
             AppForm.escribir("Hubo un error al comparar las variables" + "\n" + e);
             return repitencia;
         }
-       // System.out.println("Se repiten "+repitencia+" variables");
+        // System.out.println("Se repiten "+repitencia+" variables");
         return repitencia;
     }
 
     public int Comparar_metodos(ArrayList<Archivo> pr1, ArrayList<Archivo> pr2) {
         double punteo = 0;
         int repitencia = 0;
+        int bandera = 0;
+        
         boolean confirmacion = false;
         try {
             for (int i = 0; i < pr1.size(); i++) {
                 ArrayList<Funciones> file1 = pr1.get(i).getFuncs();
                 ArrayList<Funciones> file2 = pr2.get(i).getFuncs();
                 for (int j = 0; j < file1.size(); j++) {
+                    PT_especifico aux = new PT_especifico();
+                    aux.Punteo = 0;
                     for (int k = 0; k < file2.size(); k++) {
-                        punteo=0;
+                        punteo = 0;
                         if (file1.get(j).getId().equals(file2.get(k).getId())) {
                             punteo += 0.4;
                             confirmacion = true;
@@ -230,17 +237,24 @@ public class Repitencias {
                             punteo += 0.3;
                         }
                         if (punteo >= 0.6) {
+                            bandera = 1;
                             repitencia++;
                         }
-                        AppForm.Funcs_Especificos.add(new PT_especifico(punteo, pr1.get(i).getName(), pr2.get(i).getName(), 2, file1.get(j).getId(), file2.get(k).getId()));
+                        System.out.println(punteo+" vs "+aux.Punteo);
+                        if (punteo >= aux.Punteo) {
+                            aux = new PT_especifico(punteo, pr1.get(i).getName(), pr2.get(i).getName(), 2, file1.get(j).getId(), file2.get(k).getId());
+                        }
                     }
+                    System.out.println(aux.Punteo+"-"+aux.nombre);
+                    AppForm.Funcs_Especificos.add(aux);
                 }
+
             }
         } catch (Exception e) {
             AppForm.escribir("Hubo un error al comparar los metodos" + "\n" + e);
             return repitencia;
         }
-       // System.out.println("Se repiten "+repitencia+" metodos");
+        // System.out.println("Se repiten "+repitencia+" metodos");
         return repitencia;
     }
 

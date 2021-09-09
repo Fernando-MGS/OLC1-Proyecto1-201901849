@@ -1,4 +1,4 @@
-package Analizador;
+ package Analizador;
 
 import Contenedor.GLOBALES;
 import Contenedor.FCA;
@@ -72,16 +72,51 @@ start with INICIO;
 
 INICIO::=GENERAR:f llave_d{:AnalizadorLenguaje.contenido=f;:};
 
-GENERAR::= preporte llave_i GLOBALES:lista {:RESULT= new FCA();RESULT.setGLB(lista);:}
-    |GENERAR:f GLOBALES:lista{:RESULT=f;f.setGLB(lista);:}
-    |preporte llave_i BAR:graf {:RESULT = new FCA();RESULT.setBar(graf);:}
-    |GENERAR:f BAR:graf {:RESULT=f;f.setBar(graf);:}
-    |preporte llave_i PIE:graf {:FCA f = new FCA();f.setPie(graf);RESULT=f;:}
-    |GENERAR:f PIE:graf {:RESULT=f;f.setPie(graf);:}
-    |preporte llave_i LINE:graf {:FCA f = new FCA();f.setLinea(graf);RESULT=f;:}
-    |GENERAR:f LINE:graf {:RESULT=f;f.setLinea(graf);:}
+GENERAR::= preporte llave_i GLOBALES:lista {:RESULT= new FCA();RESULT.setGLB(lista);
+    System.out.println("0");:}
+    |GENERAR:f GLOBALES:lista{:f.setGLB(lista);RESULT=f;:}
+    |preporte llave_i BAR:graf {:FCA f = new FCA();
+    ArrayList<Barras> aux_bar=new ArrayList<Barras>();aux_bar.add(graf);
+    f.setBar(aux_bar);
+    RESULT=f;:}
+    |GENERAR:f BAR:graf {:
+    if(f.getBar()!=null){
+        f.getBar().add(graf);
+    }else{
+        ArrayList<Barras> aux_bar=new ArrayList<Barras>();aux_bar.add(graf);
+        f.setBar(aux_bar);
+    }RESULT=f;:}
+    
+    |preporte llave_i PIE:graf {:FCA f = new FCA();
+    
+    ArrayList<PIE> aux_bar=new ArrayList<PIE>();aux_bar.add(graf);
+    f.setPie(aux_bar); RESULT=f;:}
+    |GENERAR:f PIE:graf {:
+    if(f.getPie()!=null){
+        f.getPie().add(graf);
+    }else{
+        ArrayList<PIE> aux_bar=new ArrayList<PIE>();aux_bar.add(graf);
+        f.setPie(aux_bar);
+    }
+RESULT=f;:}
+    
+    |preporte llave_i LINE:graf {:FCA f = new FCA();
+    System.out.println("4");
+    ArrayList<Line> aux_bar=new ArrayList<Line>();aux_bar.add(graf);
+    f.setLinea(aux_bar);RESULT=f;:}
+    |GENERAR:f LINE:graf {:System.out.println("5");
+    if(f.getLinea()!=null){
+        f.getLinea().add(graf);
+    }else{
+        ArrayList<Line> aux_bar=new ArrayList<Line>();aux_bar.add(graf);
+        f.setLinea(aux_bar);
+    }
+    RESULT=f;
+    :}
+    
     |preporte llave_i FCOMPARE:s {:RESULT=new FCA(); RESULT.setRuta1(s);:}
     |GENERAR:f FCOMPARE:s {:
+    System.out.println("6");
     RESULT=f;f.setRuta1(s);:}
     |error ptcoma
 ;
@@ -141,7 +176,8 @@ GLOBALES::= pdefinir llave_i DECLARACION:lista llave_d{:RESULT=lista;:};
 
 
 FCOMPARE::=
-    pcomp par_i cadena:c1 coma cadena:c2 par_d ptcoma {:RESULT=c1+"-"+c2;:}
+    pcomp par_i cadena:c1 coma cadena:c2 par_d ptcoma {:System.out.println("Llegue"+c1+"-"+c2);
+    RESULT=c1+"-"+c2;:}
 ;
 
 

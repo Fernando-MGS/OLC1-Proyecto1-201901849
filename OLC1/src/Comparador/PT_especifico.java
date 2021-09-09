@@ -18,6 +18,10 @@ public class PT_especifico {
     public String nombre;
     public String nombre2;
     
+    
+    public PT_especifico(){
+        
+    }
     public PT_especifico(double Punteo, String file,String file1, int tipo, String nombre,String nombre2){
         this.Punteo=Punteo;
         this.file=file;

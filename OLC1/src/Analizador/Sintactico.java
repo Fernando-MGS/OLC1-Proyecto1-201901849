@@ -427,6 +427,7 @@ class CUP$Sintactico$actions {
 		int listaright = ((java_cup.runtime.Symbol)CUP$Sintactico$stack.peek()).right;
 		ArrayList<GLOBALES> lista = (ArrayList<GLOBALES>)((java_cup.runtime.Symbol) CUP$Sintactico$stack.peek()).value;
 		RESULT= new FCA();RESULT.setGLB(lista);
+    System.out.println("0");
               CUP$Sintactico$result = parser.getSymbolFactory().newSymbol("GENERAR",4, ((java_cup.runtime.Symbol)CUP$Sintactico$stack.elementAt(CUP$Sintactico$top-2)), ((java_cup.runtime.Symbol)CUP$Sintactico$stack.peek()), RESULT);
             }
           return CUP$Sintactico$result;
@@ -441,7 +442,7 @@ class CUP$Sintactico$actions {
 		int listaleft = ((java_cup.runtime.Symbol)CUP$Sintactico$stack.peek()).left;
 		int listaright = ((java_cup.runtime.Symbol)CUP$Sintactico$stack.peek()).right;
 		ArrayList<GLOBALES> lista = (ArrayList<GLOBALES>)((java_cup.runtime.Symbol) CUP$Sintactico$stack.peek()).value;
-		RESULT=f;f.setGLB(lista);
+		f.setGLB(lista);RESULT=f;
               CUP$Sintactico$result = parser.getSymbolFactory().newSymbol("GENERAR",4, ((java_cup.runtime.Symbol)CUP$Sintactico$stack.elementAt(CUP$Sintactico$top-1)), ((java_cup.runtime.Symbol)CUP$Sintactico$stack.peek()), RESULT);
             }
           return CUP$Sintactico$result;
@@ -453,7 +454,10 @@ class CUP$Sintactico$actions {
 		int grafleft = ((java_cup.runtime.Symbol)CUP$Sintactico$stack.peek()).left;
 		int grafright = ((java_cup.runtime.Symbol)CUP$Sintactico$stack.peek()).right;
 		Barras graf = (Barras)((java_cup.runtime.Symbol) CUP$Sintactico$stack.peek()).value;
-		RESULT = new FCA();RESULT.setBar(graf);
+		FCA f = new FCA();
+    ArrayList<Barras> aux_bar=new ArrayList<Barras>();aux_bar.add(graf);
+    f.setBar(aux_bar);
+    RESULT=f;
               CUP$Sintactico$result = parser.getSymbolFactory().newSymbol("GENERAR",4, ((java_cup.runtime.Symbol)CUP$Sintactico$stack.elementAt(CUP$Sintactico$top-2)), ((java_cup.runtime.Symbol)CUP$Sintactico$stack.peek()), RESULT);
             }
           return CUP$Sintactico$result;
@@ -468,7 +472,13 @@ class CUP$Sintactico$actions {
 		int grafleft = ((java_cup.runtime.Symbol)CUP$Sintactico$stack.peek()).left;
 		int grafright = ((java_cup.runtime.Symbol)CUP$Sintactico$stack.peek()).right;
 		Barras graf = (Barras)((java_cup.runtime.Symbol) CUP$Sintactico$stack.peek()).value;
-		RESULT=f;f.setBar(graf);
+		
+    if(f.getBar()!=null){
+        f.getBar().add(graf);
+    }else{
+        ArrayList<Barras> aux_bar=new ArrayList<Barras>();aux_bar.add(graf);
+        f.setBar(aux_bar);
+    }RESULT=f;
               CUP$Sintactico$result = parser.getSymbolFactory().newSymbol("GENERAR",4, ((java_cup.runtime.Symbol)CUP$Sintactico$stack.elementAt(CUP$Sintactico$top-1)), ((java_cup.runtime.Symbol)CUP$Sintactico$stack.peek()), RESULT);
             }
           return CUP$Sintactico$result;
@@ -480,7 +490,10 @@ class CUP$Sintactico$actions {
 		int grafleft = ((java_cup.runtime.Symbol)CUP$Sintactico$stack.peek()).left;
 		int grafright = ((java_cup.runtime.Symbol)CUP$Sintactico$stack.peek()).right;
 		PIE graf = (PIE)((java_cup.runtime.Symbol) CUP$Sintactico$stack.peek()).value;
-		FCA f = new FCA();f.setPie(graf);RESULT=f;
+		FCA f = new FCA();
+    
+    ArrayList<PIE> aux_bar=new ArrayList<PIE>();aux_bar.add(graf);
+    f.setPie(aux_bar); RESULT=f;
               CUP$Sintactico$result = parser.getSymbolFactory().newSymbol("GENERAR",4, ((java_cup.runtime.Symbol)CUP$Sintactico$stack.elementAt(CUP$Sintactico$top-2)), ((java_cup.runtime.Symbol)CUP$Sintactico$stack.peek()), RESULT);
             }
           return CUP$Sintactico$result;
@@ -495,7 +508,14 @@ class CUP$Sintactico$actions {
 		int grafleft = ((java_cup.runtime.Symbol)CUP$Sintactico$stack.peek()).left;
 		int grafright = ((java_cup.runtime.Symbol)CUP$Sintactico$stack.peek()).right;
 		PIE graf = (PIE)((java_cup.runtime.Symbol) CUP$Sintactico$stack.peek()).value;
-		RESULT=f;f.setPie(graf);
+		
+    if(f.getPie()!=null){
+        f.getPie().add(graf);
+    }else{
+        ArrayList<PIE> aux_bar=new ArrayList<PIE>();aux_bar.add(graf);
+        f.setPie(aux_bar);
+    }
+RESULT=f;
               CUP$Sintactico$result = parser.getSymbolFactory().newSymbol("GENERAR",4, ((java_cup.runtime.Symbol)CUP$Sintactico$stack.elementAt(CUP$Sintactico$top-1)), ((java_cup.runtime.Symbol)CUP$Sintactico$stack.peek()), RESULT);
             }
           return CUP$Sintactico$result;
@@ -507,7 +527,10 @@ class CUP$Sintactico$actions {
 		int grafleft = ((java_cup.runtime.Symbol)CUP$Sintactico$stack.peek()).left;
 		int grafright = ((java_cup.runtime.Symbol)CUP$Sintactico$stack.peek()).right;
 		Line graf = (Line)((java_cup.runtime.Symbol) CUP$Sintactico$stack.peek()).value;
-		FCA f = new FCA();f.setLinea(graf);RESULT=f;
+		FCA f = new FCA();
+    System.out.println("4");
+    ArrayList<Line> aux_bar=new ArrayList<Line>();aux_bar.add(graf);
+    f.setLinea(aux_bar);RESULT=f;
               CUP$Sintactico$result = parser.getSymbolFactory().newSymbol("GENERAR",4, ((java_cup.runtime.Symbol)CUP$Sintactico$stack.elementAt(CUP$Sintactico$top-2)), ((java_cup.runtime.Symbol)CUP$Sintactico$stack.peek()), RESULT);
             }
           return CUP$Sintactico$result;
@@ -522,7 +545,15 @@ class CUP$Sintactico$actions {
 		int grafleft = ((java_cup.runtime.Symbol)CUP$Sintactico$stack.peek()).left;
 		int grafright = ((java_cup.runtime.Symbol)CUP$Sintactico$stack.peek()).right;
 		Line graf = (Line)((java_cup.runtime.Symbol) CUP$Sintactico$stack.peek()).value;
-		RESULT=f;f.setLinea(graf);
+		System.out.println("5");
+    if(f.getLinea()!=null){
+        f.getLinea().add(graf);
+    }else{
+        ArrayList<Line> aux_bar=new ArrayList<Line>();aux_bar.add(graf);
+        f.setLinea(aux_bar);
+    }
+    RESULT=f;
+    
               CUP$Sintactico$result = parser.getSymbolFactory().newSymbol("GENERAR",4, ((java_cup.runtime.Symbol)CUP$Sintactico$stack.elementAt(CUP$Sintactico$top-1)), ((java_cup.runtime.Symbol)CUP$Sintactico$stack.peek()), RESULT);
             }
           return CUP$Sintactico$result;
@@ -550,6 +581,7 @@ class CUP$Sintactico$actions {
 		int sright = ((java_cup.runtime.Symbol)CUP$Sintactico$stack.peek()).right;
 		String s = (String)((java_cup.runtime.Symbol) CUP$Sintactico$stack.peek()).value;
 		
+    System.out.println("6");
     RESULT=f;f.setRuta1(s);
               CUP$Sintactico$result = parser.getSymbolFactory().newSymbol("GENERAR",4, ((java_cup.runtime.Symbol)CUP$Sintactico$stack.elementAt(CUP$Sintactico$top-1)), ((java_cup.runtime.Symbol)CUP$Sintactico$stack.peek()), RESULT);
             }
@@ -791,7 +823,8 @@ class CUP$Sintactico$actions {
 		int c2left = ((java_cup.runtime.Symbol)CUP$Sintactico$stack.elementAt(CUP$Sintactico$top-2)).left;
 		int c2right = ((java_cup.runtime.Symbol)CUP$Sintactico$stack.elementAt(CUP$Sintactico$top-2)).right;
 		String c2 = (String)((java_cup.runtime.Symbol) CUP$Sintactico$stack.elementAt(CUP$Sintactico$top-2)).value;
-		RESULT=c1+"-"+c2;
+		System.out.println("Llegue"+c1+"-"+c2);
+    RESULT=c1+"-"+c2;
               CUP$Sintactico$result = parser.getSymbolFactory().newSymbol("FCOMPARE",3, ((java_cup.runtime.Symbol)CUP$Sintactico$stack.elementAt(CUP$Sintactico$top-6)), ((java_cup.runtime.Symbol)CUP$Sintactico$stack.peek()), RESULT);
             }
           return CUP$Sintactico$result;

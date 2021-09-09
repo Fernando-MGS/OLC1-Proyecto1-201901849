@@ -44,7 +44,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import Reportes.Reporte;
 import Comparador.*;
-import Contenedor.GLOBALES;
+import Contenedor.*;
 import Reportes.Resumen;
 import Graficas.*;
 /**
@@ -60,6 +60,8 @@ public class AppForm extends javax.swing.JFrame {
     public static int contador_lineas = 0;
     public static int contador_func = 0;
     public static FCA file;
+    public ArrayList<GLOBALES> GLB;
+    
     public static Resumen resumen = new Resumen();
     public static Archivo save_file = new Archivo();
     public static ArrayList<Comentarios> save_comm = new ArrayList<Comentarios>();
@@ -203,6 +205,11 @@ public class AppForm extends javax.swing.JFrame {
         jMenu2.add(jMenuItem1);
 
         jMenuItem2.setText("Guardar Cómo");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem2);
 
         jMenuItem5.setText("Guardar");
@@ -388,9 +395,17 @@ public class AppForm extends javax.swing.JFrame {
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
         // TODO add your handling code here:
-        Pie p = new Pie();
-        p.graf_Pie();
+        /*Pie p = new Pie();
+        p.graf_Pie();*/
+        Linea l = new Linea();
+        l.graf_Line();
+        
     }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:
+        //Files.delete("Graficas");
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     public static String OpenFile(File file) {
         String aux, texto = "";
@@ -431,6 +446,7 @@ public class AppForm extends javax.swing.JFrame {
     }
 
     private void Execute() {
+        limpiar();
         Pane mytab = ((Pane) p_editor.getSelectedComponent());
         tokens = new List_Token();
         errors = new List_Error();
@@ -458,19 +474,23 @@ public class AppForm extends javax.swing.JFrame {
                 .getSelectedIndex()));
         if (file != null) {
             consl.setText(consl.getText() + "\n" + "No se encontraron errores");
+            
             String[] ruta = file.getRuta1().split("-");
             ruta[0] = ruta[0].replace("\"", "");
             ruta[1] = ruta[1].replace("\"", "");
+            escribir("INICIANDO ANALISIS JS");
             executeJS(ruta);
             analysisJS();
             //print_class();
             //print_project();
             Repitencias punteos = new Repitencias();
             punteos.Comparacion();
+            defValoresGlobales();
+            //file.Print();
             Reporte reporte = new Reporte();
             reporte.Resumen();
-            defValoresGlobales();
-            file.Print();
+            graficas();
+            //file.Print();
             //tokens.Console();
             //listFilesForFolder(folder);
             //System.out.println("Código sin errores sintácticos-léxicos");
@@ -486,7 +506,30 @@ public class AppForm extends javax.swing.JFrame {
         }
 
     }
-
+    
+    public void limpiar(){
+        consl.setText("");
+        resumen=new Resumen();
+        save_file=new Archivo();
+        save_comm=new ArrayList<Comentarios>();
+        save_class=new ArrayList<Clases>();
+        save_funciones=new ArrayList<Funciones>();
+        save_vars=new ArrayList<Variables>();
+        temp_info=new ArrayList<String>();
+        project_actual="";
+        file_report="";
+        tokens=new List_Token();
+        errors=new List_Error();
+        Proyecto1=new List_File();
+        Proyecto2=new List_File();
+        Class_Especificos=new ArrayList<PT_especifico>();
+        Comm_Especificos=new ArrayList<PT_especifico>();
+        Var_Especificos=new ArrayList<PT_especifico>();
+        Funcs_Especificos=new ArrayList<PT_especifico>();
+        project1=new ArrayList<ContentFile>();
+        project2=new ArrayList<ContentFile>();
+    }
+    
     public void analysisJS() {
         project1.forEach((t) -> {
             project_actual = "Proyecto 1";
@@ -615,6 +658,29 @@ public class AppForm extends javax.swing.JFrame {
         });
     }
 
+    public static double def_especifico(String name){
+        System.out.println("=================");
+        double pt=0;
+        String[] aux = name.split("-");
+                
+                if (aux[0].equalsIgnoreCase("puntajeespecifico")) {
+                    aux[1]=aux[1].replace("\"","");
+                    aux[2]=aux[2].replace("\"","");
+                    aux[3]=aux[3].replace("\"","");
+                    System.out.println(aux[0]+"-"+aux[1]+"-"+aux[2]+"-"+aux[3]);
+                    if (aux[2].equalsIgnoreCase("clase")) {
+                        pt=valor_clas(aux[3],aux[1]);
+                    }else if (aux[2].equalsIgnoreCase("variable")) {
+                        pt=valor_va(aux[3],aux[1]);
+                    }else if (aux[2].equalsIgnoreCase("comentario")) {
+                        pt=valor_com(aux[1]);
+                    }else if (aux[2].equalsIgnoreCase("funcion")||aux[2].equalsIgnoreCase("metodo")) {
+                        pt=valor_fun(aux[3],aux[1]);
+                    }
+                } 
+                System.out.println("el pt es "+pt);
+        return pt;
+    }
     public void defValoresGlobales() {
         for (GLOBALES glob : file.getGLB()) {
             if (glob.getTipo() == 2) {
@@ -640,7 +706,47 @@ public class AppForm extends javax.swing.JFrame {
             }
         }
     }
+    
+    public void graficas(){
+        if(file.getBar()!=null){
+            Barra bar_g = new Barra();
+            bar_g.graf_Barra();
+        }
+        if(file.getPie()!=null){
+            Pie bar_g = new Pie();
+            bar_g.graf_Pie();
+        }
+        /*if(file.getPie()!=null){
+            Pie bar_g = new Pie();
+            bar_g.graf_Pie();
+        }*/
+    }
 
+    public static String nombre_glob(String name){
+        String a="";
+        ArrayList<GLOBALES> t= file.getGLB();
+        for(GLOBALES g: t){
+            if(g.getTipo()==0 && g.getNombre().equals(name)){
+                a=g.getValor_s();
+            }
+        }
+        return a;
+    }
+    
+    public static double valor_glob(String name){
+        double a=0;
+        ArrayList<GLOBALES> t= file.getGLB();
+        for(GLOBALES g: t){
+            if(g.getTipo()==1 && g.getNombre().equals(name)){
+                a=g.getValor_d();
+            }
+            if(g.getTipo()==2 && g.getNombre().equals(name)){
+                a=g.getValor_d();
+            }
+        }
+        return a;
+    }
+    
     public double valor_class(String name, String file) {
         double punteo = 0;
         for (PT_especifico pt : Class_Especificos) {
@@ -654,8 +760,35 @@ public class AppForm extends javax.swing.JFrame {
         }
         return punteo;
     }
-
+    
+    public static double valor_clas(String name, String file) {
+        double punteo = 0;
+        for (PT_especifico pt : Class_Especificos) {
+            if (pt.nombre.equals(name) || pt.nombre2.equals(name)) {
+                if (pt.file.equals(file) || pt.file1.equals(file)) {
+                    System.out.println("Hizo match"+name);
+                    punteo = pt.Punteo;
+                    break;
+                }
+            }
+        }
+        return punteo;
+    }
     public double valor_var(String name,String file) {
+        double punteo = 0;
+        for (PT_especifico pt : Var_Especificos) {
+            if (pt.nombre.equals(name) || pt.nombre2.equals(name)) {
+                if (pt.file.equals(file) || pt.file1.equals(file)) {
+                    System.out.println("Hizo match "+name);
+                    punteo = pt.Punteo;
+                    break;
+                }
+            }
+        }
+        return punteo;
+    }
+    
+    public static double valor_va(String name,String file) {
         double punteo = 0;
         for (PT_especifico pt : Var_Especificos) {
             if (pt.nombre.equals(name) || pt.nombre2.equals(name)) {
@@ -679,8 +812,33 @@ public class AppForm extends javax.swing.JFrame {
         }
         return punteo;
     }
-
+    
+    public static double valor_com(String file) {
+        double punteo = 0;
+        for (PT_especifico pt : Comm_Especificos) {
+            if (pt.file.equals(file) || pt.nombre2.equals(file)) {
+                punteo = pt.Punteo;
+                break;
+            }
+        }
+        return punteo;
+    }
+    
     public double valor_func(String name, String file) {
+        double punteo = 0;
+        for (PT_especifico pt : Funcs_Especificos) {
+            if (pt.nombre.equals(name) || pt.nombre2.equals(name)) {
+                if (pt.file.equals(file) || pt.file1.equals(file)) {
+                   System.out.println("Hizo match"+name);
+                    punteo = pt.Punteo;
+                    break;
+                }
+            }
+        }
+        return punteo;
+    }
+    
+    public static double valor_fun(String name, String file) {
         double punteo = 0;
         for (PT_especifico pt : Funcs_Especificos) {
             if (pt.nombre.equals(name) || pt.nombre2.equals(name)) {

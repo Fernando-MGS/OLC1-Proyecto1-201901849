@@ -16,6 +16,8 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import Comparador.*;
+import ContenedorJS.ContentFile;
+import java.io.File;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -182,6 +184,26 @@ public class Reporte {
             //archivo uzamos la diagonal invertida \"
             printw.println("<body bgcolor=\"#9370D8\">");
             printw.println("<center><h1><font color=\"navy\">" + "RESUMEN" + "</font></h1></center>");
+            
+            
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+            //Datos finales
+            printw.println("<h1>DATOS FINALES:</h1>");  
+            printw.println("<h3>NOMBRES: FERNANDO MAURICIO GÓMEZ SANTOS</h3>");  
+            printw.println("<h3>CARNET:201901849</h3>");  
+            printw.println("<h3>FECHA Y HORA: "+dtf.format(LocalDateTime.now())+"</h3>");  
+            
+            File folder2 = new File("Graficas");
+        File[] File_list2 = folder2.listFiles();
+        for (File file : File_list2) {
+            if (!file.isDirectory()) {
+                printw.println("<img src=\"Graficas/"+file.getName()+"\">");
+                //String ruta = paths[0] + "\\" + file.getName();
+                //project1.add(new ContentFile(file.getName(), muestraContenido(ruta)));
+                //System.out.println(paths[0]+"\\"+file.getName());
+                //addFiles(paths[0] + "\\" + file.getName());
+            }
+        }
             printw.println("<table class=\"table table-bordered table-dark\">");
             printw.println("<thead>\n"
                     + "    <tr>\n"
@@ -216,12 +238,7 @@ public class Reporte {
             printw.println("<td>" + AppForm.resumen.getComentarios2()+ "</td>");
             printw.println("</tr>");
             
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-            //Datos finales
-            printw.println("<h1>DATOS FINALES:</h1>");  
-            printw.println("<h3>NOMBRES: FERNANDO MAURICIO GÓMEZ SANTOS</h3>");  
-            printw.println("<h3>CARNET:201901849</h3>");  
-            printw.println("<h3>FECHA Y HORA: "+dtf.format(LocalDateTime.now())+"</h3>");  
+            
             printw.println("</body>");
             printw.println("</html>");
             printw.close();
