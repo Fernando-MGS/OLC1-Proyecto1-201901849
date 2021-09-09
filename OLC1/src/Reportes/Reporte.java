@@ -21,6 +21,7 @@ import java.io.File;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
 public class Reporte {
 
     FileWriter filewriter = null;
@@ -184,26 +185,6 @@ public class Reporte {
             //archivo uzamos la diagonal invertida \"
             printw.println("<body bgcolor=\"#9370D8\">");
             printw.println("<center><h1><font color=\"navy\">" + "RESUMEN" + "</font></h1></center>");
-            
-            
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-            //Datos finales
-            printw.println("<h1>DATOS FINALES:</h1>");  
-            printw.println("<h3>NOMBRES: FERNANDO MAURICIO GÓMEZ SANTOS</h3>");  
-            printw.println("<h3>CARNET:201901849</h3>");  
-            printw.println("<h3>FECHA Y HORA: "+dtf.format(LocalDateTime.now())+"</h3>");  
-            
-            File folder2 = new File("Graficas");
-        File[] File_list2 = folder2.listFiles();
-        for (File file : File_list2) {
-            if (!file.isDirectory()) {
-                printw.println("<img src=\"Graficas/"+file.getName()+"\">");
-                //String ruta = paths[0] + "\\" + file.getName();
-                //project1.add(new ContentFile(file.getName(), muestraContenido(ruta)));
-                //System.out.println(paths[0]+"\\"+file.getName());
-                //addFiles(paths[0] + "\\" + file.getName());
-            }
-        }
             printw.println("<table class=\"table table-bordered table-dark\">");
             printw.println("<thead>\n"
                     + "    <tr>\n"
@@ -222,23 +203,85 @@ public class Reporte {
             //Clases
             printw.println("<tr>");
             printw.println("<td>Total Clases</td>");
-            printw.println("<td>" + AppForm.resumen.getClass1()+ "</td>");
-            printw.println("<td>" + AppForm.resumen.getClass2()+ "</td>");
+            printw.println("<td>" + AppForm.resumen.getClass1() + "</td>");
+            printw.println("<td>" + AppForm.resumen.getClass2() + "</td>");
             printw.println("</tr>");
             //Funciones
             printw.println("<tr>");
             printw.println("<td>Total Metodo/Funciones</td>");
-            printw.println("<td>" + AppForm.resumen.getFunciones1()+ "</td>");
-            printw.println("<td>" + AppForm.resumen.getFunciones2()+ "</td>");
+            printw.println("<td>" + AppForm.resumen.getFunciones1() + "</td>");
+            printw.println("<td>" + AppForm.resumen.getFunciones2() + "</td>");
             printw.println("</tr>");
             //Clases
             printw.println("<tr>");
             printw.println("<td>Total Comentarios</td>");
-            printw.println("<td>" + AppForm.resumen.getComentarios1()+ "</td>");
-            printw.println("<td>" + AppForm.resumen.getComentarios2()+ "</td>");
+            printw.println("<td>" + AppForm.resumen.getComentarios1() + "</td>");
+            printw.println("<td>" + AppForm.resumen.getComentarios2() + "</td>");
             printw.println("</tr>");
+            printw.println("</tbody>");
+            printw.println("</table>");
+            
+            File folder2 = new File("Graficas/Lineas");
+            File[] File_list2 = folder2.listFiles();
+            System.out.println("El tamaño es "+File_list2.length);
+            if (File_list2.length > 0) {
+                printw.println("<center><h1><font color=\"navy\">" + "GRAFICAS DE LINEAS" + "</font></h1></center>");
+                for (File file : File_list2) {
+                    if (!file.isDirectory()) {
+
+                        printw.println("<img src=\"Graficas/Lineas/" + file.getName() + "\">");
+                        //String ruta = paths[0] + "\\" + file.getName();
+                        //project1.add(new ContentFile(file.getName(), muestraContenido(ruta)));
+                        //System.out.println(paths[0]+"\\"+file.getName());
+                        //addFiles(paths[0] + "\\" + file.getName());
+                    }
+                }
+            }
             
             
+            folder2 = new File("Graficas/Barras");
+            File_list2 = folder2.listFiles();
+            if (File_list2.length > 0) {
+                System.out.println("El tamaño es "+File_list2.length);
+                printw.println("<center><h1><font color=\"navy\">" + "GRAFICAS DE BARRAS" + "</font></h1></center>");
+                for (File file : File_list2) {
+                    if (!file.isDirectory()) {
+
+                        printw.println("<img src=\"Graficas/Barras/" + file.getName() + "\">");
+                        //String ruta = paths[0] + "\\" + file.getName();
+                        //project1.add(new ContentFile(file.getName(), muestraContenido(ruta)));
+                        //System.out.println(paths[0]+"\\"+file.getName());
+                        //addFiles(paths[0] + "\\" + file.getName());
+                    }
+                }
+            }
+
+            folder2 = new File("Graficas/Pie");
+            File_list2 = folder2.listFiles();
+            if (File_list2.length > 0) {
+                System.out.println("El tamaño es "+File_list2.length);
+                printw.println("<center><h1><font color=\"navy\">" + "GRAFICAS DE PIE" + "</font></h1></center>");
+                for (File file : File_list2) {
+                    if (!file.isDirectory()) {
+
+                        printw.println("<img src=\"Graficas/Pie/" + file.getName() + "\">");
+                        //String ruta = paths[0] + "\\" + file.getName();
+                        //project1.add(new ContentFile(file.getName(), muestraContenido(ruta)));
+                        //System.out.println(paths[0]+"\\"+file.getName());
+                        //addFiles(paths[0] + "\\" + file.getName());
+                    }
+                }
+            }
+            
+            
+            
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+            //Datos finales
+            printw.println("<center><h1>DATOS FINALES:</h1></center>");
+            printw.println("<center><h3>NOMBRES: FERNANDO MAURICIO GÓMEZ SANTOS</h3></center>");
+            printw.println("<center><h3>CARNET:201901849</h3></center>");
+            printw.println("<center><h3>FECHA Y HORA: " + dtf.format(LocalDateTime.now()) + "</h3></center>");
+
             printw.println("</body>");
             printw.println("</html>");
             printw.close();

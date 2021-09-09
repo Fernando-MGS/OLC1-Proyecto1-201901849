@@ -69,7 +69,7 @@ public class Pie {
             JFreeChart chart = ChartFactory.createPieChart(p.getTitle(), Gpie, true, true, true);
             try {
                 final ChartRenderingInfo info = new ChartRenderingInfo(new StandardEntityCollection());
-               final File file = new File("Graficas/PIE " + ver + " " + AppForm.project_actual + ".jpg");
+               final File file = new File("Graficas/Pie/PIE " + ver + " " + AppForm.project_actual + ".jpg");
                /* String ruta= file.getPath()+"/PIE " + ver   + AppForm.project_actual+".jpg";
                 final File fil= new File(ruta);
                 System.out.println(ruta);*/

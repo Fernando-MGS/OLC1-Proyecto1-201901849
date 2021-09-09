@@ -62,7 +62,7 @@ public class Barra {
             JFreeChart chart = ChartFactory.createBarChart(b.getTitle(), b.getTitlex(), b.getTitley(), Gpie, PlotOrientation.VERTICAL, true, true, false);
             try {
                 final ChartRenderingInfo info = new ChartRenderingInfo(new StandardEntityCollection());
-                final File file = new File("Graficas/BARRA-" + var + "-" + AppForm.project_actual + ".jpg");
+                final File file = new File("Graficas/Barras/BARRA-" + var + "-" + AppForm.project_actual + ".jpg");
                 ChartUtilities.saveChartAsJPEG(file, chart, 640, 480, info);
             } catch (Exception e) {
                 //System.out.println(e);
