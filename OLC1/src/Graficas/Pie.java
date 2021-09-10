@@ -55,7 +55,7 @@ public class Pie {
                     if (ar.length<=1) {
                         pt = AppForm.valor_glob(p.getValue().get(i));
                     }else{
-                        System.out.println(p.getValue().get(i));
+                       // System.out.println(p.getValue().get(i));
                         pt = AppForm.def_especifico(p.getValue().get(i));
                     }
                     

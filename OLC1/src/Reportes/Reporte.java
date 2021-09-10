@@ -74,7 +74,6 @@ public class Reporte {
 
     public void ReporteError(List_Error lista) {
         try {
-
             filewriter = new FileWriter("ReporteErrores-" + AppForm.file_report + ".html");//declarar el archivo
             printw = new PrintWriter(filewriter);//declarar un impresor
             printw.println("<html>");
@@ -223,7 +222,7 @@ public class Reporte {
             
             File folder2 = new File("Graficas/Lineas");
             File[] File_list2 = folder2.listFiles();
-            System.out.println("El tamaño es "+File_list2.length);
+            //System.out.println("El tamaño es "+File_list2.length);
             if (File_list2.length > 0) {
                 printw.println("<center><h1><font color=\"navy\">" + "GRAFICAS DE LINEAS" + "</font></h1></center>");
                 for (File file : File_list2) {
@@ -242,7 +241,7 @@ public class Reporte {
             folder2 = new File("Graficas/Barras");
             File_list2 = folder2.listFiles();
             if (File_list2.length > 0) {
-                System.out.println("El tamaño es "+File_list2.length);
+                //.out.println("El tamaño es "+File_list2.length);
                 printw.println("<center><h1><font color=\"navy\">" + "GRAFICAS DE BARRAS" + "</font></h1></center>");
                 for (File file : File_list2) {
                     if (!file.isDirectory()) {
@@ -259,7 +258,7 @@ public class Reporte {
             folder2 = new File("Graficas/Pie");
             File_list2 = folder2.listFiles();
             if (File_list2.length > 0) {
-                System.out.println("El tamaño es "+File_list2.length);
+               // System.out.println("El tamaño es "+File_list2.length);
                 printw.println("<center><h1><font color=\"navy\">" + "GRAFICAS DE PIE" + "</font></h1></center>");
                 for (File file : File_list2) {
                     if (!file.isDirectory()) {

@@ -50,7 +50,7 @@ public class Barra {
                     if (ar.length<=1) {
                         pt = AppForm.valor_glob(b.getValue().get(i));
                     }else{
-                        System.out.println(b.getValue().get(i));
+                       // System.out.println(b.getValue().get(i));
                         pt = AppForm.def_especifico(b.getValue().get(i));
                     }
                     //pt = AppForm.valor_glob(b.getValue().get(i));

@@ -19,8 +19,8 @@ import Errores.Error_G;
 
 
 BLANCOS = [ \t\r\n]+
-COM = ("##")(.)*
-COMM = ("#*")(.|\n)*("*#")
+COM = ("##")[^\n]*
+COMM = "#"\*([^*]*?)\*"#"
 NOMBRE= [A-Za-z]([A-Za-z]|[0-9])*
 ENTERO = [0-9]+ 
 DD=[0-9]+("."[  |0-9]+)?
@@ -29,7 +29,6 @@ CADENA = [\"]((\\\")|[^\r\n\"])*[\"]
 %%
 
 "=" {return new Symbol(sym.igual,yyline,yycolumn,yytext());}
-"#" {return new Symbol(sym.hash,yyline,yycolumn,yytext());}
 "+" {return new Symbol(sym.mas,yyline,yycolumn,yytext());}
 "-" {return new Symbol(sym.menos,yyline,yycolumn,yytext());}
 "*" {return new Symbol(sym.por,yyline,yycolumn,yytext());}
@@ -73,7 +72,7 @@ CADENA = [\"]((\\\")|[^\r\n\"])*[\"]
         return new Symbol(sym.pejex,yyline,yycolumn,yytext());}
 "VALORES" {AppForm.tokens.add(new Token(yytext(),"Tok_Value",yyline,yycolumn,AppForm.file_actual));
             return new Symbol(sym.pvalue,yyline,yycolumn,yytext());}
-"ARCHIVO" {AppForm.tokens.add(new Token(yytext(),"CommOneline",yyline,yycolumn,AppForm.file_actual));
+"ARCHIVO" {AppForm.tokens.add(new Token(yytext(),"Tok_file",yyline,yycolumn,AppForm.file_actual));
         return new Symbol(sym.pfile,yyline,yycolumn,yytext());}
 "TITULOX" {AppForm.tokens.add(new Token(yytext(),"title_x",yyline,yycolumn,AppForm.file_actual));
         return new Symbol(sym.title_x,yyline,yycolumn,yytext());}

@@ -104,25 +104,25 @@ public class Lexico implements java_cup.runtime.Scanner {
   private static final int [] ZZ_ACTION = zzUnpackAction();
 
   private static final String ZZ_ACTION_PACKED_0 =
-    "\1\0\1\1\1\2\1\3\1\4\1\5\1\6\1\7"+
-    "\1\10\1\11\1\12\1\13\1\14\1\15\1\16\1\17"+
-    "\1\20\1\21\12\22\1\23\1\24\1\25\1\26\1\1"+
-    "\1\27\1\0\1\30\1\0\1\31\2\0\12\22\1\0"+
-    "\1\22\1\0\1\30\1\0\1\32\12\22\1\0\1\22"+
-    "\1\0\1\33\3\22\1\0\1\22\1\34\4\22\1\0"+
-    "\1\22\1\0\2\22\1\0\2\22\1\0\3\22\1\0"+
-    "\2\22\1\0\1\22\1\0\2\22\1\0\2\22\1\0"+
-    "\1\35\2\22\1\0\1\22\2\36\2\37\1\22\2\40"+
-    "\1\41\1\22\1\0\2\22\1\0\1\22\1\42\1\43"+
-    "\1\42\1\43\2\44\1\22\1\0\4\22\3\0\3\22"+
-    "\1\0\3\22\1\0\1\22\2\0\1\22\1\0\2\22"+
-    "\1\0\3\22\1\0\2\45\1\0\1\22\1\0\2\22"+
-    "\1\0\3\22\2\0\1\22\1\0\2\22\1\0\3\22"+
-    "\2\0\1\22\1\0\2\22\1\0\1\22\2\46\2\47"+
-    "\1\22\1\0\2\22\1\0\2\22\1\0\1\50\2\51"+
-    "\2\22\1\0\1\22\1\0\1\22\1\0\1\22\1\0"+
-    "\2\52\1\22\1\0\1\22\1\0\1\22\1\0\1\22"+
-    "\1\0\1\22\1\0\1\22\1\0\1\22\1\0\2\53";
+    "\1\0\1\1\1\2\1\3\1\1\1\4\1\5\1\6"+
+    "\1\7\1\10\1\11\1\12\1\13\1\14\1\15\1\16"+
+    "\1\17\1\20\12\21\1\22\1\23\1\24\1\25\1\1"+
+    "\1\26\1\0\1\27\1\0\1\30\2\0\12\21\1\0"+
+    "\1\21\1\0\1\27\1\0\1\31\12\21\1\0\1\21"+
+    "\1\0\1\32\3\21\1\0\1\21\1\33\4\21\1\0"+
+    "\1\21\1\0\2\21\1\0\2\21\1\0\3\21\1\0"+
+    "\2\21\1\0\1\21\1\0\2\21\1\0\2\21\1\0"+
+    "\1\34\2\21\1\0\1\21\2\35\2\36\1\21\2\37"+
+    "\1\40\1\21\1\0\2\21\1\0\1\21\1\41\1\42"+
+    "\1\41\1\42\2\43\1\21\1\0\4\21\3\0\3\21"+
+    "\1\0\3\21\1\0\1\21\2\0\1\21\1\0\2\21"+
+    "\1\0\3\21\1\0\2\44\1\0\1\21\1\0\2\21"+
+    "\1\0\3\21\2\0\1\21\1\0\2\21\1\0\3\21"+
+    "\2\0\1\21\1\0\2\21\1\0\1\21\2\45\2\46"+
+    "\1\21\1\0\2\21\1\0\2\21\1\0\1\47\2\50"+
+    "\2\21\1\0\1\21\1\0\1\21\1\0\1\21\1\0"+
+    "\2\51\1\21\1\0\1\21\1\0\1\21\1\0\1\21"+
+    "\1\0\1\21\1\0\1\21\1\0\1\21\1\0\2\52";
 
   private static int [] zzUnpackAction() {
     int [] result = new int[229];
@@ -158,7 +158,7 @@ public class Lexico implements java_cup.runtime.Scanner {
     "\0\u0459\0\u048e\0\u04c3\0\u04f8\0\u052d\0\u0562\0\u0597\0\u05cc"+
     "\0\u0601\0\u0636\0\u066b\0\u06a0\0\u06d5\0\237\0\u070a\0\u0424"+
     "\0\u073f\0\u0774\0\u07a9\0\u07de\0\u0813\0\u0848\0\u087d\0\u08b2"+
-    "\0\u08e7\0\u091c\0\u0951\0\u0986\0\u09bb\0\u03ef\0\u09f0\0\u0a25"+
+    "\0\u08e7\0\u091c\0\u0951\0\u0986\0\u09bb\0\65\0\u09f0\0\u0a25"+
     "\0\u0a5a\0\u0a8f\0\u0ac4\0\u0173\0\u0af9\0\u0b2e\0\u0b63\0\u0b98"+
     "\0\u0bcd\0\u0c02\0\u0c37\0\u0c6c\0\u0ca1\0\u0cd6\0\u0d0b\0\u0d40"+
     "\0\u0d75\0\u0daa\0\u0ddf\0\u0e14\0\u0e49\0\u0e7e\0\u0eb3\0\u0ee8"+
@@ -221,18 +221,17 @@ public class Lexico implements java_cup.runtime.Scanner {
     "\22\24\1\61\4\24\32\0\1\24\3\0\10\24\1\62"+
     "\16\24\6\0\1\63\23\0\1\24\3\0\1\64\26\24"+
     "\60\0\1\65\15\0\2\43\1\0\1\43\1\0\1\43"+
-    "\1\66\46\43\1\45\7\43\2\46\3\0\60\46\3\47"+
-    "\2\0\6\47\1\67\51\47\5\0\1\70\13\0\1\70"+
-    "\36\0\1\70\25\0\1\24\3\0\2\24\1\71\24\24"+
-    "\32\0\1\24\3\0\14\24\1\72\12\24\32\0\1\24"+
-    "\3\0\5\24\1\73\21\24\32\0\1\24\3\0\23\24"+
-    "\1\74\3\24\32\0\1\24\3\0\4\24\1\75\22\24"+
-    "\32\0\1\24\3\0\15\24\1\76\11\24\32\0\1\24"+
-    "\3\0\1\77\26\24\32\0\1\24\3\0\15\24\1\100"+
-    "\11\24\32\0\1\24\3\0\20\24\1\101\6\24\32\0"+
-    "\1\24\3\0\22\24\1\102\4\24\60\0\1\103\36\0"+
-    "\1\24\3\0\13\24\1\104\13\24\56\0\1\105\17\0"+
-    "\3\47\2\0\2\47\1\106\3\47\1\67\51\47\21\0"+
+    "\1\66\46\43\1\45\7\43\2\46\1\0\62\46\13\47"+
+    "\1\67\51\47\5\0\1\70\13\0\1\70\36\0\1\70"+
+    "\25\0\1\24\3\0\2\24\1\71\24\24\32\0\1\24"+
+    "\3\0\14\24\1\72\12\24\32\0\1\24\3\0\5\24"+
+    "\1\73\21\24\32\0\1\24\3\0\23\24\1\74\3\24"+
+    "\32\0\1\24\3\0\4\24\1\75\22\24\32\0\1\24"+
+    "\3\0\15\24\1\76\11\24\32\0\1\24\3\0\1\77"+
+    "\26\24\32\0\1\24\3\0\15\24\1\100\11\24\32\0"+
+    "\1\24\3\0\20\24\1\101\6\24\32\0\1\24\3\0"+
+    "\22\24\1\102\4\24\60\0\1\103\36\0\1\24\3\0"+
+    "\13\24\1\104\13\24\56\0\1\105\26\0\1\106\76\0"+
     "\1\24\3\0\7\24\1\107\17\24\32\0\1\24\3\0"+
     "\17\24\1\110\7\24\32\0\1\24\3\0\10\24\1\111"+
     "\16\24\6\0\1\112\23\0\1\24\3\0\1\24\1\113"+
@@ -373,20 +372,20 @@ public class Lexico implements java_cup.runtime.Scanner {
     "\1\0\1\11\3\1\11\11\1\1\3\11\12\1\4\11"+
     "\1\1\1\11\1\0\1\11\1\0\1\1\2\0\12\1"+
     "\1\0\1\1\1\0\1\1\1\0\13\1\1\0\1\1"+
-    "\1\0\4\1\1\0\6\1\1\0\1\1\1\0\2\1"+
-    "\1\0\2\1\1\0\3\1\1\0\2\1\1\0\1\1"+
-    "\1\0\2\1\1\0\2\1\1\0\3\1\1\0\2\1"+
-    "\1\11\4\1\1\11\2\1\1\0\2\1\1\0\3\1"+
-    "\2\11\1\1\1\11\1\1\1\0\4\1\3\0\3\1"+
-    "\1\0\3\1\1\0\1\1\2\0\1\1\1\0\2\1"+
-    "\1\0\3\1\1\0\1\1\1\11\1\0\1\1\1\0"+
-    "\2\1\1\0\3\1\2\0\1\1\1\0\2\1\1\0"+
-    "\3\1\2\0\1\1\1\0\2\1\1\0\2\1\1\11"+
-    "\1\1\1\11\1\1\1\0\2\1\1\0\2\1\1\0"+
-    "\2\1\1\11\2\1\1\0\1\1\1\0\1\1\1\0"+
-    "\1\1\1\0\1\1\1\11\1\1\1\0\1\1\1\0"+
-    "\1\1\1\0\1\1\1\0\1\1\1\0\1\1\1\0"+
-    "\1\1\1\0\1\1\1\11";
+    "\1\0\1\11\3\1\1\0\6\1\1\0\1\1\1\0"+
+    "\2\1\1\0\2\1\1\0\3\1\1\0\2\1\1\0"+
+    "\1\1\1\0\2\1\1\0\2\1\1\0\3\1\1\0"+
+    "\2\1\1\11\4\1\1\11\2\1\1\0\2\1\1\0"+
+    "\3\1\2\11\1\1\1\11\1\1\1\0\4\1\3\0"+
+    "\3\1\1\0\3\1\1\0\1\1\2\0\1\1\1\0"+
+    "\2\1\1\0\3\1\1\0\1\1\1\11\1\0\1\1"+
+    "\1\0\2\1\1\0\3\1\2\0\1\1\1\0\2\1"+
+    "\1\0\3\1\2\0\1\1\1\0\2\1\1\0\2\1"+
+    "\1\11\1\1\1\11\1\1\1\0\2\1\1\0\2\1"+
+    "\1\0\2\1\1\11\2\1\1\0\1\1\1\0\1\1"+
+    "\1\0\1\1\1\0\1\1\1\11\1\1\1\0\1\1"+
+    "\1\0\1\1\1\0\1\1\1\0\1\1\1\0\1\1"+
+    "\1\0\1\1\1\0\1\1\1\11";
 
   private static int [] zzUnpackAttribute() {
     int [] result = new int[229];
@@ -878,237 +877,232 @@ public class Lexico implements java_cup.runtime.Scanner {
     AppForm.errors.add(new Error_G(yytext(),err,yyline,yycolumn,AppForm.file_actual));
             }
             // fall through
-          case 44: break;
+          case 43: break;
           case 2:
             { 
             }
             // fall through
-          case 45: break;
+          case 44: break;
           case 3:
             { return new Symbol(sym.comillas,yyline,yycolumn,yytext());
             }
             // fall through
-          case 46: break;
+          case 45: break;
           case 4:
-            { return new Symbol(sym.hash,yyline,yycolumn,yytext());
-            }
-            // fall through
-          case 47: break;
-          case 5:
             { return new Symbol(sym.dolar,yyline,yycolumn,yytext());
             }
             // fall through
-          case 48: break;
-          case 6:
+          case 46: break;
+          case 5:
             { return new Symbol(sym.par_i,yyline,yycolumn,yytext());
             }
             // fall through
-          case 49: break;
-          case 7:
+          case 47: break;
+          case 6:
             { return new Symbol(sym.par_d,yyline,yycolumn,yytext());
             }
             // fall through
-          case 50: break;
-          case 8:
+          case 48: break;
+          case 7:
             { return new Symbol(sym.por,yyline,yycolumn,yytext());
             }
             // fall through
-          case 51: break;
-          case 9:
+          case 49: break;
+          case 8:
             { return new Symbol(sym.mas,yyline,yycolumn,yytext());
             }
             // fall through
-          case 52: break;
-          case 10:
+          case 50: break;
+          case 9:
             { return new Symbol(sym.coma,yyline,yycolumn,yytext());
             }
             // fall through
-          case 53: break;
-          case 11:
+          case 51: break;
+          case 10:
             { return new Symbol(sym.menos,yyline,yycolumn,yytext());
             }
             // fall through
-          case 54: break;
-          case 12:
+          case 52: break;
+          case 11:
             { return new Symbol(sym.punto,yyline,yycolumn,yytext());
             }
             // fall through
-          case 55: break;
-          case 13:
+          case 53: break;
+          case 12:
             { return new Symbol(sym.div,yyline,yycolumn,yytext());
             }
             // fall through
-          case 56: break;
-          case 14:
+          case 54: break;
+          case 13:
             { AppForm.tokens.add(new Token(yytext(),"Tipo_entero",yyline,yycolumn,AppForm.file_actual));
             return new Symbol(sym.entero,yyline,yycolumn,yytext());
             }
             // fall through
-          case 57: break;
-          case 15:
+          case 55: break;
+          case 14:
             { return new Symbol(sym.d_punto,yyline,yycolumn,yytext());
             }
             // fall through
-          case 58: break;
-          case 16:
+          case 56: break;
+          case 15:
             { return new Symbol(sym.ptcoma,yyline,yycolumn,yytext());
             }
             // fall through
-          case 59: break;
-          case 17:
+          case 57: break;
+          case 16:
             { return new Symbol(sym.igual,yyline,yycolumn,yytext());
             }
             // fall through
-          case 60: break;
-          case 18:
+          case 58: break;
+          case 17:
             { AppForm.tokens.add(new Token(yytext(),"Identificador",yyline,yycolumn,AppForm.file_actual));
             return new Symbol(sym.name,yyline,yycolumn,yytext());
             }
             // fall through
-          case 61: break;
-          case 19:
+          case 59: break;
+          case 18:
             { return new Symbol(sym.cor_i,yyline,yycolumn,yytext());
             }
             // fall through
-          case 62: break;
-          case 20:
+          case 60: break;
+          case 19:
             { return new Symbol(sym.cor_d,yyline,yycolumn,yytext());
             }
             // fall through
-          case 63: break;
-          case 21:
+          case 61: break;
+          case 20:
             { return new Symbol(sym.llave_i,yyline,yycolumn,yytext());
             }
             // fall through
-          case 64: break;
-          case 22:
+          case 62: break;
+          case 21:
             { return new Symbol(sym.llave_d,yyline,yycolumn,yytext());
             }
             // fall through
-          case 65: break;
-          case 23:
+          case 63: break;
+          case 22:
             { return new Symbol(sym.coma_f,yyline,yycolumn,yytext());
             }
             // fall through
-          case 66: break;
-          case 24:
+          case 64: break;
+          case 23:
             { AppForm.tokens.add(new Token(yytext(),"Tipo_cadena",yyline,yycolumn,AppForm.file_actual));
             return new Symbol(sym.cadena,yyline,yycolumn,yytext());
             }
             // fall through
-          case 67: break;
-          case 25:
+          case 65: break;
+          case 24:
             { AppForm.tokens.add(new Token(yytext(),"CommOneline",yyline,yycolumn,AppForm.file_actual));
             }
             // fall through
-          case 68: break;
-          case 26:
+          case 66: break;
+          case 25:
             { AppForm.tokens.add(new Token(yytext(),"Tipo_Digito",yyline,yycolumn,AppForm.file_actual));
         return new Symbol(sym.digitos,yyline,yycolumn,yytext());
             }
             // fall through
-          case 69: break;
-          case 27:
+          case 67: break;
+          case 26:
             { AppForm.tokens.add(new Token(yytext(),"CommMultiline",yyline,yycolumn,AppForm.file_actual));
             }
             // fall through
-          case 70: break;
-          case 28:
+          case 68: break;
+          case 27:
             { AppForm.tokens.add(new Token(yytext(),"Tok_Ejex",yyline,yycolumn,AppForm.file_actual));
         return new Symbol(sym.pejex,yyline,yycolumn,yytext());
             }
             // fall through
-          case 71: break;
-          case 29:
+          case 69: break;
+          case 28:
             { AppForm.tokens.add(new Token(yytext(),"id_double",yyline,yycolumn,AppForm.file_actual));
             return new Symbol(sym.tipo_d,yyline,yycolumn,yytext());
             }
             // fall through
-          case 72: break;
-          case 30:
+          case 70: break;
+          case 29:
             { AppForm.tokens.add(new Token(yytext(),"id_string",yyline,yycolumn,AppForm.file_actual));
             return new Symbol(sym.tipo_s,yyline,yycolumn,yytext());
             }
             // fall through
-          case 73: break;
-          case 31:
+          case 71: break;
+          case 30:
             { AppForm.tokens.add(new Token(yytext(),"tok_double",yyline,yycolumn,AppForm.file_actual));
             return new Symbol(sym.title,yyline,yycolumn,yytext());
             }
             // fall through
-          case 74: break;
-          case 32:
-            { AppForm.tokens.add(new Token(yytext(),"CommOneline",yyline,yycolumn,AppForm.file_actual));
+          case 72: break;
+          case 31:
+            { AppForm.tokens.add(new Token(yytext(),"Tok_file",yyline,yycolumn,AppForm.file_actual));
         return new Symbol(sym.pfile,yyline,yycolumn,yytext());
             }
             // fall through
-          case 75: break;
-          case 33:
+          case 73: break;
+          case 32:
             { AppForm.tokens.add(new Token(yytext(),"tok_compare",yyline,yycolumn,AppForm.file_actual));
             return new Symbol(sym.pcomp,yyline,yycolumn,yytext());
             }
             // fall through
-          case 76: break;
-          case 34:
+          case 74: break;
+          case 33:
             { AppForm.tokens.add(new Token(yytext(),"title_x",yyline,yycolumn,AppForm.file_actual));
         return new Symbol(sym.title_x,yyline,yycolumn,yytext());
             }
             // fall through
-          case 77: break;
-          case 35:
+          case 75: break;
+          case 34:
             { AppForm.tokens.add(new Token(yytext(),"title_y",yyline,yycolumn,AppForm.file_actual));
            return new Symbol(sym.title_y,yyline,yycolumn,yytext());
             }
             // fall through
-          case 78: break;
-          case 36:
+          case 76: break;
+          case 35:
             { AppForm.tokens.add(new Token(yytext(),"Tok_Value",yyline,yycolumn,AppForm.file_actual));
             return new Symbol(sym.pvalue,yyline,yycolumn,yytext());
             }
             // fall through
-          case 79: break;
-          case 37:
+          case 77: break;
+          case 36:
             { AppForm.tokens.add(new Token(yytext(),"tok_grafPie",yyline,yycolumn,AppForm.file_actual));
             return new Symbol(sym.pgrafp,yyline,yycolumn,yytext());
             }
             // fall through
-          case 80: break;
-          case 38:
+          case 78: break;
+          case 37:
             { AppForm.tokens.add(new Token(yytext(),"tok_grafBar",yyline,yycolumn,AppForm.file_actual));
             return new Symbol(sym.pgrafb,yyline,yycolumn,yytext());
             }
             // fall through
-          case 81: break;
-          case 39:
+          case 79: break;
+          case 38:
             { AppForm.tokens.add(new Token(yytext(),"tok_grafLine",yyline,yycolumn,AppForm.file_actual));
         return new Symbol(sym.pgrafl,yyline,yycolumn,yytext());
             }
             // fall through
-          case 82: break;
-          case 40:
+          case 80: break;
+          case 39:
             { AppForm.tokens.add(new Token(yytext(),"PTE_GEN",yyline,yycolumn,AppForm.file_actual));
                     return new Symbol(sym.gen_pt,yyline,yycolumn,yytext());
             }
             // fall through
-          case 83: break;
-          case 41:
+          case 81: break;
+          case 40:
             { AppForm.tokens.add(new Token(yytext(),"tok_DefGlobales",yyline,yycolumn,AppForm.file_actual));
                    return new Symbol(sym.pdefinir,yyline,yycolumn,yytext());
             }
             // fall through
-          case 84: break;
-          case 42:
+          case 82: break;
+          case 41:
             { AppForm.tokens.add(new Token(yytext(),"Pte_Espec",yyline,yycolumn,AppForm.file_actual));
                     return new Symbol(sym.esp_pt,yyline,yycolumn,yytext());
             }
             // fall through
-          case 85: break;
-          case 43:
+          case 83: break;
+          case 42:
             { AppForm.tokens.add(new Token(yytext(),"tok_genReport",yyline,yycolumn,AppForm.file_actual));
             return new Symbol(sym.preporte,yyline,yycolumn,yytext());
             }
             // fall through
-          case 86: break;
+          case 84: break;
           default:
             zzScanError(ZZ_NO_MATCH);
         }
