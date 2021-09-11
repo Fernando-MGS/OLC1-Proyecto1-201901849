@@ -23,7 +23,7 @@ public class Repitencias {
 
     public void Comparacion() {
         
-        resumen_Comentarios();
+        
         double punteo_clases = (Comparar_clases(AppForm.Proyecto1, AppForm.Proyecto2) / suma_Clases()) * 0.3;
         //System.out.println(suma_Comentarios());
         double punteo_comentarios = (Comparar_comentarios(AppForm.Proyecto1, AppForm.Proyecto2) / suma_Comentarios()) * 0.2;
@@ -36,6 +36,7 @@ public class Repitencias {
         System.out.println(punteo_funciones);
         System.out.println(punteo_variables);
         System.out.println(punteo_general);
+        resumen_Comentarios();
     }
 
     public double suma_Comentarios() {
@@ -54,14 +55,10 @@ public class Repitencias {
     }
 
     public void resumen_Comentarios() {
-        double suma = 0;
-        Resumenes resumen = new Resumenes();
-        Resumenes resumen1 = new Resumenes();
         try {
             for (int i = 0; i < AppForm.Proyecto1.size(); i++) {
-                System.out.println("=================");
-                System.out.println(AppForm.Proyecto1.get(i).getName());
-                System.out.println(AppForm.Proyecto2.get(i).getName());
+                Resumenes resumen = new Resumenes();
+                Resumenes resumen1 = new Resumenes();
                 resumen.setClases(AppForm.Proyecto1.get(i).getClases().size());
                 resumen1.setClases(AppForm.Proyecto2.get(i).getClases().size());
                 resumen.setComentarios(AppForm.Proyecto1.get(i).getComments().size());
@@ -72,6 +69,9 @@ public class Repitencias {
                 resumen1.setVariables(AppForm.Proyecto2.get(i).getVars().size());
                 resumen.setNombre(AppForm.Proyecto1.get(i).getName());
                 resumen1.setNombre(AppForm.Proyecto2.get(i).getName());
+                System.out.println("=================Se deben guardar con");
+                System.out.println(AppForm.Proyecto1.get(i).getName());
+                System.out.println(AppForm.Proyecto2.get(i).getName());
                 AppForm.resumenes1.add(resumen);
                 AppForm.resumenes2.add(resumen1);
             }
